@@ -1,0 +1,1 @@
+1;12345678;123;123;Nombre;Apellido;Apellido;1;1;2000-01-01;123456789;0;0;0;correo@ejemplo.com;Dirección;;Razón Social;12345678

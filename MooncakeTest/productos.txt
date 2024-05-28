@@ -1,0 +1,6 @@
+1;Carne;10;100.0;Carne de res;2024-06-30;ProductoPeso;1.5
+2;Pan;20;5.0;Pan integral;2024-05-15;ProductoUnitario;Alimento
+1;oniku;10;100.0;Carne de pollo;2024-06-30;ProductoPeso;1.5
+2;Pan;20;5.0;Pan casero;2024-05-15;ProductoUnitario;Alimento
+1;oniku;10;100.0;Carne de pollo;2024-06-30;ProductoPeso;1.5
+2;Pan;20;5.0;Pan casero;2024-05-15;ProductoUnitario;Alimento

@@ -82,6 +82,4 @@ public class Proveedor {
 				+ ", categoria=" + categoria + ", correo=" + correo + ", url=" + url + ", metodoPago=" + metodoPago
 				+ "]";
 	}
-	
-	
 }
