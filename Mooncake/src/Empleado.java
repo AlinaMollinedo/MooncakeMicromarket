@@ -104,6 +104,18 @@ public class Empleado extends Persona{
 	public void establecerAcceso() {
 		
 	}
+
+	public void nuevo() {
+		
+	}
+
+	public void modificar() {
+		
+	}
+
+	public void leer() {
+		
+	}
 	
 	
 }

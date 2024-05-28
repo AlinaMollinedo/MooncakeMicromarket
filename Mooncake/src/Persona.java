@@ -1,5 +1,5 @@
 import java.time.*;
-public class Persona {
+public abstract class Persona {
 	private int idPersona;
 	private int docIdentidad;
 	private int complemento;
@@ -40,9 +40,9 @@ public class Persona {
 		this.direccion2 = direccion2;
 	}
 	
-	
-	
-	public Persona(int idPersona, int docIdentidad, String nombre, String paterno, String materno) {
+	public Persona(int idPersona, int docIdentidad, String nombre, String paterno, String materno, 
+			int genero, int estadoCivil, LocalDate fechaNac, int celular1, int celular2, int telefono1,
+			String correo, String direccion1) {
 		this.idPersona = idPersona;
 		this.docIdentidad = docIdentidad;
 		this.complemento = 0;
@@ -50,18 +50,17 @@ public class Persona {
 		this.nombre = nombre;
 		this.paterno = paterno;
 		this.materno = materno;
-		this.genero = 0;
-		this.estadoCivil = 0;
-		this.fechaNac = null;
-		this.celular1 = 0;
-		this.celular2 = 0;
-		this.telefono1 = 0;
+		this.genero = genero;
+		this.estadoCivil = estadoCivil;
+		this.fechaNac = fechaNac;
+		this.celular1 = celular1;
+		this.celular2 = celular2;
+		this.telefono1 = telefono1;
 		this.telefono2 = 0;
-		this.correo = new String();
-		this.direccion1 = new String();
+		this.correo = correo;
+		this.direccion1 = direccion1;
 		this.direccion2 = new String();
 	}
-	
 	
 	public Persona(int idPersona) {
 		this.idPersona = idPersona;
@@ -82,7 +81,6 @@ public class Persona {
 		this.direccion1 = new String();
 		this.direccion2 = new String();
 	}
-
 
 	public int getIdPersona() {
 		return idPersona;
@@ -196,18 +194,12 @@ public class Persona {
 				+ ", correo=" + correo + ", direccion1=" + direccion1 + ", direccion2=" + direccion2 + "]";
 	}
 	
-	public void leerPersonas() {
-		
-	}
+	public abstract void nuevo();
 	
-	public void escribirPersona() {
-		
-	}
+	public abstract void modificar();
 	
-	public void modificarPersona() {
+	public abstract void leer();
 		
-	}
-	
 	public Boolean verificarPersona() {
 		return true;
 	}

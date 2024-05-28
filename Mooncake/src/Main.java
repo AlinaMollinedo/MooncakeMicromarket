@@ -4,6 +4,8 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
+    	Menu m = new Menu();
+    	/*
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
             ProductoPeso productoPeso = new ProductoPeso(1, "Manzana", 50, 3.5, "Manzanas frescas", sdf.parse("01/06/2024"), 1.2);
@@ -26,6 +28,7 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        */
     }
 
 }
