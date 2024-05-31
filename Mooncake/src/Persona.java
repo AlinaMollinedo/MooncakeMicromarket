@@ -1,4 +1,5 @@
 import java.time.*;
+import java.util.ArrayList;
 public abstract class Persona {
 	private int idPersona;
 	private int docIdentidad;
@@ -198,7 +199,7 @@ public abstract class Persona {
 	
 	public abstract void modificar();
 	
-	public abstract void leer();
+	public abstract ArrayList<?> leer();
 		
 	public Boolean verificarPersona() {
 		return true;

@@ -1,21 +1,21 @@
+import java.awt.BorderLayout;
+
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
-public class MenuSupervisor extends JFrame {
+public class MenuAdmin extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -28,7 +28,7 @@ public class MenuSupervisor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MenuSupervisor frame = new MenuSupervisor();
+					MenuAdmin frame = new MenuAdmin();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,11 +40,12 @@ public class MenuSupervisor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MenuSupervisor(int idSucursal) {
+	
+	public MenuAdmin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
 		setResizable(false);
-		setTitle("Menu Supervisor");
+		setTitle("Menu Administrador");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -54,28 +55,28 @@ public class MenuSupervisor extends JFrame {
 		JPanel panTitulo = new JPanel();
 		panTitulo.setForeground(new Color(254, 240, 226));
 		panTitulo.setBackground(new Color(254, 240, 226));
-		panTitulo.setBorder(new EmptyBorder(40, 0, 40, 0));
+		panTitulo.setBorder(new EmptyBorder(30, 0, 30, 0));
 		contentPane.add(panTitulo, BorderLayout.NORTH);
 		panTitulo.setLayout(new GridLayout(2, 1, 0, 0));
 		
-		JLabel lblTitulo = new JLabel("Menú de Supervisor");
+		JLabel lblTitulo = new JLabel("Menú de Administrador");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setForeground(new Color(0, 0, 64));
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
 		
-		Sucursal s = Sucursal.buscar(idSucursal);
-		
-		JLabel lblSubtitulo = new JLabel("Sucursal '" + s.getNombre() + "'");
-		lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 15));
-		panTitulo.add(lblSubtitulo);
-		
 		JPanel panBotones = new JPanel();
 		panBotones.setBackground(new Color(254, 240, 226));
 		panBotones.setBorder(new EmptyBorder(0, 250, 50, 250));
 		contentPane.add(panBotones, BorderLayout.CENTER);
-		panBotones.setLayout(new GridLayout(5, 1, 5, 5));
+		panBotones.setLayout(new GridLayout(6, 1, 5, 5));
+		
+		JButton btnSucursales = new JButton("Gestión de Sucursales");
+		btnSucursales.setForeground(new Color(0, 0, 64));
+		btnSucursales.setBackground(new Color(232, 252, 255));
+		btnSucursales.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		btnSucursales.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panBotones.add(btnSucursales);
 		
 		JButton btnProductos = new JButton("Gestión de Productos");
 		btnProductos.setForeground(new Color(0, 0, 64));
@@ -89,7 +90,7 @@ public class MenuSupervisor extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				GestionProductos gp = new GestionProductos(idSucursal);
+				
 			}
 		});
 		

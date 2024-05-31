@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Cliente extends Persona{
 	private String razonSocial;
@@ -35,8 +36,9 @@ public class Cliente extends Persona{
 		
 	}
 
-	public void leer() {
-		
+	public ArrayList<Cliente> leer() {
+		ArrayList <Cliente> clientes = new ArrayList <Cliente>();
+		return clientes;
 	}
 	
 	

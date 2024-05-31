@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 import java.text.*;
+
 public class Producto {
     private int idProducto;
     private String nombre;

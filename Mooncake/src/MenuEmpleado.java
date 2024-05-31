@@ -1,21 +1,20 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
-public class MenuSupervisor extends JFrame {
+public class MenuEmpleado extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -28,7 +27,7 @@ public class MenuSupervisor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MenuSupervisor frame = new MenuSupervisor();
+					MenuEmpleado frame = new MenuEmpleado();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,11 +39,11 @@ public class MenuSupervisor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MenuSupervisor(int idSucursal) {
+	public MenuEmpleado(int idSucursal, int posicion) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
 		setResizable(false);
-		setTitle("Menu Supervisor");
+		setTitle("Menu " + Empleado.nombrePosicion(posicion));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -58,18 +57,11 @@ public class MenuSupervisor extends JFrame {
 		contentPane.add(panTitulo, BorderLayout.NORTH);
 		panTitulo.setLayout(new GridLayout(2, 1, 0, 0));
 		
-		JLabel lblTitulo = new JLabel("Menú de Supervisor");
+		JLabel lblTitulo = new JLabel("Menú de " + Empleado.nombrePosicion(posicion));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setForeground(new Color(0, 0, 64));
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
-		
-		Sucursal s = Sucursal.buscar(idSucursal);
-		
-		JLabel lblSubtitulo = new JLabel("Sucursal '" + s.getNombre() + "'");
-		lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 15));
-		panTitulo.add(lblSubtitulo);
 		
 		JPanel panBotones = new JPanel();
 		panBotones.setBackground(new Color(254, 240, 226));
@@ -77,42 +69,38 @@ public class MenuSupervisor extends JFrame {
 		contentPane.add(panBotones, BorderLayout.CENTER);
 		panBotones.setLayout(new GridLayout(5, 1, 5, 5));
 		
-		JButton btnProductos = new JButton("Gestión de Productos");
-		btnProductos.setForeground(new Color(0, 0, 64));
-		btnProductos.setBackground(new Color(232, 252, 255));
-		btnProductos.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnProductos.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panBotones.add(btnProductos);
+		JButton btnVenta = new JButton("Venta");
+		btnVenta.setForeground(new Color(0, 0, 64));
+		btnVenta.setBackground(new Color(232, 252, 255));
+		btnVenta.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		btnVenta.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		btnProductos.addActionListener(new ActionListener() {
+		btnVenta.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				GestionProductos gp = new GestionProductos(idSucursal);
+				
 			}
 		});
 		
-		JButton btnEmpleados = new JButton("Gestión de Empleados");
-		btnEmpleados.setForeground(new Color(0, 0, 64));
-		btnEmpleados.setBackground(new Color(232, 252, 255));
-		btnEmpleados.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnEmpleados.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panBotones.add(btnEmpleados);
+		JButton btnPedido = new JButton("Pedir implementos");
+		btnPedido.setForeground(new Color(0, 0, 64));
+		btnPedido.setBackground(new Color(232, 252, 255));
+		btnPedido.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		btnPedido.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		JButton btnInmuebles = new JButton("Gestión de Inmuebles");
-		btnInmuebles.setForeground(new Color(0, 0, 64));
-		btnInmuebles.setBackground(new Color(232, 252, 255));
-		btnInmuebles.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnInmuebles.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panBotones.add(btnInmuebles);
-		
-		JButton btnFinanzas = new JButton("Gestión de Finanzas");
-		btnFinanzas.setForeground(new Color(0, 0, 64));
-		btnFinanzas.setBackground(new Color(232, 252, 255));
-		btnFinanzas.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnFinanzas.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panBotones.add(btnFinanzas);
+		switch(posicion) {
+		case 1:
+			panBotones.add(btnVenta);
+			break;
+		case 2:
+			panBotones.add(btnPedido);
+			break;
+		case 3:
+			panBotones.add(btnPedido);
+			break;
+		}
 		
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.setForeground(new Color(0, 0, 64));

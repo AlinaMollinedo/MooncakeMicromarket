@@ -9,6 +9,25 @@ public class Compra extends Transaccion{
 		this.idProveedor = idProveedor;
 	}
 	
+	
+	public int getIdProveedor() {
+		return idProveedor;
+	}
+
+
+
+	public void setIdProveedor(int idProveedor) {
+		this.idProveedor = idProveedor;
+	}
+
+	
+
+	@Override
+	public String toString() {
+		return "Compra [idProveedor=" + idProveedor + "]";
+	}
+
+
 	public void realizarTransaccion() {
 		
 	}

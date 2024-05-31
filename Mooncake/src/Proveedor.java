@@ -6,10 +6,11 @@ public class Proveedor {
 	private int categoria;
 	private String correo;
 	private String url;
+	private String direccion;
 	private int metodoPago;
-	
+
 	public Proveedor(int idProveedor, String nombre, String descripcion, int categoria, String correo, String url,
-			int metodoPago) {
+			String direccion, int metodoPago) {
 		super();
 		this.idProveedor = idProveedor;
 		this.nombre = nombre;
@@ -17,6 +18,7 @@ public class Proveedor {
 		this.categoria = categoria;
 		this.correo = correo;
 		this.url = url;
+		this.direccion = direccion;
 		this.metodoPago = metodoPago;
 	}
 
@@ -66,6 +68,14 @@ public class Proveedor {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}	
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	public int getMetodoPago() {
@@ -79,7 +89,9 @@ public class Proveedor {
 	@Override
 	public String toString() {
 		return "Proveedor [idProveedor=" + idProveedor + ", nombre=" + nombre + ", descripcion=" + descripcion
-				+ ", categoria=" + categoria + ", correo=" + correo + ", url=" + url + ", metodoPago=" + metodoPago
-				+ "]";
+				+ ", categoria=" + categoria + ", correo=" + correo + ", url=" + url + ", direccion=" + direccion
+				+ ", metodoPago=" + metodoPago + "]";
 	}
+
+	
 }

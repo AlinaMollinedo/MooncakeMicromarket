@@ -1,5 +1,5 @@
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 public class ProductoPeso extends Producto implements Descuento {
     private double pesoPorKilo;

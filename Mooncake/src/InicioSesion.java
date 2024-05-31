@@ -1,5 +1,8 @@
 import java.awt.EventQueue;
 
+import java.util.*;
+import javax.swing.*;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -7,6 +10,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +34,7 @@ public class InicioSesion extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,9 +51,10 @@ public class InicioSesion extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public InicioSesion() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 736, 414);
+		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
 		setResizable(false);
 		setTitle("Iniciar Sesión");
 		contentPane = new JPanel();
@@ -113,7 +120,6 @@ public class InicioSesion extends JFrame {
 		pan22.add(txtPan22);
 		txtPan22.setColumns(10);
 		
-	
 		JPanel panBotones = new JPanel();
 		panBotones.setBackground(new Color(254, 240, 226));
 		panBotones.setBorder(new EmptyBorder(0, 0, 10, 15));
@@ -143,6 +149,64 @@ public class InicioSesion extends JFrame {
 		btnIngresar.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
 		panBotones.add(btnIngresar);
 		
+		btnIngresar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String user = txtPan12.getText();
+				String pass = txtPan22.getText();
+				int idSucursal = 0;
+				Boolean flag = true;
+				
+				// Leer BD
+				ArrayList<Empleado> empleados = new ArrayList<Empleado>();
+				ArrayList<Sucursal> sucursales = new ArrayList<Sucursal>();
+				
+				// Para pruebas
+				empleados.add(new Empleado(100, 12345, 0, 0, "Maria", "Lopez", "Cuadros", 2, 1, null, 0, 0, 0, 0, "maria.lopez@gmail.com", "su casa", "su otra casa", 3, null, 10, 2, 9876, true, "maria.lopez", "hola1234"));
+				empleados.add(new Empleado(9876, 12345, 0, 0, "Nikita", "Fukurov", "Ramos", 2, 1, null, 0, 0, 0, 0, "nikita.fuku@gmail.com", "su casa", "su otra casa", 3, null, 10, 4, 0, true, "nikita.fukurov", "lmaoo"));
+				empleados.add(new Empleado(102, 12345, 0, 0, "Alexander", "Soriano", "Ramirez", 2, 1, null, 0, 0, 0, 0, "alexxsoriano@gmail.com", "su casa", "su otra casa", 3, null, 10, 2, 9876, true, "alexander.soriano", "lol"));
+				
+				sucursales.add(new Sucursal(1111, "Los Pinos", "los pinos lol", 9876, 0, 0, null, null, null, null));
+				sucursales.get(0).setEmpleados(empleados);
+				
+				for(Empleado em:empleados) {
+					// Ingreso como empleado o supervisor
+					if(user.equals(em.getUsuario()) && pass.equals(em.getContrasena()) && em.getEstado()) {
+						/*
+						for(Sucursal su:sucursales) {
+							for(Empleado empl:su.getEmpleados()) {
+								if(em.getIdPersona() == empl.getIdPersona()) {
+									idSucursal = su.getIdSucursal();
+								}
+							}
+						}
+						*/
+						idSucursal = Sucursal.empleadoSucursal(em.getIdPersona());
+						if(em.getPosicion() != 4) {
+							MenuEmpleado m = new MenuEmpleado(idSucursal, em.getPosicion());
+							flag = false;
+							break;
+						} else {
+							MenuSupervisor m = new MenuSupervisor(idSucursal);
+							flag = false;
+							break;
+						}
+					// Ingreso como administrador	
+					} else if(user.equals(Admin.usuario) && pass.equals(Admin.contrasena)) {
+						MenuAdmin m = new MenuAdmin();
+						flag = false;
+						break;
+					}
+				}
+				// Ingreso como tercero
+				if(flag) {
+					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+					System.out.println("lol");
+				}
+			}
+		});
 		
 		setVisible(true);
 	}

@@ -39,7 +39,7 @@ public class Menu extends JFrame {
 	
 	public Menu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 736, 414);
+		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
 		setResizable(false);
 		setTitle("Menu Principal");
 		contentPane = new JPanel();
