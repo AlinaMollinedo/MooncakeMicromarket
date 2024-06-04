@@ -2,30 +2,36 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Cliente extends Persona{
-	private String razonSocial;
-	private int nit;
+	private int idCliente;
+	private int puntos;
 	
-	public Cliente(int idPersona, int docIdentidad, int complemento, int expedicion, String nombre, String paterno,
-			String materno, int genero, int estadoCivil, LocalDate fechaNac, int celular1, int celular2, int telefono1,
-			int telefono2, String correo, String direccion1, String direccion2, String razonSocial, int nit) {
-		super(idPersona, docIdentidad, complemento, expedicion, nombre, paterno, materno, genero, estadoCivil, fechaNac,
-				celular1, celular2, telefono1, telefono2, correo, direccion1, direccion2);
-		this.razonSocial = razonSocial;
-		this.nit = nit;
-	}
-	
-	public Cliente(int idPersona, int docIdentidad, String nombre, String paterno, String materno, int genero, int estadoCivil, 
-			LocalDate fechaNac, int celular1, int celular2, int telefono1, String correo, String direccion1, String razonSocial, int nit) {
-		super(idPersona, docIdentidad, nombre, paterno, materno, genero, estadoCivil, fechaNac,
-				celular1, celular2, telefono1, correo, direccion1);
-		this.razonSocial = razonSocial;
-		this.nit = nit;
+
+	public Cliente(int idPersona, int docIdentidad, String nombre, String paterno, String materno, LocalDate fechaNac,
+			String correo, int genero, int estadoCivil, int tipo, int idCliente, int puntos) {
+		super(idPersona, docIdentidad, nombre, paterno, materno, fechaNac, correo, genero, estadoCivil, tipo);
+		this.idCliente = idCliente;
+		this.puntos = puntos;
 	}
 
-	public Cliente(int idPersona, String razonSocial, int nit) {
-		super(idPersona);
-		this.razonSocial = razonSocial;
-		this.nit = nit;
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public int getPuntos() {
+		return puntos;
+	}
+
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente [idCliente=" + idCliente + ", puntos=" + puntos + "]";
 	}
 
 	public void nuevo() {
