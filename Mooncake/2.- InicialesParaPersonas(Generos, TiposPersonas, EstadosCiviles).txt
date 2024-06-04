@@ -1,0 +1,24 @@
+-- Insertar registros en Generos
+INSERT INTO Generos (idGenero, nombreGenero) VALUES (1, 'Masculino');
+INSERT INTO Generos (idGenero, nombreGenero) VALUES (2, 'Femenino');
+
+-- Insertar los tiposPersonas
+INSERT INTO TiposPersonas (idTipoPersona, nombreTipo) VALUES (1, 'Cliente');
+INSERT INTO TiposPersonas (idTipoPersona, nombreTipo) VALUES (2, 'Empleado');
+
+-- Insertar registros en EstadosCiviles
+INSERT INTO EstadosCiviles (idEstadoC, nombreEstadoC) VALUES (1, 'Soltero');
+INSERT INTO EstadosCiviles (idEstadoC, nombreEstadoC) VALUES (2, 'Casado');
+INSERT INTO EstadosCiviles (idEstadoC, nombreEstadoC) VALUES (3, 'Divorciado');
+INSERT INTO EstadosCiviles (idEstadoC, nombreEstadoC) VALUES (4, 'Viudo');
+
+COMMIT;
+
+SELECT *
+FROM Generos;
+
+SELECT *
+FROM TiposPersonas;
+
+SELECT *
+FROM EstadosCiviles;

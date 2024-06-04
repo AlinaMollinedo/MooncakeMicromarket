@@ -1,0 +1,44 @@
+-- insertar datos en Proveedores
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (1, 32377328, 'Grady Group', 'amcclenan0@artisteer.com', ' ', 1, 8, 1021);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (2, 25928631, 'Cremin-D''Amore', 'ccathesyed1@ca.gov', ' ', 9, 10, 1022);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (3, 78434554, 'Haley-Feil', 'dhubert2@google.co.uk', ' ', 3, 16, 1023);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (4, 35558927, 'Bergnaum Group', 'dkynan3@tamu.edu', ' ', 8, 9, 1024);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (5, 44935903, 'Boyer-Schoen', 'myeowell4@etsy.com', ' ', 8, 3, 1025);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (6, 51044843, 'Shanahan-Herman', 'korigan5@bigcartel.com', ' ', 4, 8, 1026);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (7, 62438589, 'Cormier-Schamberger', 'jstoneley6@cloudflare.com', ' ', 4, 4, 1027);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (8, 59231939, 'Wiza Group', 'tpassy7@list-manage.com', ' ', 5, 1, 1028);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (9, 87505818, 'Hansen Inc', 'wsima8@businesswire.com', ' ', 3, 10, 1029);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (10, 84002802, 'Thiel, Torp and Leannon', 'amedcalfe9@nifty.com', ' ', 4, 1, 1030);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (11, 23308035, 'Mayer-Stanton', 'ocullingwortha@blogspot.com', ' ', 8, 2, 1031);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (12, 28133574, 'Senger-Runte', 'oevelingb@cam.ac.uk', ' ', 4, 2, 1032);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (13, 13766134, 'Schamberger, Collins and Spencer', 'wmirandoc@usnews.com', ' ', 7, 12, 1033);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (14, 95492805, 'Abbott-Feil', 'wprophetd@jugem.jp', ' ', 2, 15, 1034);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (15, 41890586, 'Jones-Torp', 'lduboise@facebook.com', ' ', 4, 2, 1035);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (16, 57420217, 'Hermann Group', 'wverheijdenf@skype.com', ' ', 5, 14, 1036);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (17, 27739243, 'Grant, Schiller and Koss', 'ntroucherg@virginia.edu', ' ', 9, 2, 1037);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (18, 55487909, 'Jaskolski-Kunze', 'aslipperh@bravesites.com', ' ', 9, 4, 1038);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (19, 74322005, 'Ritchie-MacGyver', 'tolohani@wordpress.org', ' ', 7, 17, 1039);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (20, 76487430, 'Hane-Hegmann', 'tnorvalj@sourceforge.net', ' ', 9, 14, 1040);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (21, 83004387, 'Lynch-Hoeger', 'fsteinerk@themeforest.net', ' ', 7, 8, 1041);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (22, 42756482, 'Reichert, Corkery and Wilkinson', 'treardenl@g.co', ' ', 7, 3, 1042);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (23, 33035322, 'Padberg Group', 'obirleym@cbslocal.com', ' ', 7, 4, 1043);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (24, 67141941, 'West Group', 'jzimmermeistern@weather.com', ' ', 1, 15, 1044);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (25, 96195794, 'Greenfelder-Carter', 'gbeckleso@biblegateway.com', ' ', 9, 5, 1045);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (26, 83611247, 'Grimes-Gerhold', 'nboornep@wired.com', ' ', 7, 4, 1046);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (27, 83780624, 'Homenick-Waters', 'ascarffq@sbwire.com', ' ', 1, 7, 1047);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (28, 31678669, 'Dare, Thiel and Braun', 'bchittleburghr@cloudflare.com', ' ', 3, 5, 1048);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (29, 31529203, 'Hessel and Sons', 'pdumberells@networkions.com', ' ', 6, 6, 1049);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (30, 49893555, 'O''Keefe-Hyatt', 'dswalought@furl.net', ' ', 1, 15, 1050);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (31, 54333792, 'Hermiston-Blick', 'ghargraveu@weibo.com', ' ', 4, 2, 1051);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (32, 46354721, 'Brekke and Sons', 'dthairsv@buzzfeed.com', ' ', 9, 15, 1052);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (33, 15313011, 'Mills-Conn', 'lmillardw@topsy.com', ' ', 2, 15, 1053);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (34, 90745994, 'Sipes-Bernier', 'rneilusx@cnbc.com', ' ', 7, 4, 1054);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (35, 60668693, 'Ferry, Kris and Schultz', 'pbracey@ezinearticles.com', ' ', 7, 9, 1055);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (36, 74815010, 'Schimmel-Thompson', 'acowgillz@parallels.com', ' ', 1, 15, 1056);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (37, 81637906, 'Johns and Sons', 'dleonards10@sakura.ne.jp', ' ', 3, 12, 1057);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (38, 54140781, 'Hammes-Kunze', 'jannett11@infoseek.co.jp', ' ', 2, 5, 1058);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (39, 69560531, 'Krajcik LLC', 'lthow12@redcross.org', ' ', 9, 14, 1059);
+insert into Proveedores (idProveedor, nit, nombreProv, correo, url, idCat_idCategoria, Paises_idPais, Direcciones_idDireccion) values (40, 61584318, 'Blanda and Sons', 'kavrasin13@zdnet.com', ' ', 8, 12, 1060);
+
+Select *
+from proveedores;

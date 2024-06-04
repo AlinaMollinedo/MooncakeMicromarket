@@ -61,7 +61,7 @@ public class Categorias {
 	        pstmt.close();
 	        conexion.cerrarConexion(conn);
 	    } catch (InvalidStringLengthException e) {
-	        JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error de longitud", JOptionPane.ERROR_MESSAGE);
+	    	// mensaje en la excepcion
 	    } catch (NotIntegerException | NotStringException e) {
 	        // mensaje en la excepcion
 	    } catch (SQLException e) {
