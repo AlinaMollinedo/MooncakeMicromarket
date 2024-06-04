@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
@@ -156,54 +157,42 @@ public class InicioSesion extends JFrame {
 				// TODO Auto-generated method stub
 				String user = txtPan12.getText();
 				String pass = txtPan22.getText();
-				int idSucursal = 0;
-				Boolean flag = true;
 				
-				// Leer BD
-				ArrayList<Empleado> empleados = new ArrayList<Empleado>();
-				ArrayList<Sucursal> sucursales = new ArrayList<Sucursal>();
-				
-				// Para pruebas
-				empleados.add(new Empleado(100, 12345, 0, 0, "Maria", "Lopez", "Cuadros", 2, 1, null, 0, 0, 0, 0, "maria.lopez@gmail.com", "su casa", "su otra casa", 3, null, 10, 2, 9876, true, "maria.lopez", "hola1234"));
-				empleados.add(new Empleado(9876, 12345, 0, 0, "Nikita", "Fukurov", "Ramos", 2, 1, null, 0, 0, 0, 0, "nikita.fuku@gmail.com", "su casa", "su otra casa", 3, null, 10, 4, 0, true, "nikita.fukurov", "lmaoo"));
-				empleados.add(new Empleado(102, 12345, 0, 0, "Alexander", "Soriano", "Ramirez", 2, 1, null, 0, 0, 0, 0, "alexxsoriano@gmail.com", "su casa", "su otra casa", 3, null, 10, 2, 9876, true, "alexander.soriano", "lol"));
-				
-				sucursales.add(new Sucursal(1111, "Los Pinos", "los pinos lol", 9876, 0, 0, null, null, null, null));
-				sucursales.get(0).setEmpleados(empleados);
-				
-				for(Empleado em:empleados) {
-					// Ingreso como empleado o supervisor
-					if(user.equals(em.getUsuario()) && pass.equals(em.getContrasena()) && em.getEstado()) {
-						/*
-						for(Sucursal su:sucursales) {
-							for(Empleado empl:su.getEmpleados()) {
-								if(em.getIdPersona() == empl.getIdPersona()) {
-									idSucursal = su.getIdSucursal();
-								}
-							}
-						}
-						*/
-						idSucursal = Sucursal.empleadoSucursal(em.getIdPersona());
-						if(em.getPosicion() != 4) {
-							MenuEmpleado m = new MenuEmpleado(idSucursal, em.getPosicion());
-							flag = false;
-							break;
-						} else {
-							MenuSupervisor m = new MenuSupervisor(idSucursal);
-							flag = false;
-							break;
-						}
-					// Ingreso como administrador	
-					} else if(user.equals(Admin.usuario) && pass.equals(Admin.contrasena)) {
-						MenuAdmin m = new MenuAdmin();
-						flag = false;
-						break;
+				if(user.equals(Admin.usuario) && pass.equals(Admin.contrasena)) {
+					MenuAdmin mA = new MenuAdmin();
+				} else {
+					Boolean esEmpl = false;
+					try {
+						esEmpl = Empleado.isEmpleado(user, pass);
+					}catch(Exception ex) {
+						 JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
-				}
-				// Ingreso como tercero
-				if(flag) {
-					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
-					System.out.println("lol");
+					
+					if(esEmpl) {	
+						Empleado empl = null;
+						try {
+							empl = Empleado.buscar(user, pass);
+						}catch(Exception ex) {
+							 JOptionPane.showMessageDialog(null, ex.getMessage());
+						}
+						
+						int idSucursal = 0;
+						try {
+							idSucursal = Empleado.sucursal(empl.getIdEmpleado());
+						}catch(Exception ex) {
+							 JOptionPane.showMessageDialog(null, ex.getMessage());
+						}
+						switch(empl.getCargo()) {
+						case 2:
+							MenuSupervisor mS = new MenuSupervisor(idSucursal);
+							break;
+						default:
+							MenuEmpleado mE = new MenuEmpleado(idSucursal, empl.getIdEmpleado());
+							break;
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+					}
 				}
 			}
 		});

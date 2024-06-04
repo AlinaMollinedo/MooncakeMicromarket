@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
@@ -64,9 +65,14 @@ public class MenuSupervisor extends JFrame {
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
 		
-		Sucursal s = Sucursal.buscar(idSucursal);
+		String s = null;
+		try {
+			s = Sucursal.buscar(idSucursal).getNombre();
+		}catch(Exception ex) {
+			 JOptionPane.showMessageDialog(null, ex.getMessage());
+		}
 		
-		JLabel lblSubtitulo = new JLabel("Sucursal '" + s.getNombre() + "'");
+		JLabel lblSubtitulo = new JLabel("Sucursal '" + s + "'");
 		lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 15));
 		panTitulo.add(lblSubtitulo);

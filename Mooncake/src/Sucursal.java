@@ -83,6 +83,17 @@ public class Sucursal{
 		
 		return sucursales;
 	}
+	
+	public static Sucursal buscar(int idSucursal) throws Exception{
+		ArrayList <Sucursal> sucursales = leer();
+		for(Sucursal s:sucursales) {
+			if(s.getIdSucursal() == idSucursal) {
+				return s;
+			}
+		}
+		return null;
+	}
+	
 	/*
 	public static Sucursal buscar(int id) {
 		ArrayList <Sucursal> sucursales = leer();

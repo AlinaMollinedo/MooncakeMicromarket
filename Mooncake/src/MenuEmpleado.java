@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -39,11 +40,19 @@ public class MenuEmpleado extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MenuEmpleado(int idSucursal, int posicion) {
+	public MenuEmpleado(int idSucursal, int idEmpleado) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
 		setResizable(false);
-		setTitle("Menu " + Empleado.nombrePosicion(posicion));
+		
+		String cargoo = null;
+		try {
+			cargoo = Empleado.nombrePosicion(idEmpleado);
+		}catch(Exception ex) {
+			 JOptionPane.showMessageDialog(null, ex);
+		}
+		
+		setTitle("Menu " + cargoo);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -57,11 +66,23 @@ public class MenuEmpleado extends JFrame {
 		contentPane.add(panTitulo, BorderLayout.NORTH);
 		panTitulo.setLayout(new GridLayout(2, 1, 0, 0));
 		
-		JLabel lblTitulo = new JLabel("Menú de " + Empleado.nombrePosicion(posicion));
+		JLabel lblTitulo = new JLabel("Menú de " + cargoo);
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setForeground(new Color(0, 0, 64));
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
+		
+		String s = null;
+		try {
+			s = Sucursal.buscar(idSucursal).getNombre();
+		}catch(Exception ex) {
+			 JOptionPane.showMessageDialog(null, ex.getMessage());
+		}
+		
+		JLabel lblSubtitulo = new JLabel("Sucursal '" + s + "'");
+		lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 15));
+		panTitulo.add(lblSubtitulo);
 		
 		JPanel panBotones = new JPanel();
 		panBotones.setBackground(new Color(254, 240, 226));
@@ -90,14 +111,18 @@ public class MenuEmpleado extends JFrame {
 		btnPedido.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
 		btnPedido.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		switch(posicion) {
-		case 1:
+		int cargo = 0;
+		try {
+			cargo = Empleado.buscar(idEmpleado).getCargo();
+		}catch(Exception ex) {
+			 JOptionPane.showMessageDialog(null, ex);
+		}
+		
+		switch(cargo) {
+		case 3:
 			panBotones.add(btnVenta);
 			break;
-		case 2:
-			panBotones.add(btnPedido);
-			break;
-		case 3:
+		case 4:
 			panBotones.add(btnPedido);
 			break;
 		}
