@@ -1,124 +1,89 @@
 import java.util.*;
+
+import javax.swing.JOptionPane;
+
+import java.sql.*;
+
 public class Sucursal{
 	private int idSucursal;
 	private String nombre;
-	private String direccion;
-	private int idSupervisor;
-	private int telefono1;
-	private int telefono;
-	private ArrayList<Producto> productos;
-	private ArrayList<Empleado> empleados;
-	private ArrayList<Transaccion> transacciones;
-	private ArrayList<Proveedor> proveedores;
+	private int direccion;
 	
-	public Sucursal(int idSucursal, String nombre, String direccion, int idSupervisor, int telefono1,
-			int telefono, ArrayList<Producto> productos, ArrayList<Empleado> empleados,
-			ArrayList<Transaccion> transacciones, ArrayList<Proveedor> proveedores) { 
+	public Sucursal(int idSucursal, String nombre, int direccion) {
+		super();
 		this.idSucursal = idSucursal;
 		this.nombre = nombre;
 		this.direccion = direccion;
-		this.idSupervisor = idSupervisor;
-		this.telefono1 = telefono1;
-		this.telefono = telefono;
-		this.productos = new ArrayList<Producto>();
-		this.empleados = new ArrayList<Empleado>();
-		this.transacciones = new ArrayList<Transaccion>();
-		this.proveedores = new ArrayList<Proveedor>();
 	}
-
+	
 	public int getIdSucursal() {
 		return idSucursal;
 	}
+
+
 
 	public void setIdSucursal(int idSucursal) {
 		this.idSucursal = idSucursal;
 	}
 
+
+
 	public String getNombre() {
 		return nombre;
 	}
+
+
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public String getDireccion() {
+
+
+	public int getDireccion() {
 		return direccion;
 	}
 
-	public void setDireccion(String direccion) {
+
+
+	public void setDireccion(int direccion) {
 		this.direccion = direccion;
-	}
-
-	public int getIdSupervisor() {
-		return idSupervisor;
-	}
-
-	public void setIdSupervisor(int idSupervisor) {
-		this.idSupervisor = idSupervisor;
-	}
-
-	public int getTelefono1() {
-		return telefono1;
-	}
-
-	public void setTelefono1(int telefono1) {
-		this.telefono1 = telefono1;
-	}
-
-	public int getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(int telefono) {
-		this.telefono = telefono;
-	}
-
-	public ArrayList<Producto> getProductos() {
-		return productos;
-	}
-
-	public void setProductos(ArrayList<Producto> productos) {
-		this.productos = productos;
-	}
-
-	public ArrayList<Empleado> getEmpleados() {
-		return empleados;
-	}
-
-	public void setEmpleados(ArrayList<Empleado> empleados) {
-		this.empleados = empleados;
-	}
-
-	public ArrayList<Transaccion> getTransacciones() {
-		return transacciones;
-	}
-
-	public void setTransacciones(ArrayList<Transaccion> transacciones) {
-		this.transacciones = transacciones;
-	}
-
-	public ArrayList<Proveedor> getProveedores() {
-		return proveedores;
-	}
-
-	public void setProveedores(ArrayList<Proveedor> proveedores) {
-		this.proveedores = proveedores;
 	}
 
 	@Override
 	public String toString() {
-		return "Sucursal [idSucursal=" + idSucursal + ", nombre=" + nombre + ", direccion="
-				+ direccion + ", idSupervisor=" + idSupervisor + ", telefono1=" + telefono1 + ", telefono=" + telefono
-				+ ", productos=" + productos + ", empleados=" + empleados + ", transacciones=" + transacciones
-				+ ", proveedores=" + proveedores + "]";
+		return "Sucursal [idSucursal=" + idSucursal + ", nombre=" + nombre + ", direccion=" + direccion + "]";
 	}
-	
-	public static ArrayList<Sucursal> leer() {
+
+	public static ArrayList<Sucursal> leer() throws Exception {
 		ArrayList <Sucursal> sucursales = new ArrayList <Sucursal>();
+		String query = "SELECT * FROM Sucursales";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				int idSucursal = rs.getInt("idSucursal");
+				String nombre = rs.getString("nombreSucursal");
+				int dir = rs.getInt("Direcciones_idDireccion");
+				
+				sucursales.add(new Sucursal(idSucursal, nombre, dir));
+			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		
 		return sucursales;
 	}
-	
+	/*
 	public static Sucursal buscar(int id) {
 		ArrayList <Sucursal> sucursales = leer();
 		for(Sucursal s:sucursales) {
@@ -126,9 +91,9 @@ public class Sucursal{
 				return s;
 			}
 		}
-		return new Sucursal(1111, "Los Pinos", "los pinos lol", 9876, 0, 0, null, null, null, null);
+		return new Sucursal(1111, "Los Pinos", 11);
 	}
-	
+	/*
 	public static int empleadoSucursal(int idEmpleado) {
 		ArrayList <Sucursal> sucursales = leer();
 		for(Sucursal s:sucursales) {
@@ -140,4 +105,5 @@ public class Sucursal{
 		}
 		return 0;
 	}
+	*/
 }
