@@ -84,13 +84,26 @@ public class Sucursal{
 		return sucursales;
 	}
 	
-	public static Sucursal buscar(int idSucursal) throws Exception{
-		ArrayList <Sucursal> sucursales = leer();
-		for(Sucursal s:sucursales) {
-			if(s.getIdSucursal() == idSucursal) {
-				return s;
+	public static String nombre(int idSucursal) throws Exception{
+		String query = "select nombresucursal from sucursales where idsucursal = '"+idSucursal+"'";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()) {
+				return rs.getString("nombreSucursal");
 			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e.getMessage());
 		}
+		
 		return null;
 	}
 	

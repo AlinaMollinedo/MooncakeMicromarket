@@ -6,6 +6,9 @@ import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -27,10 +30,7 @@ public class InicioSesion extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
 	private JTextField txtPan12;
-	private JTextField txtPan22;
 
 	/**
 	 * Launch the application.
@@ -53,7 +53,7 @@ public class InicioSesion extends JFrame {
 	 * Create the frame.
 	 */
 	
-	public InicioSesion() {
+	public InicioSesion() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
 		setResizable(false);
@@ -98,6 +98,7 @@ public class InicioSesion extends JFrame {
 		panDatos.add(pan12);
 		
 		txtPan12 = new JTextField();
+		txtPan12.setFont(new Font("Verdana", Font.PLAIN, 11));
 		pan12.add(txtPan12);
 		txtPan12.setColumns(10);
 		
@@ -117,9 +118,28 @@ public class InicioSesion extends JFrame {
 		flowLayout_4.setAlignment(FlowLayout.LEFT);
 		panDatos.add(pan22);
 		
-		txtPan22 = new JTextField();
-		pan22.add(txtPan22);
-		txtPan22.setColumns(10);
+		JPasswordField passf = new JPasswordField(10);
+		passf.setFont(new Font("Verdana", Font.PLAIN, 11));
+		pan22.add(passf);
+		
+		JCheckBox chbxPass = new JCheckBox("Mostrar contraseña");
+		chbxPass.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 10));
+		chbxPass.setBackground(new Color(254, 240, 226));
+		chbxPass.setFocusable(false);
+		pan22.add(chbxPass);
+		
+		chbxPass.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				if(chbxPass.isSelected()) {
+					passf.setEchoChar((char) 0);
+				} else {
+					passf.setEchoChar('\u2022');
+				}
+			}
+		});
 		
 		JPanel panBotones = new JPanel();
 		panBotones.setBackground(new Color(254, 240, 226));
@@ -156,46 +176,56 @@ public class InicioSesion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String user = txtPan12.getText();
-				String pass = txtPan22.getText();
+				String pass = new String(passf.getPassword());
 				
-				if(user.equals(Admin.usuario) && pass.equals(Admin.contrasena)) {
-					MenuAdmin mA = new MenuAdmin();
-				} else {
-					Boolean esEmpl = false;
+				try {
+					Empleado.leer();
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
+				
+				Boolean esEmpl = false;
+				try {
+					esEmpl = Empleado.isEmpleado(user, pass);
+				}catch(Exception ex) {
+					 JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
+				
+				if(esEmpl) {	
+					Empleado empl = null;
 					try {
-						esEmpl = Empleado.isEmpleado(user, pass);
+						empl = Empleado.buscar(user, pass);
 					}catch(Exception ex) {
 						 JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
 					
-					if(esEmpl) {	
-						Empleado empl = null;
-						try {
-							empl = Empleado.buscar(user, pass);
-						}catch(Exception ex) {
-							 JOptionPane.showMessageDialog(null, ex.getMessage());
-						}
-						
-						int idSucursal = 0;
-						try {
-							idSucursal = Empleado.sucursal(empl.getIdEmpleado());
-						}catch(Exception ex) {
-							 JOptionPane.showMessageDialog(null, ex.getMessage());
-						}
-						switch(empl.getCargo()) {
-						case 2:
-							MenuSupervisor mS = new MenuSupervisor(idSucursal);
-							break;
-						default:
-							MenuEmpleado mE = new MenuEmpleado(idSucursal, empl.getIdEmpleado());
-							break;
-						}
-					} else {
-						JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+					int idSucursal = 0;
+					try {
+						idSucursal = Empleado.sucursal(empl.getIdEmpleado());
+					}catch(Exception ex) {
+						 JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
+					switch(empl.getCargo()) {
+					case 1:
+						MenuAdmin mA = new MenuAdmin(); 
+						setVisible(false);
+						break;
+					case 2:
+						MenuSupervisor mS = new MenuSupervisor(idSucursal);
+						setVisible(false);
+						break;
+					default:
+						MenuEmpleado mE = new MenuEmpleado(idSucursal, empl.getIdEmpleado());
+						setVisible(false);
+						break;
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
 				}
 			}
 		});
+		
+		contentPane.getRootPane().setDefaultButton(btnIngresar);
 		
 		setVisible(true);
 	}

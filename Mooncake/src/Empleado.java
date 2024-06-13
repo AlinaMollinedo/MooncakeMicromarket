@@ -16,6 +16,7 @@ public class Empleado extends Persona{
 	private int estado;
 	private String usuario;
 	private String contrasenia;
+	private static ArrayList <Empleado> empleados;
 
 	public Empleado(int idPersona, int docIdentidad, String nombre, String paterno, String materno, LocalDate fechaNac,
 			String correo, int genero, int estadoCivil, int tipo, int idEmpleado, int turno, int salario, int cargo,
@@ -100,8 +101,16 @@ public class Empleado extends Persona{
 		
 	}
 	
-	public static ArrayList<Empleado> leer() throws Exception{
-		ArrayList <Empleado> empleados = new ArrayList <Empleado>();
+	public ArrayList<Empleado> getEmpleados() {
+		return empleados;
+	}
+
+	public void setEmpleados(ArrayList<Empleado> empleados) {
+		Empleado.empleados = empleados;
+	}
+
+	public static void leer() throws Exception{
+		empleados = new ArrayList <Empleado>();
 		String query = "SELECT * FROM Empleados, Personas, Usuarios "
 				+ "WHERE Empleados.Personas_idPersona = Personas.idPersona "
 				+ "AND Usuarios.Empleados_idEmpleado = Empleados.idEmpleado";
@@ -146,12 +155,9 @@ public class Empleado extends Persona{
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
-		
-		return empleados;
 	}
 	
 	public static Boolean isEmpleado(String user, String pass) throws Exception {
-		ArrayList <Empleado> empleados = leer();
 		for(Empleado e:empleados) {
 			if(e.getUsuario().equals(user) && e.getContrasenia().equals(pass)) {
 				return true;
@@ -161,7 +167,6 @@ public class Empleado extends Persona{
 	}
 	
 	public static Empleado buscar(String user, String pass) throws Exception{
-		ArrayList <Empleado> empleados = leer();
 		for(Empleado e:empleados) {
 			if(e.getUsuario().equals(user) && e.getContrasenia().equals(pass)) {
 				return e;
@@ -171,7 +176,6 @@ public class Empleado extends Persona{
 	}
 	
 	public static Empleado buscar(int idEmpleado) throws Exception{
-		ArrayList <Empleado> empleados = leer();
 		for(Empleado e:empleados) {
 			if(e.getIdEmpleado() == idEmpleado) {
 				return e;

@@ -11,9 +11,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import java.awt.FlowLayout;
 
 public class MenuAdmin extends JFrame {
 
@@ -42,6 +44,8 @@ public class MenuAdmin extends JFrame {
 	 */
 	
 	public MenuAdmin() {
+		int id = 0;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
 		setResizable(false);
@@ -69,7 +73,7 @@ public class MenuAdmin extends JFrame {
 		panBotones.setBackground(new Color(254, 240, 226));
 		panBotones.setBorder(new EmptyBorder(0, 250, 50, 250));
 		contentPane.add(panBotones, BorderLayout.CENTER);
-		panBotones.setLayout(new GridLayout(6, 1, 5, 5));
+		panBotones.setLayout(new GridLayout(5, 1, 5, 5));
 		
 		JButton btnSucursales = new JButton("Gestión de Sucursales");
 		btnSucursales.setForeground(new Color(0, 0, 64));
@@ -77,6 +81,15 @@ public class MenuAdmin extends JFrame {
 		btnSucursales.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
 		btnSucursales.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panBotones.add(btnSucursales);
+		
+		btnSucursales.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Gestion ges = new Gestion(Gestionables.sucursales, id);
+			}
+		});
 		
 		JButton btnProductos = new JButton("Gestión de Productos");
 		btnProductos.setForeground(new Color(0, 0, 64));
@@ -90,7 +103,7 @@ public class MenuAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				Gestion ges = new Gestion(Gestionables.productos, id);
 			}
 		});
 		
@@ -101,6 +114,15 @@ public class MenuAdmin extends JFrame {
 		btnEmpleados.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panBotones.add(btnEmpleados);
 		
+		btnEmpleados.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Gestion ges = new Gestion(Gestionables.empleados, id);
+			}
+		});
+		
 		JButton btnInmuebles = new JButton("Gestión de Inmuebles");
 		btnInmuebles.setForeground(new Color(0, 0, 64));
 		btnInmuebles.setBackground(new Color(232, 252, 255));
@@ -108,25 +130,51 @@ public class MenuAdmin extends JFrame {
 		btnInmuebles.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panBotones.add(btnInmuebles);
 		
-		JButton btnFinanzas = new JButton("Gestión de Finanzas");
-		btnFinanzas.setForeground(new Color(0, 0, 64));
-		btnFinanzas.setBackground(new Color(232, 252, 255));
-		btnFinanzas.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnFinanzas.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panBotones.add(btnFinanzas);
+		btnInmuebles.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Gestion ges = new Gestion(Gestionables.inmuebles, id);
+			}
+		});
 		
-		JButton btnSalir = new JButton("Salir");
+		JButton btnClientes = new JButton("Gestión de Clientes");
+		btnClientes.setForeground(new Color(0, 0, 64));
+		btnClientes.setBackground(new Color(232, 252, 255));
+		btnClientes.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		btnClientes.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panBotones.add(btnClientes);
+		
+		btnClientes.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Gestion ges = new Gestion(Gestionables.clientes, id);
+			}
+		});
+		
+		JPanel panSalir = new JPanel();
+		panSalir.setBackground(new Color(254, 240, 226));
+		panSalir.setBorder(new EmptyBorder(0, 0, 10, 15));
+		FlowLayout flowLayout = (FlowLayout) panSalir.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
+		contentPane.add(panSalir, BorderLayout.SOUTH);
+		
+		JButton btnSalir = new JButton("Cerrar Sesión");
 		btnSalir.setForeground(new Color(0, 0, 64));
 		btnSalir.setBackground(new Color(232, 252, 255));
 		btnSalir.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
 		btnSalir.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panBotones.add(btnSalir);
+		panSalir.add(btnSalir);
 		
 		btnSalir.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(null, "Se ha cerrado sesión");
 				Menu m = new Menu();
 				setVisible(false);
 			}

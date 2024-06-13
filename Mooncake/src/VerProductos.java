@@ -69,12 +69,12 @@ public class VerProductos extends JFrame {
 		panTitulo.add(lblTitulo);
 		
 		if(idSucursal != 0) {
-			Sucursal s = Sucursal.buscar(idSucursal);
+			/*Sucursal s = Sucursal.buscar(idSucursal);
 			JLabel lblSubtitulo = new JLabel("Sucursal " + s.getNombre());
 			lblSubtitulo.setHorizontalAlignment(SwingConstants.LEFT);
 			lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);
 			lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 15));
-			panTitulo.add(lblSubtitulo);
+			panTitulo.add(lblSubtitulo);*/
 		}
 		
 		JPanel panProductos = new JPanel();

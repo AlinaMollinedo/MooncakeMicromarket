@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import java.awt.FlowLayout;
 
 public class MenuEmpleado extends JFrame {
 
@@ -72,12 +73,12 @@ public class MenuEmpleado extends JFrame {
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
 		
-		String s = null;
+		String s = new String();
 		try {
-			s = Sucursal.buscar(idSucursal).getNombre();
-		}catch(Exception ex) {
-			 JOptionPane.showMessageDialog(null, ex.getMessage());
-		}
+			s = Sucursal.nombre(idSucursal);
+		} catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
 		
 		JLabel lblSubtitulo = new JLabel("Sucursal '" + s + "'");
 		lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -127,18 +128,26 @@ public class MenuEmpleado extends JFrame {
 			break;
 		}
 		
-		JButton btnSalir = new JButton("Salir");
+		JPanel panSalir = new JPanel();
+		panSalir.setBackground(new Color(254, 240, 226));
+		panSalir.setBorder(new EmptyBorder(0, 0, 10, 15));
+		FlowLayout flowLayout = (FlowLayout) panSalir.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
+		contentPane.add(panSalir, BorderLayout.SOUTH);
+		
+		JButton btnSalir = new JButton("Cerrar Sesión");
 		btnSalir.setForeground(new Color(0, 0, 64));
 		btnSalir.setBackground(new Color(232, 252, 255));
 		btnSalir.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
 		btnSalir.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panBotones.add(btnSalir);
+		panSalir.add(btnSalir);
 		
 		btnSalir.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(null, "Se ha cerrado sesión");
 				Menu m = new Menu();
 				setVisible(false);
 			}
