@@ -66,12 +66,7 @@ public class MenuSupervisor extends JFrame {
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
 		
-		String s = new String();
-		try {
-			s = Sucursal.nombre(idSucursal);
-		} catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, e);
-    	}
+		String s = Sucursal.nombre(idSucursal);
 		
 		JLabel lblSubtitulo = new JLabel("Sucursal '" + s + "'");
 		lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);

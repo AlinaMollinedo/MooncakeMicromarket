@@ -178,33 +178,14 @@ public class InicioSesion extends JFrame {
 				String user = txtPan12.getText();
 				String pass = new String(passf.getPassword());
 				
-				try {
-					Empleado.leer();
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage());
-				}
+				Empleado.leer();
 				
-				Boolean esEmpl = false;
-				try {
-					esEmpl = Empleado.isEmpleado(user, pass);
-				}catch(Exception ex) {
-					 JOptionPane.showMessageDialog(null, ex.getMessage());
-				}
+				Boolean esEmpl = Empleado.isEmpleado(user, pass);
 				
 				if(esEmpl) {	
-					Empleado empl = null;
-					try {
-						empl = Empleado.buscar(user, pass);
-					}catch(Exception ex) {
-						 JOptionPane.showMessageDialog(null, ex.getMessage());
-					}
+					Empleado empl = Empleado.buscar(user, pass);
 					
-					int idSucursal = 0;
-					try {
-						idSucursal = Empleado.sucursal(empl.getIdEmpleado());
-					}catch(Exception ex) {
-						 JOptionPane.showMessageDialog(null, ex.getMessage());
-					}
+					int idSucursal = Empleado.sucursal(empl.getIdEmpleado());
 					switch(empl.getCargo()) {
 					case 1:
 						MenuAdmin mA = new MenuAdmin(); 

@@ -46,14 +46,9 @@ public class MenuEmpleado extends JFrame {
 		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
 		setResizable(false);
 		
-		String cargoo = null;
-		try {
-			cargoo = Empleado.nombrePosicion(idEmpleado);
-		}catch(Exception ex) {
-			 JOptionPane.showMessageDialog(null, ex);
-		}
+		String cargo = Empleado.nombrePosicion(idEmpleado);
 		
-		setTitle("Menu " + cargoo);
+		setTitle("Menu " + cargo);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -67,18 +62,13 @@ public class MenuEmpleado extends JFrame {
 		contentPane.add(panTitulo, BorderLayout.NORTH);
 		panTitulo.setLayout(new GridLayout(2, 1, 0, 0));
 		
-		JLabel lblTitulo = new JLabel("Menú de " + cargoo);
+		JLabel lblTitulo = new JLabel("Menú de " + cargo);
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setForeground(new Color(0, 0, 64));
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
 		
-		String s = new String();
-		try {
-			s = Sucursal.nombre(idSucursal);
-		} catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, e);
-    	}
+		String s = Sucursal.nombre(idSucursal);
 		
 		JLabel lblSubtitulo = new JLabel("Sucursal '" + s + "'");
 		lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -112,14 +102,14 @@ public class MenuEmpleado extends JFrame {
 		btnPedido.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
 		btnPedido.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		int cargo = 0;
+		int cargoo = 0;
 		try {
-			cargo = Empleado.buscar(idEmpleado).getCargo();
+			cargoo = Empleado.buscar(idEmpleado).getCargo();
 		}catch(Exception ex) {
 			 JOptionPane.showMessageDialog(null, ex);
 		}
 		
-		switch(cargo) {
+		switch(cargoo) {
 		case 3:
 			panBotones.add(btnVenta);
 			break;

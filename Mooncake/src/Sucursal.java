@@ -55,7 +55,7 @@ public class Sucursal{
 		return "Sucursal [idSucursal=" + idSucursal + ", nombre=" + nombre + ", direccion=" + direccion + "]";
 	}
 
-	public static ArrayList<Sucursal> leer() throws Exception {
+	public static ArrayList<Sucursal> leer(){
 		ArrayList <Sucursal> sucursales = new ArrayList <Sucursal>();
 		String query = "SELECT * FROM Sucursales";
 		Connection con =  null;
@@ -84,7 +84,7 @@ public class Sucursal{
 		return sucursales;
 	}
 	
-	public static String nombre(int idSucursal) throws Exception{
+	public static String nombre(int idSucursal){
 		String query = "select nombresucursal from sucursales where idsucursal = '"+idSucursal+"'";
 		Connection con =  null;
 		

@@ -86,8 +86,7 @@ public class Gestion extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
-				//VerProductos vp = new VerProductos(idSucursal);
+				Ver v = new Ver(g, idSucursal);
 			}
 		});
 		
@@ -157,12 +156,7 @@ public class Gestion extends JFrame {
 		
 		
 		if(idSucursal > 0) {
-			String s = new String();
-			try {
-				s = Sucursal.nombre(idSucursal);
-			} catch(Exception e) {
-	    		JOptionPane.showMessageDialog(null, e);
-	    	}
+			String s = Sucursal.nombre(idSucursal);
 			JLabel lblSubtitulo = new JLabel("Sucursal " + s);
 			lblSubtitulo.setHorizontalAlignment(SwingConstants.LEFT);
 			lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);

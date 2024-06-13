@@ -109,7 +109,7 @@ public class Empleado extends Persona{
 		Empleado.empleados = empleados;
 	}
 
-	public static void leer() throws Exception{
+	public static void leer(){
 		empleados = new ArrayList <Empleado>();
 		String query = "SELECT * FROM Empleados, Personas, Usuarios "
 				+ "WHERE Empleados.Personas_idPersona = Personas.idPersona "
@@ -157,7 +157,7 @@ public class Empleado extends Persona{
 		}
 	}
 	
-	public static Boolean isEmpleado(String user, String pass) throws Exception {
+	public static Boolean isEmpleado(String user, String pass){
 		for(Empleado e:empleados) {
 			if(e.getUsuario().equals(user) && e.getContrasenia().equals(pass)) {
 				return true;
@@ -166,7 +166,7 @@ public class Empleado extends Persona{
 		return false;
 	}
 	
-	public static Empleado buscar(String user, String pass) throws Exception{
+	public static Empleado buscar(String user, String pass){
 		for(Empleado e:empleados) {
 			if(e.getUsuario().equals(user) && e.getContrasenia().equals(pass)) {
 				return e;
@@ -175,7 +175,7 @@ public class Empleado extends Persona{
 		return null;
 	}
 	
-	public static Empleado buscar(int idEmpleado) throws Exception{
+	public static Empleado buscar(int idEmpleado){
 		for(Empleado e:empleados) {
 			if(e.getIdEmpleado() == idEmpleado) {
 				return e;
@@ -184,7 +184,7 @@ public class Empleado extends Persona{
 		return null;
 	}
 	
-	public static String nombrePosicion(int idEmpleado) throws Exception{
+	public static String nombrePosicion(int idEmpleado){
 		String query = "SELECT nombreCargo FROM Cargos, Empleados "
 				+ "WHERE idCargo = Empleados.Cargos_idCargo AND Empleados.idEmpleado = '"+idEmpleado+"'";
 		Connection con =  null;
@@ -234,5 +234,157 @@ public class Empleado extends Persona{
 		}
 		
 		return 0;
+	}
+	
+	public static int count() {
+		String query = "select count(0) from empleados";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("Count(0)");
+			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		
+		return 0;
+	}
+	
+	public static String [][] getData(){
+		String [][] data = new String[count()][11];
+		int i = 0, j = 0;
+		String query = "select ci, nombre, appaterno, apmaterno, fechanac, correo, nombregenero, nombreestadoc, salario, nombrecargo "
+				+ "from personas, empleados, generos, estadosciviles, cargos "
+				+ "where idpersona = personas_idpersona and generos_idgenero = idgenero and estadosciviles_idestadoc = idestadoc and cargos_idcargo = idcargo "
+				+ "order by appaterno asc, apmaterno asc, nombre asc";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				data[i][j] = String.valueOf(i + 1);
+				j++;
+				data[i][j] = rs.getString("CI");
+				j++;
+				data[i][j] = rs.getString("Nombre");
+				j++;
+				data[i][j] = rs.getString("ApPaterno");
+				j++;
+				data[i][j] = rs.getString("ApMaterno");
+				j++;
+				data[i][j] = rs.getString("FechaNac");
+				j++;
+				data[i][j] = rs.getString("Correo");
+				j++;
+				data[i][j] = rs.getString("NombreGenero");
+				j++;
+				data[i][j] = rs.getString("NombreEstadoC");
+				j++;
+				data[i][j] = rs.getString("Salario");
+				j++;
+				data[i][j] = rs.getString("NombreCargo");
+				j = 0;
+				i++;
+			}
+			return data;
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		return data;
+	}
+	
+	public static int countSucursal(int idSucursal) {
+		String query = "select count(0) from empleados, sucursalesempleados "
+				+ "where empleados_idempleado = idempleado and sucursales_idsucursal = '"+idSucursal+"'";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("Count(0)");
+			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		
+		return 0;
+	}
+	
+	public static String [][] getDataSucursal(int idSucursal){
+		String [][] data = new String[countSucursal(idSucursal)][11];
+		int i = 0, j = 0;
+		String query = "select ci, nombre, appaterno, apmaterno, fechanac, correo, nombregenero, nombreestadoc, salario, nombrecargo "
+				+ "from personas, empleados, generos, estadosciviles, cargos, sucursalesempleados "
+				+ "where idpersona = personas_idpersona and generos_idgenero = idgenero and estadosciviles_idestadoc = idestadoc "
+				+ "and cargos_idcargo = idcargo and sucursales_idsucursal = '"+idSucursal+"' and empleados_idempleado = idempleado "
+				+ "order by appaterno asc, apmaterno asc, nombre asc";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				data[i][j] = String.valueOf(i + 1);
+				j++;
+				data[i][j] = rs.getString("CI");
+				j++;
+				data[i][j] = rs.getString("Nombre");
+				j++;
+				data[i][j] = rs.getString("ApPaterno");
+				j++;
+				data[i][j] = rs.getString("ApMaterno");
+				j++;
+				data[i][j] = rs.getString("FechaNac");
+				j++;
+				data[i][j] = rs.getString("Correo");
+				j++;
+				data[i][j] = rs.getString("NombreGenero");
+				j++;
+				data[i][j] = rs.getString("NombreEstadoC");
+				j++;
+				data[i][j] = rs.getString("Salario");
+				j++;
+				data[i][j] = rs.getString("NombreCargo");
+				j = 0;
+				i++;
+			}
+			return data;
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		return data;
 	}
 }
