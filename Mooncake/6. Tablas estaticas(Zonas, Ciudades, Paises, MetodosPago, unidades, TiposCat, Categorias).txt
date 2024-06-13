@@ -1,0 +1,109 @@
+-- Insertar registros en Zonas
+insert into zonas (idZona, nombreZona) values (1, 'Achachicala');
+insert into zonas (idZona, nombreZona) values (2, 'Calacoto');
+insert into zonas (idZona, nombreZona) values (3, 'Chicani');
+insert into zonas (idZona, nombreZona) values (4, 'Chijini');
+insert into zonas (idZona, nombreZona) values (5, 'Chualluma');
+insert into zonas (idZona, nombreZona) values (6, 'Garita de Lima');
+insert into zonas (idZona, nombreZona) values (7, 'Irpavi');
+insert into zonas (idZona, nombreZona) values (8, 'Mallasa');
+insert into zonas (idZona, nombreZona) values (9, 'Munaypata');
+insert into zonas (idZona, nombreZona) values (10, 'Miraflores');
+insert into zonas (idZona, nombreZona) values (11, 'Obrajes');
+insert into zonas (idZona, nombreZona) values (12, 'Pampahasi');
+insert into zonas (idZona, nombreZona) values (13, 'Pura Pura');
+insert into zonas (idZona, nombreZona) values (14, 'San Jorge');
+insert into zonas (idZona, nombreZona) values (15, 'San Miguel');
+insert into zonas (idZona, nombreZona) values (16, 'Següencoma');
+insert into zonas (idZona, nombreZona) values (17, 'Sopocachi');
+insert into zonas (idZona, nombreZona) values (18, 'Villa Fátima');
+insert into zonas (idZona, nombreZona) values (19, 'Villa Victoria');
+
+-- Insertar registros en Ciudades
+INSERT INTO Ciudades (idCiudad, nombre) VALUES (1, 'La Paz');
+INSERT INTO Ciudades (idCiudad, nombre) VALUES (2, 'Cochabamba');
+INSERT INTO Ciudades (idCiudad, nombre) VALUES (3, 'Santa Cruz');
+INSERT INTO Ciudades (idCiudad, nombre) VALUES (4, 'Oruro');
+INSERT INTO Ciudades (idCiudad, nombre) VALUES (5, 'Potosí');
+INSERT INTO Ciudades (idCiudad, nombre) VALUES (6, 'Tarija');
+INSERT INTO Ciudades (idCiudad, nombre) VALUES (7, 'Sucre');
+INSERT INTO Ciudades (idCiudad, nombre) VALUES (8, 'Beni');
+INSERT INTO Ciudades (idCiudad, nombre) VALUES (9, 'Pando');
+
+-- Insertar los tipos de Paises
+INSERT INTO Paises (idPais, nommbre) VALUES (1, 'Bolivia');
+INSERT INTO Paises (idPais, nommbre) VALUES (2, 'Argentina');
+INSERT INTO Paises (idPais, nommbre) VALUES (3, 'Brasil');
+INSERT INTO Paises (idPais, nommbre) VALUES (4, 'Chile');
+INSERT INTO Paises (idPais, nommbre) VALUES (5, 'Colombia');
+INSERT INTO Paises (idPais, nommbre) VALUES (6, 'Ecuador');
+INSERT INTO Paises (idPais, nommbre) VALUES (7, 'Paraguay');
+INSERT INTO Paises (idPais, nommbre) VALUES (8, 'Perú');
+INSERT INTO Paises (idPais, nommbre) VALUES (9, 'Uruguay');
+INSERT INTO Paises (idPais, nommbre) VALUES (10, 'Venezuela');
+INSERT INTO Paises (idPais, nommbre) VALUES (11, 'Estados Unidos');
+INSERT INTO Paises (idPais, nommbre) VALUES (12, 'México');
+INSERT INTO Paises (idPais, nommbre) VALUES (13, 'Canadá');
+INSERT INTO Paises (idPais, nommbre) VALUES (14, 'España');
+INSERT INTO Paises (idPais, nommbre) VALUES (15, 'Francia');
+INSERT INTO Paises (idPais, nommbre) VALUES (16, 'Italia');
+INSERT INTO Paises (idPais, nommbre) VALUES (17, 'Alemania');
+
+-- Insetar los metodos de pago
+INSERT INTO MetodosPago (idMetodo, nombreMet) VALUES (1, 'Efectivo');
+INSERT INTO MetodosPago (idMetodo, nombreMet) VALUES (2, 'Tarjeta de Crédito');
+INSERT INTO MetodosPago (idMetodo, nombreMet) VALUES (3, 'Tarjeta de Débito');
+INSERT INTO MetodosPago (idMetodo, nombreMet) VALUES (4, 'Transferencia Bancaria');
+INSERT INTO MetodosPago (idMetodo, nombreMet) VALUES (5, 'QR');
+
+-- Insertar registros en Unidades
+-- Insertar unidades de mililitros
+INSERT INTO Unidades (idUnidad, nombre) VALUES (1, '300ml');
+INSERT INTO Unidades (idUnidad, nombre) VALUES (2, '500ml');
+INSERT INTO Unidades (idUnidad, nombre) VALUES (3, '700ml');
+INSERT INTO Unidades (idUnidad, nombre) VALUES (4, '1000ml');
+
+-- Insertar unidades de gramos
+INSERT INTO Unidades (idUnidad, nombre) VALUES (5, '100g');
+INSERT INTO Unidades (idUnidad, nombre) VALUES (6, '200g');
+INSERT INTO Unidades (idUnidad, nombre) VALUES (7, '500g');
+INSERT INTO Unidades (idUnidad, nombre) VALUES (8, '1000g');
+
+-- Insertar registros en TiposCat
+INSERT INTO TiposCat(idTiposCat,nombreTipo) VALUES (1,'unidad');
+INSERT INTO TiposCat(idTiposCat,nombreTipo) VALUES (2,'peso');
+
+-- Insertar registros en Categorías
+INSERT INTO Categorias (idCategoria, nombreCat, TiposCat_idTiposCat) VALUES (1, 'Fideo', 1);
+INSERT INTO Categorias (idCategoria, nombreCat, TiposCat_idTiposCat) VALUES (2, 'Fiambre', 1);
+INSERT INTO Categorias (idCategoria, nombreCat, TiposCat_idTiposCat) VALUES (3, 'Carne', 2);
+INSERT INTO Categorias (idCategoria, nombreCat, TiposCat_idTiposCat) VALUES (4, 'Shampoo', 1);
+INSERT INTO Categorias (idCategoria, nombreCat, TiposCat_idTiposCat) VALUES (5, 'Pan', 2);
+INSERT INTO Categorias (idCategoria, nombreCat, TiposCat_idTiposCat) VALUES (6, 'Acondicionador', 1);
+INSERT INTO Categorias (idCategoria, nombreCat, TiposCat_idTiposCat) VALUES (7, 'Vegetales', 2);
+INSERT INTO Categorias (idCategoria, nombreCat, TiposCat_idTiposCat) VALUES (8, 'Fruta', 2);
+INSERT INTO Categorias (idCategoria, nombreCat, TiposCat_idTiposCat) VALUES (9, 'Enlatado', 1);
+
+Select *
+from zonas;
+
+Select *
+from ciudades;
+
+Select *
+from paises;
+
+Select *
+from metodospago;
+
+Select *
+from unidades;
+
+Select *
+from tiposcat;
+
+Select *
+from categorias;
+
+
+

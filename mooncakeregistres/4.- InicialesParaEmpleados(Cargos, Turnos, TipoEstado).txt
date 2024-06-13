@@ -1,0 +1,57 @@
+-- Insertar registros en Cargos
+
+INSERT INTO Cargos (idCargo, nombreCargo) VALUES (1, 'Gerente');
+INSERT INTO Cargos (idCargo, nombreCargo) VALUES (2, 'Supervisor');
+INSERT INTO Cargos (idCargo, nombreCargo) VALUES (3, 'Cajero');
+INSERT INTO Cargos (idCargo, nombreCargo) VALUES (4, 'Limpieza');
+
+-- Insertar registros en Turnos
+INSERT INTO Turnos (idTurno, horaInicio, horaFin) VALUES (1, TO_TIMESTAMP('08:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('17:00:00', 'HH24:MI:SS'));
+INSERT INTO Turnos (idTurno, horaInicio, horaFin) VALUES (2, TO_TIMESTAMP('20:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('04:00:00', 'HH24:MI:SS')); -- Turno nocturno
+INSERT INTO Turnos (idTurno, horaInicio, horaFin) VALUES (3, TO_TIMESTAMP('09:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('18:00:00', 'HH24:MI:SS')); -- Turno extendido
+INSERT INTO Turnos (idTurno, horaInicio, horaFin) VALUES (4, TO_TIMESTAMP('08:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('12:00:00', 'HH24:MI:SS')); -- Medio día en la mañana
+INSERT INTO Turnos (idTurno, horaInicio, horaFin) VALUES (5, TO_TIMESTAMP('13:00:00', 'HH24:MI:SS'), TO_TIMESTAMP('17:00:00', 'HH24:MI:SS')); -- Media tarde
+
+-- Insertar registros en tipoEstado
+INSERT INTO tipoEstado (idTipo, nombre) VALUES (1, 'Activo');
+INSERT INTO tipoEstado (idTipo, nombre) VALUES (2, 'Retirado');
+INSERT INTO tipoEstado (idTipo, nombre) VALUES (3, 'Despedido');
+INSERT INTO tipoEstado (idTipo, nombre) VALUES (4, 'Licencia');
+INSERT INTO tipoEstado (idTipo, nombre) VALUES (5, 'Vacaciones');
+INSERT INTO tipoEstado (idTipo, nombre) VALUES (6, 'Suspensión');
+
+-- Insertar registros en Estados
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (1, '11/03/2024', '01/01/0001', 1);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (2, '08/10/2023', '01/01/0001', 1);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (3, '30/01/2020', '08/02/2023', 2);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (4, '29/08/2022', '01/01/0001', 1);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (5, '27/02/2021', '31/05/2023', 2);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (6, '14/01/2021', '01/01/0001', 1);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (7, '07/07/2021', '09/07/2023', 3);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (8, '03/01/2023', '01/01/0001', 1);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (9, '02/02/2024', '01/01/0001', 1);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (10, '10/03/2024', '01/01/0001', 1);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (11, '09/07/2022', '06/09/2022', 3);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (12, '14/10/2022', '19/02/2024', 2);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (13, '02/01/2024', '09/06/2022', 3);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (14, '06/01/2023', '01/01/0001', 1);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (15, '16/04/2024', '17/05/2024', 3);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (16, '02/11/2022', '01/01/0001', 1);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (17, '08/09/2021', '05/09/2022', 3);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (18, '02/10/2020', '01/01/0001', 1);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (19, '30/08/2022', '23/08/2023', 2);
+insert into estados (idEstado, fechaInicio, fechaFin, tipoEstado_idTipo) values (20, '06/07/2022', '07/08/2023', 3);
+
+COMMIT;
+
+SELECT *
+FROM Cargos;
+
+SELECT *
+FROM Turnos;
+
+SELECT *
+FROM tipoEstado;
+
+SELECT *
+FROM estados;
