@@ -380,8 +380,9 @@ public class NuevoEmpleado extends JFrame {
 				Connection con =  null;
 				
 				try {
-					/*
 					ValueChecker.checkInt(txtCi.getText());
+					/*
+					
 					ValueChecker.checkString(txtNombre.getText());
 					ValueChecker.checkString(txtPaterno.getText());
 					ValueChecker.checkString(txtMaterno.getText());
@@ -468,7 +469,9 @@ public class NuevoEmpleado extends JFrame {
 					
 			    } catch (SQLException ee) {
 			    	JOptionPane.showMessageDialog(null, ee);
-			    } 
+			    } catch (NotIntegerException ee) {
+			    	JOptionPane.showMessageDialog(null, ee);
+			    }
 				
 				
 			}
