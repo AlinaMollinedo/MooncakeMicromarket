@@ -107,7 +107,7 @@ public class MenuSupervisor extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Gestion ges = new Gestion(Gestionables.empleados, idSucursal);
+				Ver v = new Ver(Gestionables.empleados, idSucursal);
 			}
 		});
 		

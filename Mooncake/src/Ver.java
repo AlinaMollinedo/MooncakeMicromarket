@@ -57,7 +57,7 @@ public class Ver extends JFrame {
 		JPanel panTitulo = new JPanel();
 		panTitulo.setForeground(new Color(254, 240, 226));
 		panTitulo.setBackground(new Color(254, 240, 226));
-		panTitulo.setBorder(new EmptyBorder(20, 0, 20, 0));
+		panTitulo.setBorder(new EmptyBorder(20, 0, 0, 0));
 		contentPane.add(panTitulo, BorderLayout.NORTH);
 		panTitulo.setLayout(new GridLayout(2, 1, 0, 0));
 		
@@ -89,29 +89,56 @@ public class Ver extends JFrame {
 			}
 			break;
 		}
-		
-		
-				
+			
 		tabla.setBackground(new Color(232, 252, 255));
 		tabla.setForeground(new Color(0, 0, 64));
 		tabla.setFont(new Font("Verdana", Font.PLAIN, 10));
-		tabla.setFillsViewportHeight(true);
 		JScrollPane scrollTabla = new JScrollPane(tabla);
 		contentPane.add(scrollTabla, BorderLayout.CENTER);
 	
-		JPanel panVolver = new JPanel();
-		panVolver.setBackground(new Color(254, 240, 226));
-		panVolver.setBorder(new EmptyBorder(0, 0, 10, 15));
-		FlowLayout flowLayout = (FlowLayout) panVolver.getLayout();
-		flowLayout.setAlignment(FlowLayout.RIGHT);
-		contentPane.add(panVolver, BorderLayout.SOUTH);
+		JPanel panBotones = new JPanel();
+		panBotones.setBackground(new Color(254, 240, 226));
+		panBotones.setBorder(new EmptyBorder(10, 0, 10, 15));
+		FlowLayout fl_panBotones = (FlowLayout) panBotones.getLayout();
+		fl_panBotones.setAlignment(FlowLayout.RIGHT);
+		contentPane.add(panBotones, BorderLayout.SOUTH);
+		
+		JButton btnNuevo = new JButton("Nuevo");
+		btnNuevo.setForeground(new Color(0, 0, 64));
+		btnNuevo.setBackground(new Color(232, 252, 255));
+		btnNuevo.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		panBotones.add(btnNuevo);
+		
+		btnNuevo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				switch(g) {
+				case 1:
+					NuevoEmpleado nE = new NuevoEmpleado(idSucursal);
+					break;
+				}
+			}
+		});
+		
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setForeground(new Color(0, 0, 64));
+		btnModificar.setBackground(new Color(232, 252, 255));
+		btnModificar.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		panBotones.add(btnModificar);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setForeground(new Color(0, 0, 64));
+		btnEliminar.setBackground(new Color(232, 252, 255));
+		btnEliminar.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		panBotones.add(btnEliminar);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setForeground(new Color(0, 0, 64));
 		btnVolver.setBackground(new Color(232, 252, 255));
 		btnVolver.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnVolver.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panVolver.add(btnVolver);
+		panBotones.add(btnVolver);
 
 		btnVolver.addActionListener(new ActionListener() {
 			

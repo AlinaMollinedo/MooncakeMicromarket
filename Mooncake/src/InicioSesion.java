@@ -178,15 +178,12 @@ public class InicioSesion extends JFrame {
 				String user = txtPan12.getText();
 				String pass = new String(passf.getPassword());
 				
-				Empleado.leer();
-				
 				Boolean esEmpl = Empleado.isEmpleado(user, pass);
 				
-				if(esEmpl) {	
-					Empleado empl = Empleado.buscar(user, pass);
-					
-					int idSucursal = Empleado.sucursal(empl.getIdEmpleado());
-					switch(empl.getCargo()) {
+				if(esEmpl) {
+					int idEmpleado = Empleado.id(user, pass);
+					int idSucursal = Empleado.sucursal(idEmpleado);
+					switch(Empleado.cargo(user, pass)) {
 					case 1:
 						MenuAdmin mA = new MenuAdmin(); 
 						setVisible(false);
@@ -196,7 +193,7 @@ public class InicioSesion extends JFrame {
 						setVisible(false);
 						break;
 					default:
-						MenuEmpleado mE = new MenuEmpleado(idSucursal, empl.getIdEmpleado());
+						MenuEmpleado mE = new MenuEmpleado(idSucursal, idEmpleado);
 						setVisible(false);
 						break;
 					}

@@ -30,6 +30,16 @@ public class Empleado extends Persona{
 		this.usuario = usuario;
 		this.contrasenia = contrasenia;
 	}
+	
+	public Empleado(int docIdentidad, String nombre, String paterno, String materno, LocalDate fechaNac,
+			String correo, int genero, int estadoCivil, int tipo, int turno, int salario, int cargo,
+			int estado) {
+		super(docIdentidad, nombre, paterno, materno, fechaNac, correo, genero, estadoCivil, tipo);
+		this.turno = turno;
+		this.salario = salario;
+		this.cargo = cargo;
+		this.estado = estado;
+	}
 
 	public int getIdEmpleado() {
 		return idEmpleado;
@@ -89,7 +99,7 @@ public class Empleado extends Persona{
 
 	@Override
 	public String toString() {
-		return "Empleado [idEmpleado=" + idEmpleado + ", turno=" + turno + ", salario=" + salario + ", cargo=" + cargo
+		return super.toString() + "Empleado [idEmpleado=" + idEmpleado + ", turno=" + turno + ", salario=" + salario + ", cargo=" + cargo
 				+ ", estado=" + estado + ", usuario=" + usuario + ", contrasenia=" + contrasenia + "]";
 	}
 
@@ -158,21 +168,83 @@ public class Empleado extends Persona{
 	}
 	
 	public static Boolean isEmpleado(String user, String pass){
-		for(Empleado e:empleados) {
-			if(e.getUsuario().equals(user) && e.getContrasenia().equals(pass)) {
-				return true;
+		String query = "select usuario, contrasenia from estados, empleados, usuarios "
+				+ "where idestado = estados_idestado and idempleado = empleados_idempleado and estados.tipoestado_idtipo = 1";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				String usuario = rs.getString("usuario");
+				String contrasenia = rs.getString("contrasenia");
+				
+				if(usuario.contentEquals(user) && contrasenia.equals(pass)) {
+					return true;
+				}
+				
 			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
 		}
 		return false;
 	}
 	
-	public static Empleado buscar(String user, String pass){
-		for(Empleado e:empleados) {
-			if(e.getUsuario().equals(user) && e.getContrasenia().equals(pass)) {
-				return e;
+	public static int cargo(String user, String pass){
+		String query = "select cargos_idcargo from empleados, usuarios "
+				+ "where empleados_idempleado = idempleado and usuario like '"+user+"' and contrasenia like '"+pass+"'";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("cargos_idcargo");
+				
 			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
 		}
-		return null;
+		return -1;
+	}
+	
+	public static int id(String user, String pass){
+		String query = "select idempleado from empleados, usuarios "
+				+ "where empleados_idempleado = idempleado and usuario like '"+user+"' and contrasenia like '"+pass+"'";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("idempleado");
+				
+			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		return -1;
 	}
 	
 	public static Empleado buscar(int idEmpleado){
@@ -386,5 +458,9 @@ public class Empleado extends Persona{
 			 JOptionPane.showMessageDialog(null, e);
 		}
 		return data;
+	}
+	
+	public void modificar(Empleado e) {
+		
 	}
 }

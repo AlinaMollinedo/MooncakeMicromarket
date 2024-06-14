@@ -107,27 +107,77 @@ public class Sucursal{
 		return null;
 	}
 	
-	/*
-	public static Sucursal buscar(int id) {
-		ArrayList <Sucursal> sucursales = leer();
-		for(Sucursal s:sucursales) {
-			if(s.getIdSucursal() == id) {
-				return s;
+	public static int count() {
+		String query = "select count(0) from sucursales";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("Count(0)");
 			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
 		}
-		return new Sucursal(1111, "Los Pinos", 11);
-	}
-	/*
-	public static int empleadoSucursal(int idEmpleado) {
-		ArrayList <Sucursal> sucursales = leer();
-		for(Sucursal s:sucursales) {
-			for(Empleado e:s.getEmpleados()) {
-				if(e.getIdPersona() == idEmpleado) {
-					return s.getIdSucursal();
-				}
-			}
-		}
+		
 		return 0;
 	}
-	*/
+	
+	public static String[] nombres() {
+		String [] data = new String[count()];
+		int i = 0;
+		String query = "select nombresucursal from sucursales order by idsucursal asc";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				data[i] = rs.getString("nombresucursal");
+				i++;
+			}
+			return data;
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		return data;
+	}
+	
+	public static int id(String str) {
+		String query = "select idsucursal from sucursales where nombresucursal like '"+str+"'";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("idsucursal");
+			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		return -1;
+	}
 }

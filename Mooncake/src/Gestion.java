@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
@@ -58,102 +60,67 @@ public class Gestion extends JFrame {
 		JPanel panTitulo = new JPanel();
 		panTitulo.setForeground(new Color(254, 240, 226));
 		panTitulo.setBackground(new Color(254, 240, 226));
-		panTitulo.setBorder(new EmptyBorder(30, 0, 30, 0));
+		panTitulo.setBorder(new EmptyBorder(20, 0, 20, 0));
 		contentPane.add(panTitulo, BorderLayout.NORTH);
 		panTitulo.setLayout(new GridLayout(2, 1, 0, 0));
 		
-		JLabel lblTitulo = new JLabel("Gestión de " + Gestionables.nombres[g]);
+		JLabel lblTitulo = new JLabel(Gestionables.nombres[g].toUpperCase());
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setForeground(new Color(0, 0, 64));
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
 		
+		JTable tabla = new JTable();
+		
 		JPanel panBotones = new JPanel();
 		panBotones.setBackground(new Color(254, 240, 226));
-		panBotones.setBorder(new EmptyBorder(0, 250, 50, 250));
-		contentPane.add(panBotones, BorderLayout.CENTER);
-		panBotones.setLayout(new GridLayout(5, 1, 5, 5));
+		panBotones.setBorder(new EmptyBorder(0, 0, 10, 15));
+		FlowLayout fl_panBotones = (FlowLayout) panBotones.getLayout();
+		fl_panBotones.setAlignment(FlowLayout.RIGHT);
+		contentPane.add(panBotones, BorderLayout.SOUTH);
 		
-		JButton btnVer = new JButton("Ver " + Gestionables.nombres[g]);
-		btnVer.setForeground(new Color(0, 0, 64));
-		btnVer.setBackground(new Color(232, 252, 255));
-		btnVer.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnVer.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panBotones.add(btnVer);
-		
-		btnVer.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				Ver v = new Ver(g, idSucursal);
-			}
-		});
-		
-		JButton btnModificar = new JButton("Modificar " + Gestionables.nombre[g]);
-		btnModificar.setForeground(new Color(0, 0, 64));
-		btnModificar.setBackground(new Color(232, 252, 255));
-		btnModificar.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnModificar.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		btnModificar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-				//ModficarProductos mp = new ModficarProductos();
-			}
-		});
-		
-		JButton btnNuevo = new JButton("Nuevo " + Gestionables.nombre[g]);
+		JButton btnNuevo = new JButton("Nuevo");
 		btnNuevo.setForeground(new Color(0, 0, 64));
 		btnNuevo.setBackground(new Color(232, 252, 255));
 		btnNuevo.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnNuevo.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		btnNuevo.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
-				//NuevoProducto np = new NuevoProducto();
+				switch(g) {
+				case 1:
+					//Empleado.nuevo();
+					break;
+				}
 			}
 		});
 		
-		JButton btnEliminar = new JButton("Eliminar " + Gestionables.nombre[g]);
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setForeground(new Color(0, 0, 64));
+		btnModificar.setBackground(new Color(232, 252, 255));
+		btnModificar.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		
+		btnModificar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				switch(g) {
+				case 1:
+					//int fila = tabla.getSelectedRow();
+					int col = 0;
+					//Empleado.modificar(tabla.getValueAt(fila, col));
+					break;
+				}
+			}
+		});
+		
+		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.setForeground(new Color(0, 0, 64));
 		btnEliminar.setBackground(new Color(232, 252, 255));
 		btnEliminar.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnEliminar.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		btnEliminar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-				//EliminarProductos ep = EliminarProductos();
-			}
-		});
-		
-		JButton btnPedido = new JButton("Realizar pedido");
-		btnPedido.setForeground(new Color(0, 0, 64));
-		btnPedido.setBackground(new Color(232, 252, 255));
-		btnPedido.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnPedido.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		btnPedido.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-				//RealizarPedido rp = RealizarPedido();
-			}
-		});
-		
 		
 		if(idSucursal > 0) {
 			String s = Sucursal.nombre(idSucursal);
@@ -164,42 +131,30 @@ public class Gestion extends JFrame {
 			panTitulo.add(lblSubtitulo);
 			
 			switch(g) {
-			case 0:
-				panBotones.add(btnPedido);
-				break;
 			case 1:
-				panBotones.add(btnModificar);
+				Empleado.leer();
+				String [] col = new String[]{"ID", "CI", "NOMBRE", "PATERNO", "MATERNO", "FECHA NACIMIENTO", "CORREO", "GENERO",
+						"ESTADO CIVIL", "SALARIO", "CARGO"};
+				tabla = new JTable(Empleado.getDataSucursal(idSucursal), col);
+				
 				panBotones.add(btnNuevo);
+				panBotones.add(btnModificar);
 				panBotones.add(btnEliminar);
 				break;
-			case 3:
-				panBotones.add(btnModificar);
-				break;
-			case 4:
-				panBotones.add(btnPedido);
-				break;
 			}
-			
-		} else {
-			panBotones.add(btnModificar);
-			panBotones.add(btnNuevo);
-			panBotones.add(btnEliminar);
-			panBotones.add(btnPedido);
 		}
-		
-		JPanel panVolver = new JPanel();
-		panVolver.setBackground(new Color(254, 240, 226));
-		panVolver.setBorder(new EmptyBorder(0, 0, 10, 15));
-		FlowLayout flowLayout = (FlowLayout) panVolver.getLayout();
-		flowLayout.setAlignment(FlowLayout.RIGHT);
-		contentPane.add(panVolver, BorderLayout.SOUTH);
+				
+		tabla.setBackground(new Color(232, 252, 255));
+		tabla.setForeground(new Color(0, 0, 64));
+		tabla.setFont(new Font("Verdana", Font.PLAIN, 10));
+		JScrollPane scrollTabla = new JScrollPane(tabla);
+		contentPane.add(scrollTabla, BorderLayout.CENTER);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setForeground(new Color(0, 0, 64));
 		btnVolver.setBackground(new Color(232, 252, 255));
 		btnVolver.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnVolver.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panVolver.add(btnVolver);
+		panBotones.add(btnVolver);
 
 		btnVolver.addActionListener(new ActionListener() {
 			

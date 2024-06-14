@@ -26,6 +26,19 @@ public abstract class Persona {
 		this.tipo = tipo;
 	}
 	
+	public Persona(int docIdentidad, String nombre, String paterno, String materno, LocalDate fechaNac,
+			String correo, int genero, int estadoCivil, int tipo) {
+		this.docIdentidad = docIdentidad;
+		this.nombre = nombre;
+		this.paterno = paterno;
+		this.materno = materno;
+		this.fechaNac = fechaNac;
+		this.correo = correo;
+		this.genero = genero;
+		this.estadoCivil = estadoCivil;
+		this.tipo = tipo;
+	}
+	
 	public int getIdPersona() {
 		return idPersona;
 	}
