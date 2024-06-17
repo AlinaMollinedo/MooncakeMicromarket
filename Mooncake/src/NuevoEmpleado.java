@@ -524,7 +524,6 @@ public class NuevoEmpleado extends JFrame {
 					
 		    		if(idEmpleado > 0) {
 		    			Integer [] ids = Empleado.ids(idEmpleado);
-		    			
 		    			String query = "update personas set idPersona = ?, CI = ?, nombre = ?, apPaterno = ?, apMaterno = ?, "
 		    					+ "fechaNac = ?, correo = ?, Generos_idGenero = ?, EstadosCiviles_idEstadoC = ?, "
 		    					+ "TiposPersonas_idTipoPersona = ? where idpersona = ?";
@@ -598,14 +597,23 @@ public class NuevoEmpleado extends JFrame {
 			    		pstmt.close();
 			    		
 			    		con.close();
+			    		
+			    		JOptionPane.showMessageDialog(null, "Success!");
+						setVisible(false);
+						
 		    		} else {
+		    			int idP = Persona.maxId() + 1;
+		    			int idE = Empleado.maxId() + 1;
+		    			int idDir = Extras.maxId("idDireccion", "direcciones") + 1;
+		    			int idTel = Extras.maxId("idTelefono", "telefonos") + 1;
+		    			
 		    			String query = "insert into personas "
 			    				+ "(idPersona, CI, nombre, apPaterno, apMaterno, fechaNac, correo, Generos_idGenero, EstadosCiviles_idEstadoC, TiposPersonas_idTipoPersona) "
 			    				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			    		
 			    		PreparedStatement pstmt = con.prepareStatement(query);
 			    		
-			    		pstmt.setInt(1, 2000);
+			    		pstmt.setInt(1, idP);
 			    		pstmt.setInt(2, ci);
 			    		pstmt.setString(3, nombres);
 			    		pstmt.setString(4, paterno);
@@ -623,9 +631,9 @@ public class NuevoEmpleado extends JFrame {
 			    		
 			    		pstmt = con.prepareStatement(query);
 			    		
-			    		pstmt.setInt(1, 21);
+			    		pstmt.setInt(1, idE);
 			    		pstmt.setInt(2, salario);
-			    		pstmt.setInt(3, 2000);
+			    		pstmt.setInt(3, idP);
 			    		pstmt.setInt(4, estado);
 			    		pstmt.setInt(5, cargo);
 			    		pstmt.setInt(6, turno);
@@ -637,7 +645,7 @@ public class NuevoEmpleado extends JFrame {
 			    		
 			    		pstmt = con.prepareStatement(query);
 			    		
-			    		pstmt.setInt(1, 2000);
+			    		pstmt.setInt(1, idDir);
 			    		pstmt.setString(2, calle);
 			    		pstmt.setInt(3, nro);
 			    		pstmt.setInt(4, ciudad);
@@ -650,8 +658,8 @@ public class NuevoEmpleado extends JFrame {
 			    		
 			    		pstmt = con.prepareStatement(query);
 			    		
-			    		pstmt.setInt(1, 2000);
-			    		pstmt.setInt(2, 2000);
+			    		pstmt.setInt(1, idDir);
+			    		pstmt.setInt(2, idP);
 			    		
 			    		pstmt.executeUpdate();
 			    		
@@ -659,7 +667,7 @@ public class NuevoEmpleado extends JFrame {
 			    		
 			    		pstmt = con.prepareStatement(query);
 			    		
-			    		pstmt.setInt(1, 2000);
+			    		pstmt.setInt(1, idTel);
 			    		pstmt.setInt(2, tel);
 			    		
 			    		pstmt.executeUpdate();
@@ -669,8 +677,8 @@ public class NuevoEmpleado extends JFrame {
 			    		
 			    		pstmt = con.prepareStatement(query);
 			    		
-			    		pstmt.setInt(1, 2000);
-			    		pstmt.setInt(2, 2000);
+			    		pstmt.setInt(1, idP);
+			    		pstmt.setInt(2, idTel);
 			    		
 			    		pstmt.executeUpdate();
 			    		
@@ -679,7 +687,7 @@ public class NuevoEmpleado extends JFrame {
 			    		
 			    		pstmt = con.prepareStatement(query);
 			    		
-			    		pstmt.setInt(1, 21);
+			    		pstmt.setInt(1, idE);
 			    		pstmt.setInt(2, sucursal);
 			    		
 			    		pstmt.executeUpdate();			    
@@ -687,6 +695,10 @@ public class NuevoEmpleado extends JFrame {
 			    		pstmt.close();
 			    		
 			    		con.close();
+			    		
+			    		JOptionPane.showMessageDialog(null, "Success!");
+						EstablecerUsuario eu = new EstablecerUsuario(false, idE, idSucursal);
+						setVisible(false);
 		    		}
 		    		
 		    		
@@ -712,16 +724,9 @@ public class NuevoEmpleado extends JFrame {
 					txtSalario.setText("");
 					comboTurno.setSelectedIndex(0);
 					
-					JOptionPane.showMessageDialog(null, "Success!");
-					
-					EstablecerUsuario eu = new EstablecerUsuario(false, 21, idSucursal);
-					setVisible(false);
-					
 			    } catch (Exception ee) {
 			    	JOptionPane.showMessageDialog(null, ee.getMessage());
 			    } 
-				
-				
 			}
 		});
 		

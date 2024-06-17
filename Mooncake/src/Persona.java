@@ -1,5 +1,11 @@
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.*;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 public abstract class Persona {
 	private int idPersona;
 	private int docIdentidad;
@@ -132,7 +138,30 @@ public abstract class Persona {
 	
 	//public abstract ArrayList<?> leer() throws Exception;
 		
-	public Boolean verificarPersona() {
-		return true;
+	public static int maxId() {
+		String query = "select max(idPersona) from personas";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("max(idPersona)");
+			}
+			stmt.close();
+			rs.close();
+			con.close();
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		
+		return -1;
 	}
 }

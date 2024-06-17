@@ -299,4 +299,31 @@ public class Sucursal{
 		}
 		return data;
 	}
+	
+	public static int maxId() {
+		String query = "select max(idSucursal) from sucursales";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("max(idSucursal)");
+			}
+			stmt.close();
+			rs.close();
+			con.close();
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		
+		return -1;
+	}
 }

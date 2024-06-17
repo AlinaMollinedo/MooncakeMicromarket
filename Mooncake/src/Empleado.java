@@ -315,6 +315,33 @@ public class Empleado extends Persona{
 		return -1;
 	}
 	
+	public static int idUsuario(int idEmpleado){
+		String query = "select idusuario from usuarios where empleados_idempleado = "+idEmpleado+"";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("idusuario");
+				
+			}
+			stmt.close();
+			rs.close();
+			con.close();
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		return -1;
+	}
+	
 	public static Integer [] ids(int idEmpleado){
 		Integer [] ids = new Integer[3];
 		String query = "select idpersona, iddireccion, idtelefono "
@@ -679,5 +706,32 @@ public class Empleado extends Persona{
     	}catch(SQLException e) {
     		JOptionPane.showMessageDialog(null, e);
     	}
+	}
+	
+	public static int maxId() {
+		String query = "select max(idEmpleado) from empleados";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("max(idEmpleado)");
+			}
+			stmt.close();
+			rs.close();
+			con.close();
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		
+		return -1;
 	}
 }

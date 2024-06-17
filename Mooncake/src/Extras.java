@@ -88,4 +88,31 @@ public class Extras {
 		}
 		return -1;
 	}
+	
+	public static int maxId(String id, String tabla) {
+		String query = "select max("+id+") from "+tabla+"";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("max("+id+")");
+			}
+			stmt.close();
+			rs.close();
+			con.close();
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		
+		return -1;
+	}
 }

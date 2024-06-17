@@ -231,20 +231,34 @@ public class EstablecerUsuario extends JFrame {
 			    		con = c.conectar();
 			    		
 			    		if(mod) {
-			    			
+			    			String query = "update Usuarios set idUsuario = ?, usuario = ?, contrasenia = ?, Empleados_idEmpleado = ? "
+									+ "where Empleados_idEmpleado = ?";
+				    		
+				    		PreparedStatement pstmt = con.prepareStatement(query);
+				    		
+				    		pstmt.setInt(1, Empleado.idUsuario(idEmpleado));
+				    		pstmt.setString(2, username);
+				    		pstmt.setString(3, pass1);
+				    		pstmt.setInt(4, idEmpleado);
+				    		pstmt.setInt(5, idEmpleado);
+				    		
+				    		pstmt.executeUpdate();
+			    		} else {
+			    			String query = "insert into Usuarios (idUsuario, usuario, contrasenia, Empleados_idEmpleado) "
+									+ "values (?, ?, ?, ?)";
+				    		
+				    		PreparedStatement pstmt = con.prepareStatement(query);
+				    		
+				    		int idU = Extras.maxId("idUsuario", "usuarios") + 1;
+				    		
+				    		pstmt.setInt(1, idU);
+				    		pstmt.setString(2, username);
+				    		pstmt.setString(3, pass1);
+				    		pstmt.setInt(4, idEmpleado);
+				    		
+				    		pstmt.executeUpdate();
 			    		}
-			    		String query = "insert into Usuarios (idUsuario, usuario, contrasenia, Empleados_idEmpleado) "
-								+ "values (?, ?, ?, ?)";
-			    		
-			    		PreparedStatement pstmt = con.prepareStatement(query);
-			    		
-			    		pstmt.setInt(1, 21);
-			    		pstmt.setString(2, username);
-			    		pstmt.setString(3, pass1);
-			    		pstmt.setInt(4, idEmpleado);
-			    		
-			    		pstmt.executeUpdate();
-			    		
+			    		    		
 			    		JOptionPane.showMessageDialog(null, "Success!");
 			    		setVisible(false);
 			    		Ver v = new Ver(1, idSucursal);
