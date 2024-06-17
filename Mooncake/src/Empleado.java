@@ -606,18 +606,27 @@ public class Empleado extends Persona{
 	}
 	
 	public static void eliminar(int idEmpleado) {
-		String query = "delete from empleados where idempleado = ?";
 		Connection con =  null;
 		
 		try {
     		Conexion c = new Conexion();
     		con = c.conectar();
     		
+    		String query = "delete from sucursalesempleados where empleados_idempleado = ?";
     		PreparedStatement pstmt = con.prepareStatement(query);
-    		
     		pstmt.setInt(1, idEmpleado);
-    		
     		pstmt.executeUpdate();
+    		
+    		query = "delete from usuarios where empleados_idempleado= ?";
+    		pstmt = con.prepareStatement(query);
+    		pstmt.setInt(1, idEmpleado);
+    		pstmt.executeUpdate();
+    		
+    		query = "delete from empleados where idempleado = ?";
+    		pstmt = con.prepareStatement(query);
+    		pstmt.setInt(1, idEmpleado);
+    		pstmt.executeUpdate();
+    		
     	}catch(SQLException e) {
     		JOptionPane.showMessageDialog(null, e);
     	}

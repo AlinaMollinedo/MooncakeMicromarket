@@ -68,33 +68,6 @@ public class Ver extends JFrame {
 		lblTitulo.setForeground(new Color(0, 0, 64));
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
-		
-		if(idSucursal > 0) {
-			String s = Sucursal.nombre(idSucursal);
-			JLabel lblSubtitulo = new JLabel("Sucursal " + s);
-			lblSubtitulo.setHorizontalAlignment(SwingConstants.LEFT);
-			lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);
-			lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 15));
-			panTitulo.add(lblSubtitulo);
-		}
-		
-		switch(g) {
-		case 1:
-			String [] col = new String[]{"NRO", "CI", "NOMBRE", "PATERNO", "MATERNO", "FECHA NACIMIENTO", "CORREO", "GENERO",
-					"ESTADO CIVIL", "SALARIO", "CARGO"};
-			if(idSucursal > 0 ) {
-				tabla = new JTable(Empleado.getDataSucursal(idSucursal), col);
-			} else {
-				tabla = new JTable(Empleado.getData(), col);
-			}
-			break;
-		}
-			
-		tabla.setBackground(new Color(232, 252, 255));
-		tabla.setForeground(new Color(0, 0, 64));
-		tabla.setFont(new Font("Verdana", Font.PLAIN, 10));
-		JScrollPane scrollTabla = new JScrollPane(tabla);
-		contentPane.add(scrollTabla, BorderLayout.CENTER);
 	
 		JPanel panBotones = new JPanel();
 		panBotones.setBackground(new Color(254, 240, 226));
@@ -107,7 +80,6 @@ public class Ver extends JFrame {
 		btnNuevo.setForeground(new Color(0, 0, 64));
 		btnNuevo.setBackground(new Color(232, 252, 255));
 		btnNuevo.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		panBotones.add(btnNuevo);
 		
 		btnNuevo.addActionListener(new ActionListener() {
 			
@@ -119,6 +91,10 @@ public class Ver extends JFrame {
 					NuevoEmpleado nE = new NuevoEmpleado(idSucursal, 0);
 					setVisible(false);
 					break;
+				case 3:
+					NuevaSucursal nS = new NuevaSucursal(idSucursal);
+					setVisible(false);
+					break;
 				}
 			}
 		});
@@ -127,7 +103,6 @@ public class Ver extends JFrame {
 		btnModificar.setForeground(new Color(0, 0, 64));
 		btnModificar.setBackground(new Color(232, 252, 255));
 		btnModificar.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		panBotones.add(btnModificar);
 		
 		btnModificar.addActionListener(new ActionListener() {
 			
@@ -145,6 +120,15 @@ public class Ver extends JFrame {
 						String apmaterno = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
 						int idEmpleado = Empleado.idEmpleado(ci, nombre, appaterno, apmaterno);
 						NuevoEmpleado mE = new NuevoEmpleado(idSucursal, idEmpleado);
+						setVisible(false);
+					}
+					break;
+				case 3:
+					if(tabla.getSelectionModel().isSelectionEmpty()) {
+						JOptionPane.showMessageDialog(null, "Seleccione a una sucursal.");
+					} else {
+						int iidSucursal = Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString());
+						NuevaSucursal nS = new NuevaSucursal(iidSucursal);
 						setVisible(false);
 					}
 					break;
@@ -184,7 +168,6 @@ public class Ver extends JFrame {
 		btnEliminar.setForeground(new Color(0, 0, 64));
 		btnEliminar.setBackground(new Color(232, 252, 255));
 		btnEliminar.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		panBotones.add(btnEliminar);
 		
 		btnEliminar.addActionListener(new ActionListener() {
 			
@@ -208,6 +191,50 @@ public class Ver extends JFrame {
 				}
 			}
 		});
+		
+		if(idSucursal > 0) {
+			String s = Sucursal.nombre(idSucursal);
+			JLabel lblSubtitulo = new JLabel("Sucursal " + s);
+			lblSubtitulo.setHorizontalAlignment(SwingConstants.LEFT);
+			lblSubtitulo.setHorizontalAlignment(SwingConstants.CENTER);
+			lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 15));
+			panTitulo.add(lblSubtitulo);
+		}
+		
+		switch(g) {
+		case 0:
+			panBotones.add(btnNuevo);
+			panBotones.add(btnModificar);
+		case 1:
+			panBotones.add(btnNuevo);
+			panBotones.add(btnModificar);
+			String [] col1 = new String[]{"NRO", "CI", "NOMBRE", "PATERNO", "MATERNO", "FECHA NACIMIENTO", "CORREO", "GENERO",
+					"ESTADO CIVIL", "SALARIO", "CARGO"};
+			if(idSucursal > 0 ) {
+				tabla = new JTable(Empleado.getDataSucursal(idSucursal), col1);
+			} else {
+				tabla = new JTable(Empleado.getData(), col1);
+			}
+			break;
+		case 2:
+			panBotones.add(btnModificar);
+		case 3:
+			panBotones.add(btnNuevo);
+			panBotones.add(btnModificar);
+			String [] col2 = new String[] {"NRO", "NOMBRE", "CIUDAD", "ZONA", "CALLE", "N°", "NRO EMPLEADOS", "NRO PRODUCTOS"};
+			tabla = new JTable(Sucursal.getData(), col2);
+			break;
+		case 4:
+			panBotones.add(btnModificar);
+		}
+		
+		tabla.setBackground(new Color(232, 252, 255));
+		tabla.setForeground(new Color(0, 0, 64));
+		tabla.setFont(new Font("Verdana", Font.PLAIN, 10));
+		JScrollPane scrollTabla = new JScrollPane(tabla);
+		contentPane.add(scrollTabla, BorderLayout.CENTER);
+		
+		panBotones.add(btnEliminar);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setForeground(new Color(0, 0, 64));
