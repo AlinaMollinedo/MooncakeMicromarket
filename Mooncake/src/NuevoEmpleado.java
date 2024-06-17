@@ -541,12 +541,12 @@ public class NuevoEmpleado extends JFrame {
 			    		pstmt.setInt(8, genero);
 			    		pstmt.setInt(9, estadoc);
 			    		pstmt.setInt(10, 2);
-			    		pstmt.setInt(10, ids[0]);
+			    		pstmt.setInt(11, ids[0]);
 			    		
 			    		pstmt.executeUpdate();
 			    		
 			    		query = "update empleados set idEmpleado = ?, salario = ?, Personas_idPersona = ?, Estados_idEstado = ?, "
-			    				+ "Cargos_idCargo = ?, Turnos_idTurno =? where idEmpleado = ?";
+			    				+ "Cargos_idCargo = ?, Turnos_idTurno = ? where idEmpleado = ?";
 			    		
 			    		pstmt = con.prepareStatement(query);
 			    		
@@ -565,7 +565,7 @@ public class NuevoEmpleado extends JFrame {
 			    		
 			    		pstmt = con.prepareStatement(query);
 			    		
-			    		pstmt.setInt(1, 2000);
+			    		pstmt.setInt(1, ids[1]);
 			    		pstmt.setString(2, calle);
 			    		pstmt.setInt(3, nro);
 			    		pstmt.setInt(4, ciudad);
@@ -594,6 +594,10 @@ public class NuevoEmpleado extends JFrame {
 			    		pstmt.setInt(3, idEmpleado);
 			    		
 			    		pstmt.executeUpdate();
+			    		
+			    		pstmt.close();
+			    		
+			    		con.close();
 		    		} else {
 		    			String query = "insert into personas "
 			    				+ "(idPersona, CI, nombre, apPaterno, apMaterno, fechaNac, correo, Generos_idGenero, EstadosCiviles_idEstadoC, TiposPersonas_idTipoPersona) "
@@ -628,7 +632,7 @@ public class NuevoEmpleado extends JFrame {
 			    		
 			    		pstmt.executeUpdate();
 			    		
-			    		query = "insert into Direcciones (idDireccion, calle, nro, Ciudades_idCiudad, Zonas_idZona)"
+			    		query = "insert into Direcciones (idDireccion, calle, nro, Ciudades_idCiudad, Zonas_idZona) "
 			    				+ "values (?, ?, ?, ?, ?)";
 			    		
 			    		pstmt = con.prepareStatement(query);
@@ -670,15 +674,19 @@ public class NuevoEmpleado extends JFrame {
 			    		
 			    		pstmt.executeUpdate();
 			    		
-			    		query = "insert into SucursalesEmpleados (Empleados_idEmpleado, Sucursales_idSucursal)"
-			    				+ " values (?, ?)";
+			    		query = "insert into SucursalesEmpleados (Empleados_idEmpleado, Sucursales_idSucursal) "
+			    				+ "values (?, ?)";
 			    		
 			    		pstmt = con.prepareStatement(query);
 			    		
-			    		pstmt.setInt(1, 2000);
+			    		pstmt.setInt(1, 21);
 			    		pstmt.setInt(2, sucursal);
 			    		
-			    		pstmt.executeUpdate();
+			    		pstmt.executeUpdate();			    
+			    		
+			    		pstmt.close();
+			    		
+			    		con.close();
 		    		}
 		    		
 		    		
@@ -706,12 +714,11 @@ public class NuevoEmpleado extends JFrame {
 					
 					JOptionPane.showMessageDialog(null, "Success!");
 					
-					EstablecerUsuario eu = new EstablecerUsuario(0);
+					EstablecerUsuario eu = new EstablecerUsuario(false, 21, idSucursal);
 					setVisible(false);
-					Ver v = new Ver(1, idSucursal);
 					
-			    } catch (SQLException ee) {
-			    	JOptionPane.showMessageDialog(null, ee);
+			    } catch (Exception ee) {
+			    	JOptionPane.showMessageDialog(null, ee.getMessage());
 			    } 
 				
 				

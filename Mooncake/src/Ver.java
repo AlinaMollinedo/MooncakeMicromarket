@@ -141,10 +141,6 @@ public class Ver extends JFrame {
 		btnModUsuario.setBackground(new Color(232, 252, 255));
 		btnModUsuario.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
 		
-		if(g == 1) {
-			panBotones.add(btnModUsuario);
-		}
-		
 		btnModUsuario.addActionListener(new ActionListener() {
 			
 			@Override
@@ -158,7 +154,7 @@ public class Ver extends JFrame {
 					String appaterno= tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
 					String apmaterno = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
 					int idEmpleado = Empleado.idEmpleado(ci, nombre, appaterno, apmaterno);
-					EstablecerUsuario eu = new EstablecerUsuario(idEmpleado);
+					EstablecerUsuario eu = new EstablecerUsuario(true, idEmpleado, idSucursal);
 					setVisible(false);
 				}
 			}
@@ -208,6 +204,7 @@ public class Ver extends JFrame {
 		case 1:
 			panBotones.add(btnNuevo);
 			panBotones.add(btnModificar);
+			panBotones.add(btnModUsuario);
 			String [] col1 = new String[]{"NRO", "CI", "NOMBRE", "PATERNO", "MATERNO", "FECHA NACIMIENTO", "CORREO", "GENERO",
 					"ESTADO CIVIL", "SALARIO", "CARGO"};
 			if(idSucursal > 0 ) {

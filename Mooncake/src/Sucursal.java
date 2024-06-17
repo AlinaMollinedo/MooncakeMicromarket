@@ -71,6 +71,9 @@ public class Sucursal{
 			while(rs.next()) {
 				return rs.getString("nombreSucursal");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e.getMessage());
 		}
@@ -95,6 +98,9 @@ public class Sucursal{
 			while(rs.next()) {
 				return rs.getInt("Count(0)");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -122,6 +128,9 @@ public class Sucursal{
 				data[i] = rs.getString("nombresucursal");
 				i++;
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 			return data;
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
@@ -146,6 +155,9 @@ public class Sucursal{
 			while(rs.next()) {
 				return rs.getInt("idsucursal");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -169,6 +181,9 @@ public class Sucursal{
 			while(rs.next()) {
 				return rs.getInt("count(empleados_idempleado)");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -192,6 +207,9 @@ public class Sucursal{
 			while(rs.next()) {
 				return rs.getInt("count(idproducto)");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -238,6 +256,9 @@ public class Sucursal{
 				j = 0;
 				i++;
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 			return data;
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
@@ -269,6 +290,9 @@ public class Sucursal{
 				data[3] = rs.getString("calle");
 				data[4] = rs.getString("nro");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 			return data;
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);

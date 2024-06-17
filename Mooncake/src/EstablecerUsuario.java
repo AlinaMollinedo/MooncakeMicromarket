@@ -49,11 +49,11 @@ public class EstablecerUsuario extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EstablecerUsuario(int idEmpleado) {
+	public EstablecerUsuario(Boolean mod, int idEmpleado, int idSucursal) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
 		setResizable(true);
-		if(idEmpleado > 0) {
+		if(mod) {
 			setTitle("Modificar usuario");
 		} else {
 			setTitle("Establecer usuario");
@@ -82,7 +82,7 @@ public class EstablecerUsuario extends JFrame {
 		lblSubtitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 15));
 		panTitulo.add(lblSubtitulo);
 		
-		if(idEmpleado > 0) {
+		if(mod) {
 			lblTitulo.setText("Modificar usuario y contraseña");
 			lblSubtitulo.setText("Modifique el usuario y contraseña del empleado seleccionado.");
 		} else {
@@ -195,7 +195,7 @@ public class EstablecerUsuario extends JFrame {
 			}
 		});
 		
-		if(idEmpleado > 0) {
+		if(mod) {
 			String [] uc = Empleado.usuario(idEmpleado);
 			txtPan12.setText(uc[0]);
 			passf.setText(uc[1]);
@@ -230,6 +230,9 @@ public class EstablecerUsuario extends JFrame {
 						Conexion c = new Conexion();
 			    		con = c.conectar();
 			    		
+			    		if(mod) {
+			    			
+			    		}
 			    		String query = "insert into Usuarios (idUsuario, usuario, contrasenia, Empleados_idEmpleado) "
 								+ "values (?, ?, ?, ?)";
 			    		
@@ -238,12 +241,13 @@ public class EstablecerUsuario extends JFrame {
 			    		pstmt.setInt(1, 21);
 			    		pstmt.setString(2, username);
 			    		pstmt.setString(3, pass1);
-			    		pstmt.setInt(4, 2000);
+			    		pstmt.setInt(4, idEmpleado);
 			    		
 			    		pstmt.executeUpdate();
 			    		
 			    		JOptionPane.showMessageDialog(null, "Success!");
 			    		setVisible(false);
+			    		Ver v = new Ver(1, idSucursal);
 			    		
 					} catch (SQLException ee) {
 				    	JOptionPane.showMessageDialog(null, ee);

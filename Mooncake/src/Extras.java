@@ -23,6 +23,9 @@ public class Extras {
 			while(rs.next()) {
 				return rs.getInt("Count(0)");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -50,6 +53,9 @@ public class Extras {
 				data[i] = rs.getString(nombre);
 				i++;
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 			return data;
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
@@ -74,6 +80,9 @@ public class Extras {
 			while(rs.next()) {
 				return rs.getInt(id);
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}

@@ -163,6 +163,9 @@ public class Empleado extends Persona{
 						fechaNac, correo, genero, estadoC, tipo, idEmpleado, turno, salario, 
 						cargo, estado, usuario, contrasenia));
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -192,6 +195,9 @@ public class Empleado extends Persona{
 				}
 				
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -217,6 +223,9 @@ public class Empleado extends Persona{
 				return rs.getInt("cargos_idcargo");
 				
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -241,6 +250,9 @@ public class Empleado extends Persona{
 				return rs.getInt("cargos_idcargo");
 				
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -266,6 +278,9 @@ public class Empleado extends Persona{
 				return rs.getInt("idempleado");
 				
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -291,6 +306,9 @@ public class Empleado extends Persona{
 				return rs.getInt("idempleado");
 				
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -322,6 +340,9 @@ public class Empleado extends Persona{
 				ids[2] = rs.getInt("idTelefono");
 				
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -346,6 +367,9 @@ public class Empleado extends Persona{
 			while(rs.next()) {
 				return rs.getString("nombreCargo");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -373,6 +397,9 @@ public class Empleado extends Persona{
 			while(rs.next()) {
 				return rs.getInt("idSucursal");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -397,6 +424,9 @@ public class Empleado extends Persona{
 			while(rs.next()) {
 				return rs.getInt("Count(0)");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -448,6 +478,9 @@ public class Empleado extends Persona{
 				j = 0;
 				i++;
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 			return data;
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
@@ -494,6 +527,9 @@ public class Empleado extends Persona{
 				data[15] = rs.getString("salario");
 				data[16] = rs.getString("turnos_idturno");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 			return data;
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
@@ -519,6 +555,9 @@ public class Empleado extends Persona{
 			while(rs.next()) {
 				return rs.getInt("Count(0)");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -571,6 +610,9 @@ public class Empleado extends Persona{
 				j = 0;
 				i++;
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 			return data;
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
@@ -598,6 +640,9 @@ public class Empleado extends Persona{
 				uc[0] = rs.getString("usuario");
 				uc[1] = rs.getString("contrasenia");
 			}
+			stmt.close();
+			rs.close();
+			con.close();
 		}catch(SQLException e) {
 			 JOptionPane.showMessageDialog(null, e);
 		}
@@ -626,6 +671,10 @@ public class Empleado extends Persona{
     		pstmt = con.prepareStatement(query);
     		pstmt.setInt(1, idEmpleado);
     		pstmt.executeUpdate();
+    		
+    		pstmt.close();
+    		
+    		con.close();
     		
     	}catch(SQLException e) {
     		JOptionPane.showMessageDialog(null, e);
