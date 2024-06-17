@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 public class Ver extends JFrame {
 
@@ -150,9 +151,9 @@ public class Ver extends JFrame {
 						JOptionPane.showMessageDialog(null, "Seleccione a un empleado.");
 				} else {
 					String ci = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
-					String nombre = tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
-					String appaterno= tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
-					String apmaterno = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
+					String appaterno= tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
+					String apmaterno = tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
+					String nombre = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
 					int idEmpleado = Empleado.idEmpleado(ci, nombre, appaterno, apmaterno);
 					EstablecerUsuario eu = new EstablecerUsuario(true, idEmpleado, idSucursal);
 					setVisible(false);
@@ -160,31 +161,24 @@ public class Ver extends JFrame {
 			}
 		});
 		
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setForeground(new Color(0, 0, 64));
-		btnEliminar.setBackground(new Color(232, 252, 255));
-		btnEliminar.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		JButton btnVerEmpleados = new JButton("Ver empleados");
+		btnVerEmpleados.setForeground(new Color(0, 0, 64));
+		btnVerEmpleados.setBackground(new Color(232, 252, 255));
+		btnVerEmpleados.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
 		
-		btnEliminar.addActionListener(new ActionListener() {
+		btnVerEmpleados.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				switch(g) {
-				case 1:
-					if(tabla.getSelectionModel().isSelectionEmpty()) {
-						JOptionPane.showMessageDialog(null, "Seleccione a un empleado.");
-					} else {
-						String ci = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
-						String nombre = tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
-						String appaterno= tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
-						String apmaterno = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
-						int idEmpleado = Empleado.idEmpleado(ci, nombre, appaterno, apmaterno);
-						Empleado.eliminar(idEmpleado);
-						JOptionPane.showMessageDialog(null, "Se ha eliminado al empleado.");
-					}
-					break;
+				if(tabla.getSelectionModel().isSelectionEmpty()) {
+					JOptionPane.showMessageDialog(null, "Seleccione a una sucursal.");
+				} else {
+					int iidSucursal = Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString());
+					VerSucursal v = new VerSucursal(Gestionables.empleados, iidSucursal);
+					setVisible(false);
 				}
+				
 			}
 		});
 		
@@ -201,37 +195,40 @@ public class Ver extends JFrame {
 		case 0:
 			panBotones.add(btnNuevo);
 			panBotones.add(btnModificar);
+			break;
 		case 1:
 			panBotones.add(btnNuevo);
 			panBotones.add(btnModificar);
 			panBotones.add(btnModUsuario);
-			String [] col1 = new String[]{"NRO", "CI", "NOMBRE", "PATERNO", "MATERNO", "FECHA NACIMIENTO", "CORREO", "GENERO",
-					"ESTADO CIVIL", "SALARIO", "CARGO"};
 			if(idSucursal > 0 ) {
+				String [] col1 = new String[]{"NRO", "CI", "PATERNO", "MATERNO", "NOMBRE", "FECHA NACIMIENTO", "CORREO", "GENERO",
+						"ESTADO CIVIL", "SALARIO", "CARGO", "ESTADO"};
 				tabla = new JTable(Empleado.getDataSucursal(idSucursal), col1);
 			} else {
+				String [] col1 = new String[]{"NRO", "CI", "PATERNO", "MATERNO", "NOMBRE", "FECHA NACIMIENTO", "CORREO", "GENERO",
+						"ESTADO CIVIL", "SALARIO", "CARGO", "ESTADO", "SUCURSAL"};
 				tabla = new JTable(Empleado.getData(), col1);
 			}
 			break;
 		case 2:
 			panBotones.add(btnModificar);
+			break;
 		case 3:
-			panBotones.add(btnNuevo);
-			panBotones.add(btnModificar);
+			panBotones.add(btnVerEmpleados);
 			String [] col2 = new String[] {"NRO", "NOMBRE", "CIUDAD", "ZONA", "CALLE", "N°", "NRO EMPLEADOS", "NRO PRODUCTOS"};
 			tabla = new JTable(Sucursal.getData(), col2);
 			break;
 		case 4:
 			panBotones.add(btnModificar);
+			break;
 		}
 		
 		tabla.setBackground(new Color(232, 252, 255));
 		tabla.setForeground(new Color(0, 0, 64));
 		tabla.setFont(new Font("Verdana", Font.PLAIN, 10));
+		tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollTabla = new JScrollPane(tabla);
 		contentPane.add(scrollTabla, BorderLayout.CENTER);
-		
-		panBotones.add(btnEliminar);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setForeground(new Color(0, 0, 64));

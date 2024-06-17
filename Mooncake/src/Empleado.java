@@ -435,7 +435,7 @@ public class Empleado extends Persona{
 	}
 	
 	public static int count() {
-		String query = "select count(0) from empleados";
+		String query = "select count(0) from empleados, estados where idestado = estados_idestado and tipoestado_idtipo <> 3";
 		Connection con =  null;
 		
 		try {
@@ -462,12 +462,14 @@ public class Empleado extends Persona{
 	}
 	
 	public static String [][] getData(){
-		String [][] data = new String[count()][11];
+		String [][] data = new String[count()][13];
 		int i = 0, j = 0;
-		String query = "select ci, nombre, appaterno, apmaterno, fechanac, correo, nombregenero, nombreestadoc, salario, nombrecargo "
-				+ "from personas, empleados, generos, estadosciviles, cargos "
+		String query = "select ci, appaterno, apmaterno, personas.nombre as nombre, fechanac, correo, nombregenero, "
+				+ "nombreestadoc, salario, nombrecargo, tipoestado.nombre as tipoNombre, nombreSucursal "
+				+ "from personas, empleados, generos, estadosciviles, cargos, estados, tipoestado, sucursales, sucursalesempleados "
 				+ "where idpersona = personas_idpersona and generos_idgenero = idgenero and estadosciviles_idestadoc = idestadoc and cargos_idcargo = idcargo "
-				+ "order by appaterno asc, apmaterno asc, nombre asc";
+				+ "and estados_idestado = idestado and tipoestado_idtipo = idtipo and idtipo <> 3 and empleados_idempleado = idempleado and sucursales_idsucursal = idsucursal "
+				+ "order by appaterno asc, apmaterno asc, personas.nombre asc";
 		Connection con =  null;
 		
 		try {
@@ -485,11 +487,11 @@ public class Empleado extends Persona{
 				j++;
 				data[i][j] = rs.getString("CI");
 				j++;
-				data[i][j] = rs.getString("Nombre");
-				j++;
 				data[i][j] = rs.getString("ApPaterno");
 				j++;
 				data[i][j] = rs.getString("ApMaterno");
+				j++;
+				data[i][j] = rs.getString("Nombre");
 				j++;
 				data[i][j] = rs.getString("FechaNac");
 				j++;
@@ -502,6 +504,10 @@ public class Empleado extends Persona{
 				data[i][j] = rs.getString("Salario");
 				j++;
 				data[i][j] = rs.getString("NombreCargo");
+				j++;
+				data[i][j] = rs.getString("TipoNombre");
+				j++;
+				data[i][j] = rs.getString("NombreSucursal");
 				j = 0;
 				i++;
 			}
@@ -565,8 +571,8 @@ public class Empleado extends Persona{
 	}
 	
 	public static int countSucursal(int idSucursal) {
-		String query = "select count(0) from empleados, sucursalesempleados "
-				+ "where empleados_idempleado = idempleado and sucursales_idsucursal = '"+idSucursal+"'";
+		String query = "select count(0) from empleados, estados, sucursalesempleados where empleados_idempleado = idempleado and "
+				+ "sucursales_idsucursal = "+idSucursal+" and  idestado = estados_idestado and tipoestado_idtipo <> 3";
 		Connection con =  null;
 		
 		try {
@@ -593,13 +599,15 @@ public class Empleado extends Persona{
 	}
 	
 	public static String [][] getDataSucursal(int idSucursal){
-		String [][] data = new String[countSucursal(idSucursal)][11];
+		String [][] data = new String[countSucursal(idSucursal)][12];
 		int i = 0, j = 0;
-		String query = "select ci, nombre, appaterno, apmaterno, fechanac, correo, nombregenero, nombreestadoc, salario, nombrecargo "
-				+ "from personas, empleados, generos, estadosciviles, cargos, sucursalesempleados "
-				+ "where idpersona = personas_idpersona and generos_idgenero = idgenero and estadosciviles_idestadoc = idestadoc "
-				+ "and cargos_idcargo = idcargo and sucursales_idsucursal = '"+idSucursal+"' and empleados_idempleado = idempleado "
-				+ "order by appaterno asc, apmaterno asc, nombre asc";
+		String query = "select ci, appaterno, apmaterno, personas.nombre as nombre, fechanac, correo, nombregenero, nombreestadoc, salario, nombrecargo, "
+				+ "tipoestado.nombre as tipoNombre "
+				+ "from personas, empleados, generos, estadosciviles, cargos, estados, tipoestado, sucursalesempleados "
+				+ "where idpersona = personas_idpersona and generos_idgenero = idgenero and estadosciviles_idestadoc = idestadoc and "
+				+ "cargos_idcargo = idcargo and estados_idestado = idestado and tipoestado_idtipo = idtipo and idtipo <> 3 and sucursales_idsucursal = "+idSucursal+" "
+				+ "and empleados_idempleado = idempleado "
+				+ "order by appaterno asc, apmaterno asc, personas.nombre asc";
 		Connection con =  null;
 		
 		try {
@@ -617,11 +625,11 @@ public class Empleado extends Persona{
 				j++;
 				data[i][j] = rs.getString("CI");
 				j++;
-				data[i][j] = rs.getString("Nombre");
-				j++;
 				data[i][j] = rs.getString("ApPaterno");
 				j++;
 				data[i][j] = rs.getString("ApMaterno");
+				j++;
+				data[i][j] = rs.getString("Nombre");
 				j++;
 				data[i][j] = rs.getString("FechaNac");
 				j++;
@@ -634,6 +642,8 @@ public class Empleado extends Persona{
 				data[i][j] = rs.getString("Salario");
 				j++;
 				data[i][j] = rs.getString("NombreCargo");
+				j++;
+				data[i][j] = rs.getString("tipoNombre");
 				j = 0;
 				i++;
 			}
@@ -675,37 +685,6 @@ public class Empleado extends Persona{
 		}
 		
 		return uc;
-	}
-	
-	public static void eliminar(int idEmpleado) {
-		Connection con =  null;
-		
-		try {
-    		Conexion c = new Conexion();
-    		con = c.conectar();
-    		
-    		String query = "delete from sucursalesempleados where empleados_idempleado = ?";
-    		PreparedStatement pstmt = con.prepareStatement(query);
-    		pstmt.setInt(1, idEmpleado);
-    		pstmt.executeUpdate();
-    		
-    		query = "delete from usuarios where empleados_idempleado= ?";
-    		pstmt = con.prepareStatement(query);
-    		pstmt.setInt(1, idEmpleado);
-    		pstmt.executeUpdate();
-    		
-    		query = "delete from empleados where idempleado = ?";
-    		pstmt = con.prepareStatement(query);
-    		pstmt.setInt(1, idEmpleado);
-    		pstmt.executeUpdate();
-    		
-    		pstmt.close();
-    		
-    		con.close();
-    		
-    	}catch(SQLException e) {
-    		JOptionPane.showMessageDialog(null, e);
-    	}
 	}
 	
 	public static int maxId() {

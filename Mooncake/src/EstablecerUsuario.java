@@ -261,7 +261,7 @@ public class EstablecerUsuario extends JFrame {
 			    		    		
 			    		JOptionPane.showMessageDialog(null, "Success!");
 			    		setVisible(false);
-			    		Ver v = new Ver(1, idSucursal);
+			    		Ver v = new Ver(Gestionables.empleados, idSucursal);
 			    		
 					} catch (SQLException ee) {
 				    	JOptionPane.showMessageDialog(null, ee);

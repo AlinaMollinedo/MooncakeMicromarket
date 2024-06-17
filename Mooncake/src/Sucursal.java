@@ -165,7 +165,9 @@ public class Sucursal{
 	}
 	
 	public static int nroEmpleados(int idSucursal) {
-		String query = "select count(empleados_idempleado) from sucursalesempleados where sucursales_idsucursal = "+idSucursal+"";
+		String query = "select count(empleados_idempleado) from sucursalesempleados, empleados, estados "
+				+ "where sucursales_idsucursal = "+idSucursal+" and idempleado = empleados_idempleado and idestado = estados_idestado "
+				+ "and tipoestado_idtipo <> 3";
 		Connection con =  null;
 		
 		try {
