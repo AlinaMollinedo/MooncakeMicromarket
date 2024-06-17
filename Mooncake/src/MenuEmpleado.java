@@ -46,7 +46,7 @@ public class MenuEmpleado extends JFrame {
 		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
 		setResizable(false);
 		
-		String cargo = Empleado.nombrePosicion(idEmpleado);
+		String cargo = Empleado.nombreCargo(idEmpleado);
 		
 		setTitle("Menu " + cargo);
 		contentPane = new JPanel();
@@ -102,12 +102,7 @@ public class MenuEmpleado extends JFrame {
 		btnPedido.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
 		btnPedido.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		int cargoo = 0;
-		try {
-			cargoo = Empleado.buscar(idEmpleado).getCargo();
-		}catch(Exception ex) {
-			 JOptionPane.showMessageDialog(null, ex);
-		}
+		int cargoo = Empleado.idCargo(idEmpleado);
 		
 		switch(cargoo) {
 		case 3:

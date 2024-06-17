@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -22,6 +23,7 @@ public class Ver extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	JTable tabla;
 
 	/**
 	 * Launch the application.
@@ -76,8 +78,6 @@ public class Ver extends JFrame {
 			panTitulo.add(lblSubtitulo);
 		}
 		
-		JTable tabla = new JTable();
-		
 		switch(g) {
 		case 1:
 			String [] col = new String[]{"NRO", "CI", "NOMBRE", "PATERNO", "MATERNO", "FECHA NACIMIENTO", "CORREO", "GENERO",
@@ -116,23 +116,98 @@ public class Ver extends JFrame {
 				// TODO Auto-generated method stub
 				switch(g) {
 				case 1:
-					NuevoEmpleado nE = new NuevoEmpleado(idSucursal);
+					NuevoEmpleado nE = new NuevoEmpleado(idSucursal, 0);
+					setVisible(false);
 					break;
 				}
 			}
 		});
 		
-		JButton btnModificar = new JButton("Modificar");
+		JButton btnModificar = new JButton("Modificar datos");
 		btnModificar.setForeground(new Color(0, 0, 64));
 		btnModificar.setBackground(new Color(232, 252, 255));
 		btnModificar.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
 		panBotones.add(btnModificar);
+		
+		btnModificar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				switch(g) {
+				case 1:
+					if(tabla.getSelectionModel().isSelectionEmpty()) {
+						JOptionPane.showMessageDialog(null, "Seleccione a un empleado.");
+					} else {
+						String ci = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
+						String nombre = tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
+						String appaterno= tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
+						String apmaterno = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
+						int idEmpleado = Empleado.idEmpleado(ci, nombre, appaterno, apmaterno);
+						NuevoEmpleado mE = new NuevoEmpleado(idSucursal, idEmpleado);
+						setVisible(false);
+					}
+					break;
+				}
+			}
+		});
+		
+		JButton btnModUsuario = new JButton("Modificar usuario");
+		btnModUsuario.setForeground(new Color(0, 0, 64));
+		btnModUsuario.setBackground(new Color(232, 252, 255));
+		btnModUsuario.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		
+		if(g == 1) {
+			panBotones.add(btnModUsuario);
+		}
+		
+		btnModUsuario.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(tabla.getSelectionModel().isSelectionEmpty()) {
+						JOptionPane.showMessageDialog(null, "Seleccione a un empleado.");
+				} else {
+					String ci = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
+					String nombre = tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
+					String appaterno= tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
+					String apmaterno = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
+					int idEmpleado = Empleado.idEmpleado(ci, nombre, appaterno, apmaterno);
+					EstablecerUsuario eu = new EstablecerUsuario(idEmpleado);
+					setVisible(false);
+				}
+			}
+		});
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.setForeground(new Color(0, 0, 64));
 		btnEliminar.setBackground(new Color(232, 252, 255));
 		btnEliminar.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
 		panBotones.add(btnEliminar);
+		
+		btnEliminar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				switch(g) {
+				case 1:
+					if(tabla.getSelectionModel().isSelectionEmpty()) {
+						JOptionPane.showMessageDialog(null, "Seleccione a un empleado.");
+					} else {
+						String ci = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
+						String nombre = tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
+						String appaterno= tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
+						String apmaterno = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
+						int idEmpleado = Empleado.idEmpleado(ci, nombre, appaterno, apmaterno);
+						Empleado.eliminar(idEmpleado);
+						JOptionPane.showMessageDialog(null, "Se ha eliminado al empleado.");
+					}
+					break;
+				}
+			}
+		});
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setForeground(new Color(0, 0, 64));

@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -197,7 +198,7 @@ public class Empleado extends Persona{
 		return false;
 	}
 	
-	public static int cargo(String user, String pass){
+	public static int idCargo(String user, String pass){
 		String query = "select cargos_idcargo from empleados, usuarios "
 				+ "where empleados_idempleado = idempleado and usuario like '"+user+"' and contrasenia like '"+pass+"'";
 		Connection con =  null;
@@ -222,7 +223,31 @@ public class Empleado extends Persona{
 		return -1;
 	}
 	
-	public static int id(String user, String pass){
+	public static int idCargo(int id){
+		String query = "select cargos_idcargo from empleados where idempleado = "+id+"";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("cargos_idcargo");
+				
+			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		return -1;
+	}
+	
+	public static int idEmpleado(String user, String pass){
 		String query = "select idempleado from empleados, usuarios "
 				+ "where empleados_idempleado = idempleado and usuario like '"+user+"' and contrasenia like '"+pass+"'";
 		Connection con =  null;
@@ -247,16 +272,63 @@ public class Empleado extends Persona{
 		return -1;
 	}
 	
-	public static Empleado buscar(int idEmpleado){
-		for(Empleado e:empleados) {
-			if(e.getIdEmpleado() == idEmpleado) {
-				return e;
+	public static int idEmpleado(String ci, String nombre, String appaterno, String apmaterno){
+		String query = "select idempleado from personas, empleados "
+				+ "where ci = "+ci+"  and nombre like '"+nombre+"' and appaterno like '"+appaterno+"' and apmaterno like '"+apmaterno+"' and idpersona = personas_idpersona";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("idempleado");
+				
 			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
 		}
-		return null;
+		return -1;
 	}
 	
-	public static String nombrePosicion(int idEmpleado){
+	public static Integer [] ids(int idEmpleado){
+		Integer [] ids = new Integer[3];
+		String query = "select idpersona, iddireccion, idtelefono "
+				+ "from personas, direcciones, direccionespersonas, telefonos, telefonospersonas, empleados "
+				+ "where idpersona = direccionespersonas.personas_idpersona and iddireccion = direccionespersonas.direcciones_iddireccion and "
+				+ "idtelefono = telefonospersonas.telefonos_id_telefono and telefonospersonas.personas_idpersona = idpersona and "
+				+ "idpersona = empleados.personas_idpersona and idempleado = "+idEmpleado+"";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				ids[0] = rs.getInt("idPersona");
+				ids[1] = rs.getInt("idDireccion");
+				ids[2] = rs.getInt("idTelefono");
+				
+			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		return ids;
+	}
+	
+	public static String nombreCargo(int idEmpleado){
 		String query = "SELECT nombreCargo FROM Cargos, Empleados "
 				+ "WHERE idCargo = Empleados.Cargos_idCargo AND Empleados.idEmpleado = '"+idEmpleado+"'";
 		Connection con =  null;
@@ -383,6 +455,52 @@ public class Empleado extends Persona{
 		return data;
 	}
 	
+	public static String [] getData(int id){
+		String [] data = new String[17];
+		String query = "select personas.ci, personas.nombre, personas.appaterno, personas.apmaterno, generos_idgenero, estadosciviles_idestadoc, personas.fechanac, telefono, personas.correo, "
+				+ "ciudades.idciudad, zonas.idzona, calle, nro, empleados.cargos_idcargo, estados.tipoestado_idtipo, empleados.salario, empleados.turnos_idturno "
+				+ "from personas, empleados, direcciones, direccionespersonas, ciudades, zonas, telefonos, telefonospersonas, estados "
+				+ "where idpersona = empleados.personas_idpersona and direccionespersonas.personas_idpersona = personas.idpersona and direccionespersonas.direcciones_iddireccion = direcciones.iddireccion and direcciones.ciudades_idciudad = ciudades.idciudad "
+				+ "and direcciones.zonas_idzona = zonas.idzona and telefonospersonas.telefonos_id_telefono = telefonos.idtelefono and telefonospersonas.personas_idpersona = personas.idpersona and "
+				+ "empleados.estados_idestado = estados.idestado and empleados.idempleado = "+id+"";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				data[0] = rs.getString("CI");
+				data[1] = rs.getString("Nombre");
+				data[2] = rs.getString("ApPaterno");
+				data[3] = rs.getString("ApMaterno");
+				data[4] = rs.getString("generos_idgenero");
+				data[5] = rs.getString("estadosciviles_idestadoc");
+				data[6] = rs.getString("fechaNac");
+				data[7] = rs.getString("telefono");
+				data[8] = rs.getString("correo");
+				data[9] = rs.getString("idciudad");
+				data[10] = rs.getString("idzona");
+				data[11] = rs.getString("calle");
+				data[12] = rs.getString("nro");
+				data[13] = rs.getString("cargos_idcargo");
+				data[14] = rs.getString("tipoestado_idtipo");
+				data[15] = rs.getString("salario");
+				data[16] = rs.getString("turnos_idturno");
+			}
+			return data;
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		return data;
+	}
+	
 	public static int countSucursal(int idSucursal) {
 		String query = "select count(0) from empleados, sucursalesempleados "
 				+ "where empleados_idempleado = idempleado and sucursales_idsucursal = '"+idSucursal+"'";
@@ -460,7 +578,48 @@ public class Empleado extends Persona{
 		return data;
 	}
 	
-	public void modificar(Empleado e) {
+	public static String [] usuario(int idEmpleado) {
+		String [] uc = new String[2]; 
+		String query = "select usuario, contrasenia from empleados, usuarios "
+				+ "where empleados_idempleado = idempleado and idempleado = "+idEmpleado+"";
+		Connection con =  null;
 		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				uc[0] = rs.getString("usuario");
+				uc[1] = rs.getString("contrasenia");
+			}
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		
+		return uc;
+	}
+	
+	public static void eliminar(int idEmpleado) {
+		String query = "delete from empleados where idempleado = ?";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    		
+    		PreparedStatement pstmt = con.prepareStatement(query);
+    		
+    		pstmt.setInt(1, idEmpleado);
+    		
+    		pstmt.executeUpdate();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
 	}
 }

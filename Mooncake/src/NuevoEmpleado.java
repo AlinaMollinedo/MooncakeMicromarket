@@ -39,6 +39,8 @@ public class NuevoEmpleado extends JFrame {
 	private JTextField txtTel;
 	private JTextField txtCorreo;
 	private JTextField txtSalario;
+	private JTextField txtCalle;
+	private JTextField txtNro;
 
 	/**
 	 * Launch the application.
@@ -60,11 +62,16 @@ public class NuevoEmpleado extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NuevoEmpleado(int idSucursal) {
+	public NuevoEmpleado(int idSucursal, int idEmpleado) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
-		setResizable(false);
-		setTitle("Nuevo empleado");
+		setResizable(true);
+		if(idEmpleado > 0) {
+			setTitle("Modificar empleado");
+		} else {
+			setTitle("Nuevo empleado");
+		}
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -76,13 +83,19 @@ public class NuevoEmpleado extends JFrame {
 		panTitulo.setBackground(new Color(254, 240, 226));
 		panTitulo.setBorder(new EmptyBorder(20, 0, 5, 0));
 		contentPane.add(panTitulo, BorderLayout.NORTH);
-		panTitulo.setLayout(new GridLayout(2, 1, 0, 0));
+		panTitulo.setLayout(new GridLayout(1, 1, 0, 0));
 		
-		JLabel lblTitulo = new JLabel("Nuevo empleado");
+		JLabel lblTitulo = new JLabel();
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setForeground(new Color(0, 0, 64));
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
+		
+		if(idEmpleado > 0) {
+			lblTitulo.setText("Modificar empleado");
+		} else {
+			lblTitulo.setText("Nuevo empleado");
+		}
 		
 		JPanel panFormulario = new JPanel();
 		panFormulario.setForeground(new Color(254, 240, 226));
@@ -187,7 +200,7 @@ public class NuevoEmpleado extends JFrame {
 		lblGenero.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
 		panGenero.add(lblGenero);
 		
-		JComboBox<String> comboGeneros = new JComboBox<String>(Extras.generosNombres());
+		JComboBox<String> comboGeneros = new JComboBox<String>(Extras.nombres("nombreGenero", "generos", "idgenero"));
 		comboGeneros.setBackground(new Color(232, 252, 255));
 		comboGeneros.setFont(new Font("Verdana", Font.PLAIN, 9));
 		panGenero.add(comboGeneros);
@@ -200,7 +213,7 @@ public class NuevoEmpleado extends JFrame {
 		lblEstadoC.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
 		panEstadoC.add(lblEstadoC);
 		
-		JComboBox<String> comboEstadosC = new JComboBox<String>(Extras.estadosCivilesNombres());
+		JComboBox<String> comboEstadosC = new JComboBox<String>(Extras.nombres("nombreEstadoC", "estadosCiviles", "idestadoc"));
 		comboEstadosC.setBackground(new Color(232, 252, 255));
 		comboEstadosC.setFont(new Font("Verdana", Font.PLAIN, 9));
 		panEstadoC.add(comboEstadosC);
@@ -289,7 +302,7 @@ public class NuevoEmpleado extends JFrame {
 		pan3.add(txtTel);
 		txtTel.setColumns(9);
 		
-		JLabel lblCorreo = new JLabel("Correo electrónico:");
+		JLabel lblCorreo = new JLabel("Correo:");
 		lblCorreo.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
 		pan3.add(lblCorreo);
 		
@@ -298,15 +311,68 @@ public class NuevoEmpleado extends JFrame {
 		pan3.add(txtCorreo);
 		txtCorreo.setColumns(20);
 		
-		JLabel lblDir = new JLabel("Dirección:");
-		lblDir.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
-		pan3.add(lblDir);
+		JPanel panDir = new JPanel();
+		panDir.setBackground(new Color(254, 240, 226));
+		pan3.add(panDir);
+		panDir.setLayout(new GridLayout(2, 2, 5, 5));
 		
-		JTextArea txaDir = new JTextArea();
-		txaDir.setFont(new Font("Verdana", Font.PLAIN, 10));
-		txaDir.setRows(2);
-		txaDir.setColumns(22);
-		pan3.add(txaDir);
+		JPanel pan11 = new JPanel();
+		pan11.setBackground(new Color(254, 240, 226));
+		FlowLayout flowLayout_4 = (FlowLayout) pan11.getLayout();
+		flowLayout_4.setAlignment(FlowLayout.LEFT);
+		panDir.add(pan11);
+		
+		JLabel lblCiudad = new JLabel("Ciudad:");
+		lblCiudad.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		pan11.add(lblCiudad);
+		
+		JComboBox<String> comboCiudades = new JComboBox<String>(Extras.nombres("nombre", "ciudades", "idciudad"));
+		comboCiudades.setBackground(new Color(232, 252, 255));
+		comboCiudades.setFont(new Font("Verdana", Font.PLAIN, 9));
+		pan11.add(comboCiudades);
+		
+		JPanel pan12 = new JPanel();
+		pan12.setBackground(new Color(254, 240, 226));
+		FlowLayout flowLayout_5 = (FlowLayout) pan12.getLayout();
+		flowLayout_5.setAlignment(FlowLayout.LEFT);
+		panDir.add(pan12);
+		
+		JLabel lblZona = new JLabel("Zona:");
+		lblZona.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		pan12.add(lblZona);
+		
+		JComboBox<String> comboZonas = new JComboBox<String>(Extras.nombres("nombreZona", "zonas", "idzona"));
+		comboZonas.setBackground(new Color(232, 252, 255));
+		comboZonas.setFont(new Font("Verdana", Font.PLAIN, 9));
+		pan12.add(comboZonas);
+		
+		JPanel pan21 = new JPanel();
+		pan21.setBackground(new Color(254, 240, 226));
+		FlowLayout flowLayout_6 = (FlowLayout) pan21.getLayout();
+		flowLayout_6.setAlignment(FlowLayout.LEFT);
+		panDir.add(pan21);
+		
+		JLabel lblCalle = new JLabel("Calle:");
+		lblCalle.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		pan21.add(lblCalle);
+		
+		txtCalle = new JTextField();
+		pan21.add(txtCalle);
+		txtCalle.setColumns(10);
+		
+		JPanel pan22 = new JPanel();
+		pan22.setBackground(new Color(254, 240, 226));
+		FlowLayout flowLayout_7 = (FlowLayout) pan22.getLayout();
+		flowLayout_7.setAlignment(FlowLayout.LEFT);
+		panDir.add(pan22);
+		
+		JLabel lblNro = new JLabel("Número:");
+		lblNro.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		pan22.add(lblNro);
+		
+		txtNro = new JTextField();
+		pan22.add(txtNro);
+		txtNro.setColumns(4);
 		
 		JPanel pan4 = new JPanel();
 		FlowLayout flowLayout_3 = (FlowLayout) pan4.getLayout();
@@ -327,7 +393,7 @@ public class NuevoEmpleado extends JFrame {
 		lblCargo.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
 		pan4.add(lblCargo);
 		
-		JComboBox<String> comboCargo = new JComboBox<String>(Extras.cargosNombres());
+		JComboBox<String> comboCargo = new JComboBox<String>(Extras.nombres("nombreCargo", "cargos", "idcargo"));
 		comboCargo.setBackground(new Color(232, 252, 255));
 		comboCargo.setFont(new Font("Verdana", Font.PLAIN, 9));
 		pan4.add(comboCargo);
@@ -336,7 +402,7 @@ public class NuevoEmpleado extends JFrame {
 		lblEstado.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
 		pan4.add(lblEstado);
 		
-		JComboBox<String> comboEstado = new JComboBox<String>(Extras.estadosNombres());
+		JComboBox<String> comboEstado = new JComboBox<String>(Extras.nombres("nombre", "tipoestado", "idtipo"));
 		comboEstado.setBackground(new Color(232, 252, 255));
 		comboEstado.setFont(new Font("Verdana", Font.PLAIN, 9));
 		pan4.add(comboEstado);
@@ -354,10 +420,48 @@ public class NuevoEmpleado extends JFrame {
 		lblTurno.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
 		pan4.add(lblTurno);
 		
-		JComboBox<String> comboTurno = new JComboBox<String>(Extras.turnosNombres());
+		JComboBox<String> comboTurno = new JComboBox<String>(Extras.nombres("nombreTurno", "turnos", "idturno"));
 		comboTurno.setFont(new Font("Verdana", Font.PLAIN, 9));
 		comboTurno.setBackground(new Color(232, 252, 255));
 		pan4.add(comboTurno);
+		
+		if(idEmpleado > 0) {
+			String [] eData = Empleado.getData(idEmpleado);
+			txtCi.setText(eData[0]);
+			txtNombre.setText(eData[1]);
+			txtPaterno.setText(eData[2]);
+			txtMaterno.setText(eData[3]);
+			comboGeneros.setSelectedIndex(Integer.parseInt(eData[4]) - 1);
+			comboEstadosC.setSelectedIndex(Integer.parseInt(eData[5]) - 1);
+			
+			String fNac = eData[6];
+			String [] fechaNac = fNac.split("-");
+			String [] dia = fechaNac[2].split(" ");
+			txtDia.setText(dia[0]);
+			txtMes.setText(fechaNac[1]);
+			txtAnio.setText(fechaNac[0]);
+			
+			txtTel.setText(eData[7]);
+			txtCorreo.setText(eData[8]);
+			comboCiudades.setSelectedIndex(Integer.parseInt(eData[9]) - 1);
+			comboZonas.setSelectedIndex(Integer.parseInt(eData[10]) - 1);
+			txtCalle.setText(eData[11]);
+			txtNro.setText(eData[12]);
+			comboSucursal.setSelectedIndex(Empleado.sucursal(idEmpleado) - 1);
+			comboCargo.setSelectedIndex(Integer.parseInt(eData[13]) - 1);
+			comboEstado.setSelectedIndex(Integer.parseInt(eData[14]) - 1);
+			txtSalario.setText(eData[15]);
+			comboTurno.setSelectedIndex(Integer.parseInt(eData[16]) - 1);
+			
+			if(idSucursal > 0) {
+				comboSucursal.setEnabled(false);
+			}
+		}
+		
+		if(idSucursal > 0 && idEmpleado == 0) {
+			comboSucursal.setSelectedIndex(idSucursal - 1);
+			comboSucursal.setEnabled(false);
+		}
 		
 		JPanel panBotones = new JPanel();
 		panBotones.setBackground(new Color(254, 240, 226));
@@ -380,9 +484,8 @@ public class NuevoEmpleado extends JFrame {
 				Connection con =  null;
 				
 				try {
-					ValueChecker.checkInt(txtCi.getText());
 					/*
-					
+					ValueChecker.checkInt(txtCi.getText());
 					ValueChecker.checkString(txtNombre.getText());
 					ValueChecker.checkString(txtPaterno.getText());
 					ValueChecker.checkString(txtMaterno.getText());
@@ -398,56 +501,187 @@ public class NuevoEmpleado extends JFrame {
 					String nombres = txtNombre.getText();
 					String paterno = txtPaterno.getText();
 					String materno = txtMaterno.getText();
-					int genero = Extras.generosId(comboGeneros.getSelectedItem().toString());
-					int estadoc = Extras.estadosCivilesId(comboEstadosC.getSelectedItem().toString());
+					int genero = Extras.id(comboGeneros.getSelectedItem().toString(), "idGenero", "nombreGenero", "generos");
+					int estadoc = Extras.id(comboEstadosC.getSelectedItem().toString(), "idEstadoC", "nombreEstadoC", "estadosCiviles");
 					int dia = Integer.parseInt(txtDia.getText());
 					int mes = Integer.parseInt(txtMes.getText());
 					int anio = Integer.parseInt(txtAnio.getText());
 					LocalDate fechaNac = LocalDate.of(anio, mes, dia);
-					String tel = txtTel.getText();
+					int tel = Integer.parseInt(txtTel.getText());
 					String correo = txtCorreo.getText();
-					String dir = txaDir.getText();
+					int ciudad = Extras.id(comboCiudades.getSelectedItem().toString(), "idCiudad", "nombre", "ciudades");
+					int zona = Extras.id(comboZonas.getSelectedItem().toString(), "idZona", "nombreZona", "zonas");
+					String calle = txtCalle.getText();
+					int nro = Integer.parseInt(txtNro.getText());
 					int sucursal = Sucursal.id(comboSucursal.getSelectedItem().toString());
-					int cargo = Extras.cargosId(comboCargo.getSelectedItem().toString());
-					int estado = Extras.estadosId(comboEstado.getSelectedItem().toString());
+					int cargo = Extras.id(comboCargo.getSelectedItem().toString(), "idCargo", "nombreCargo", "cargos");
+					int estado = Extras.id(comboEstado.getSelectedItem().toString(), "idTipo", "nombre", "tipoEstado");
 					int salario = Integer.parseInt(txtSalario.getText()); 
-					int turno = Extras.turnoId(comboTurno.getSelectedItem().toString());
+					int turno = Extras.id(comboTurno.getSelectedItem().toString(), "idTurno", "nombreTurno", "turnos");
 					
 					Conexion c = new Conexion();
 		    		con = c.conectar();
 					
-		    		String query = "insert into personas "
-		    				+ "(idPersona, CI, nombre, apPaterno, apMaterno, fechaNac, correo, Generos_idGenero, EstadosCiviles_idEstadoC, TiposPersonas_idTipoPersona) "
-		    				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		    		if(idEmpleado > 0) {
+		    			Integer [] ids = Empleado.ids(idEmpleado);
+		    			
+		    			String query = "update personas set idPersona = ?, CI = ?, nombre = ?, apPaterno = ?, apMaterno = ?, "
+		    					+ "fechaNac = ?, correo = ?, Generos_idGenero = ?, EstadosCiviles_idEstadoC = ?, "
+		    					+ "TiposPersonas_idTipoPersona = ? where idpersona = ?";
+			    		
+			    		PreparedStatement pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, ids[0]);
+			    		pstmt.setInt(2, ci);
+			    		pstmt.setString(3, nombres);
+			    		pstmt.setString(4, paterno);
+			    		pstmt.setString(5, materno);
+			    		pstmt.setDate(6, Date.valueOf(fechaNac));
+			    		pstmt.setString(7, correo);
+			    		pstmt.setInt(8, genero);
+			    		pstmt.setInt(9, estadoc);
+			    		pstmt.setInt(10, 2);
+			    		pstmt.setInt(10, ids[0]);
+			    		
+			    		pstmt.executeUpdate();
+			    		
+			    		query = "update empleados set idEmpleado = ?, salario = ?, Personas_idPersona = ?, Estados_idEstado = ?, "
+			    				+ "Cargos_idCargo = ?, Turnos_idTurno =? where idEmpleado = ?";
+			    		
+			    		pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, idEmpleado);
+			    		pstmt.setInt(2, salario);
+			    		pstmt.setInt(3, ids[0]);
+			    		pstmt.setInt(4, estado);
+			    		pstmt.setInt(5, cargo);
+			    		pstmt.setInt(6, turno);
+			    		pstmt.setInt(7, idEmpleado);
+			    		
+			    		pstmt.executeUpdate();
+			    		
+			    		query = "update Direcciones set idDireccion = ?, calle = ?, nro = ?, Ciudades_idCiudad = ?, "
+			    				+ "Zonas_idZona = ? where idDireccion = ?";
+			    		
+			    		pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, 2000);
+			    		pstmt.setString(2, calle);
+			    		pstmt.setInt(3, nro);
+			    		pstmt.setInt(4, ciudad);
+			    		pstmt.setInt(5, zona);
+			    		pstmt.setInt(6, ids[1]);
+			    		
+			    		pstmt.executeUpdate();
+			    		
+			    		query = "update Telefonos set idTelefono = ?, telefono = ? where idTelefono = ?";
+			    		
+			    		pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, ids[2]);
+			    		pstmt.setInt(2, tel);
+			    		pstmt.setInt(3, ids[2]);
+			    		
+			    		pstmt.executeUpdate();
+			    		
+			    		query = "update SucursalesEmpleados set Empleados_idEmpleado = ?, Sucursales_idSucursal = ? "
+			    				+ "where Empleados_idEmpleado = ?";
+			    		
+			    		pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, idEmpleado);
+			    		pstmt.setInt(2, sucursal);
+			    		pstmt.setInt(3, idEmpleado);
+			    		
+			    		pstmt.executeUpdate();
+		    		} else {
+		    			String query = "insert into personas "
+			    				+ "(idPersona, CI, nombre, apPaterno, apMaterno, fechaNac, correo, Generos_idGenero, EstadosCiviles_idEstadoC, TiposPersonas_idTipoPersona) "
+			    				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			    		
+			    		PreparedStatement pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, 2000);
+			    		pstmt.setInt(2, ci);
+			    		pstmt.setString(3, nombres);
+			    		pstmt.setString(4, paterno);
+			    		pstmt.setString(5, materno);
+			    		pstmt.setDate(6, Date.valueOf(fechaNac));
+			    		pstmt.setString(7, correo);
+			    		pstmt.setInt(8, genero);
+			    		pstmt.setInt(9, estadoc);
+			    		pstmt.setInt(10, 2);
+			    		
+			    		pstmt.executeUpdate();
+			    		
+			    		query = "insert into empleados (idEmpleado, salario, Personas_idPersona, Estados_idEstado, Cargos_idCargo, Turnos_idTurno) "
+			    				+ "values (?, ?, ?, ?, ?, ?)";
+			    		
+			    		pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, 21);
+			    		pstmt.setInt(2, salario);
+			    		pstmt.setInt(3, 2000);
+			    		pstmt.setInt(4, estado);
+			    		pstmt.setInt(5, cargo);
+			    		pstmt.setInt(6, turno);
+			    		
+			    		pstmt.executeUpdate();
+			    		
+			    		query = "insert into Direcciones (idDireccion, calle, nro, Ciudades_idCiudad, Zonas_idZona)"
+			    				+ "values (?, ?, ?, ?, ?)";
+			    		
+			    		pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, 2000);
+			    		pstmt.setString(2, calle);
+			    		pstmt.setInt(3, nro);
+			    		pstmt.setInt(4, ciudad);
+			    		pstmt.setInt(5, zona);
+			    		
+			    		pstmt.executeUpdate();
+			    		
+			    		query = "insert into DireccionesPersonas (Direcciones_idDireccion, Personas_idPersona) "
+			    				+ "values (?, ?)";
+			    		
+			    		pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, 2000);
+			    		pstmt.setInt(2, 2000);
+			    		
+			    		pstmt.executeUpdate();
+			    		
+			    		query = "insert into Telefonos (idTelefono, telefono) values (?, ?)";
+			    		
+			    		pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, 2000);
+			    		pstmt.setInt(2, tel);
+			    		
+			    		pstmt.executeUpdate();
+			    		
+			    		query = "insert into TelefonosPersonas (Personas_idPersona, Telefonos_id_telefono) "
+			    				+ "values (?, ?)";
+			    		
+			    		pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, 2000);
+			    		pstmt.setInt(2, 2000);
+			    		
+			    		pstmt.executeUpdate();
+			    		
+			    		query = "insert into SucursalesEmpleados (Empleados_idEmpleado, Sucursales_idSucursal)"
+			    				+ " values (?, ?)";
+			    		
+			    		pstmt = con.prepareStatement(query);
+			    		
+			    		pstmt.setInt(1, 2000);
+			    		pstmt.setInt(2, sucursal);
+			    		
+			    		pstmt.executeUpdate();
+		    		}
 		    		
-		    		PreparedStatement pstmt = con.prepareStatement(query);
 		    		
-		    		pstmt.setInt(1, 2000);
-		    		pstmt.setInt(2, ci);
-		    		pstmt.setString(3, nombres);
-		    		pstmt.setString(4, paterno);
-		    		pstmt.setString(5, materno);
-		    		pstmt.setDate(6, Date.valueOf(fechaNac));
-		    		pstmt.setString(7, correo);
-		    		pstmt.setInt(8, genero);
-		    		pstmt.setInt(9, estadoc);
-		    		pstmt.setInt(10, 2);
-		    		
-		    		pstmt.executeUpdate();
-		    		
-		    		query = "insert into empleados (idEmpleado, salario, Personas_idPersona, Estados_idEstado, Cargos_idCargo, Turnos_idTurno) "
-		    				+ "values (?, ?, ?, ?, ?, ?)";
-		    		
-		    		pstmt = con.prepareStatement(query);
-		    		
-		    		pstmt.setInt(1, 21);
-		    		pstmt.setInt(2, salario);
-		    		pstmt.setInt(3, 2000);
-		    		pstmt.setInt(4, estado);
-		    		pstmt.setInt(5, cargo);
-		    		pstmt.setInt(6, turno);
-		    		
-		    		pstmt.executeUpdate();		    		
 		    		
 					txtCi.setText("");
 					txtNombre.setText("");
@@ -460,18 +694,25 @@ public class NuevoEmpleado extends JFrame {
 					txtAnio.setText("");
 					txtTel.setText("");
 					txtCorreo.setText("");
-					txaDir.setText("");
+					comboCiudades.setSelectedIndex(0);
+					comboZonas.setSelectedIndex(0);
+					txtCalle.setText("");
+					txtNro.setText("");
 					comboSucursal.setSelectedIndex(0);
 					comboCargo.setSelectedIndex(0);
 					comboEstado.setSelectedIndex(0);
 					txtSalario.setText("");
 					comboTurno.setSelectedIndex(0);
 					
+					JOptionPane.showMessageDialog(null, "Success!");
+					
+					EstablecerUsuario eu = new EstablecerUsuario(0);
+					setVisible(false);
+					Ver v = new Ver(1, idSucursal);
+					
 			    } catch (SQLException ee) {
 			    	JOptionPane.showMessageDialog(null, ee);
-			    } catch (NotIntegerException ee) {
-			    	JOptionPane.showMessageDialog(null, ee);
-			    }
+			    } 
 				
 				
 			}
@@ -489,6 +730,7 @@ public class NuevoEmpleado extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);
+				Ver v = new Ver(1, idSucursal);
 			}
 		});
 		

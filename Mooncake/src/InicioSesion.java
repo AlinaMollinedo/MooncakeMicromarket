@@ -181,9 +181,9 @@ public class InicioSesion extends JFrame {
 				Boolean esEmpl = Empleado.isEmpleado(user, pass);
 				
 				if(esEmpl) {
-					int idEmpleado = Empleado.id(user, pass);
+					int idEmpleado = Empleado.idEmpleado(user, pass);
 					int idSucursal = Empleado.sucursal(idEmpleado);
-					switch(Empleado.cargo(user, pass)) {
+					switch(Empleado.idCargo(user, pass)) {
 					case 1:
 						MenuAdmin mA = new MenuAdmin(); 
 						setVisible(false);
