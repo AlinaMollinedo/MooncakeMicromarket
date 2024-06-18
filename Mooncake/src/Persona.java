@@ -131,12 +131,7 @@ public abstract class Persona {
 				+ ", paterno=" + paterno + ", materno=" + materno + ", fechaNac=" + fechaNac + ", correo=" + correo
 				+ ", genero=" + genero + ", estadoCivil=" + estadoCivil + ", tipo=" + tipo + "]";
 	}
-
-	public abstract void nuevo();
 	
-	public abstract void modificar();
-	
-	//public abstract ArrayList<?> leer() throws Exception;
 		
 	public static int maxId() {
 		String query = "select max(idPersona) from personas";

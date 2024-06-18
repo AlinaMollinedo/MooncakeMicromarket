@@ -48,7 +48,7 @@ public class Ver extends JFrame {
 	 */
 	public Ver(int g, int idSucursal) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.width, Dimensiones.height);
+		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.widthTabla, Dimensiones.heightTabla);
 		setResizable(true);
 		setTitle(Gestionables.nombres[g].toUpperCase());
 		contentPane = new JPanel();
@@ -116,11 +116,24 @@ public class Ver extends JFrame {
 						JOptionPane.showMessageDialog(null, "Seleccione a un empleado.");
 					} else {
 						String ci = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
-						String nombre = tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
-						String appaterno= tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
-						String apmaterno = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
+						String appaterno= tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
+						String apmaterno = tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
+						String nombre = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
 						int idEmpleado = Empleado.idEmpleado(ci, nombre, appaterno, apmaterno);
 						NuevoEmpleado mE = new NuevoEmpleado(idSucursal, idEmpleado);
+						setVisible(false);
+					}
+					break;
+				case 2:
+					if(tabla.getSelectionModel().isSelectionEmpty()) {
+						JOptionPane.showMessageDialog(null, "Seleccione a un cliente.");
+					} else {
+						String ci = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
+						String appaterno= tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
+						String apmaterno = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
+						String nombre = tabla.getValueAt(tabla.getSelectedRow(), 5).toString();
+						int idCliente = Cliente.id(ci, nombre, appaterno, apmaterno);
+						ModificarCliente mC = new ModificarCliente(idSucursal, idCliente);
 						setVisible(false);
 					}
 					break;
@@ -212,11 +225,14 @@ public class Ver extends JFrame {
 			break;
 		case 2:
 			panBotones.add(btnModificar);
+			String [] col2 = new String[]{"NRO", "CI", "PUNTOS", "PATERNO", "MATERNO", "NOMBRE", "FECHA NACIMIENTO", "CORREO", "GENERO",
+					"ESTADO CIVIL"};
+			tabla = new JTable(Cliente.getData(), col2);
 			break;
 		case 3:
 			panBotones.add(btnVerEmpleados);
-			String [] col2 = new String[] {"NRO", "NOMBRE", "CIUDAD", "ZONA", "CALLE", "N°", "NRO EMPLEADOS", "NRO PRODUCTOS"};
-			tabla = new JTable(Sucursal.getData(), col2);
+			String [] col3= new String[] {"NRO", "NOMBRE", "CIUDAD", "ZONA", "CALLE", "N°", "NRO EMPLEADOS", "NRO PRODUCTOS"};
+			tabla = new JTable(Sucursal.getData(), col3);
 			break;
 		case 4:
 			panBotones.add(btnModificar);

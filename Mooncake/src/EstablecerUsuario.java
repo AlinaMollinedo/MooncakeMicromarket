@@ -275,6 +275,25 @@ public class EstablecerUsuario extends JFrame {
 			}
 		});
 		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setForeground(new Color(0, 0, 64));
+		btnVolver.setBackground(new Color(232, 252, 255));
+		btnVolver.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+
+		btnVolver.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Ver v = new Ver(Gestionables.empleados, idSucursal);
+				setVisible(false);
+			}
+		});
+		
+		if(mod) {
+			panBotones.add(btnVolver);
+		}
+		
 		setVisible(true);
 	}
 

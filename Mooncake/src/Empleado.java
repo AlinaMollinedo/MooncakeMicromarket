@@ -343,8 +343,8 @@ public class Empleado extends Persona{
 	}
 	
 	public static Integer [] ids(int idEmpleado){
-		Integer [] ids = new Integer[3];
-		String query = "select idpersona, iddireccion, idtelefono "
+		Integer [] ids = new Integer[4];
+		String query = "select idpersona, estados_idestado, iddireccion, idtelefono "
 				+ "from personas, direcciones, direccionespersonas, telefonos, telefonospersonas, empleados "
 				+ "where idpersona = direccionespersonas.personas_idpersona and iddireccion = direccionespersonas.direcciones_iddireccion and "
 				+ "idtelefono = telefonospersonas.telefonos_id_telefono and telefonospersonas.personas_idpersona = idpersona and "
@@ -363,8 +363,9 @@ public class Empleado extends Persona{
 			
 			while(rs.next()) {
 				ids[0] = rs.getInt("idPersona");
-				ids[1] = rs.getInt("idDireccion");
-				ids[2] = rs.getInt("idTelefono");
+				ids[1] = rs.getInt("estados_idEstado");
+				ids[2] = rs.getInt("idDireccion");
+				ids[3] = rs.getInt("idTelefono");
 				
 			}
 			stmt.close();
@@ -435,7 +436,7 @@ public class Empleado extends Persona{
 	}
 	
 	public static int count() {
-		String query = "select count(0) from empleados, estados where idestado = estados_idestado and tipoestado_idtipo <> 3";
+		String query = "select count(0) from empleados, estados where idestado = estados_idestado and tipoestado_idtipo <> 3 and tipoestado_idtipo <> 2";
 		Connection con =  null;
 		
 		try {
@@ -468,7 +469,8 @@ public class Empleado extends Persona{
 				+ "nombreestadoc, salario, nombrecargo, tipoestado.nombre as tipoNombre, nombreSucursal "
 				+ "from personas, empleados, generos, estadosciviles, cargos, estados, tipoestado, sucursales, sucursalesempleados "
 				+ "where idpersona = personas_idpersona and generos_idgenero = idgenero and estadosciviles_idestadoc = idestadoc and cargos_idcargo = idcargo "
-				+ "and estados_idestado = idestado and tipoestado_idtipo = idtipo and idtipo <> 3 and empleados_idempleado = idempleado and sucursales_idsucursal = idsucursal "
+				+ "and estados_idestado = idestado and tipoestado_idtipo = idtipo and idtipo <> 3 and tipoestado_idtipo <> 2 "
+				+ "and empleados_idempleado = idempleado and sucursales_idsucursal = idsucursal "
 				+ "order by appaterno asc, apmaterno asc, personas.nombre asc";
 		Connection con =  null;
 		
@@ -572,7 +574,7 @@ public class Empleado extends Persona{
 	
 	public static int countSucursal(int idSucursal) {
 		String query = "select count(0) from empleados, estados, sucursalesempleados where empleados_idempleado = idempleado and "
-				+ "sucursales_idsucursal = "+idSucursal+" and  idestado = estados_idestado and tipoestado_idtipo <> 3";
+				+ "sucursales_idsucursal = "+idSucursal+" and  idestado = estados_idestado and tipoestado_idtipo <> 3 and tipoestado_idtipo <> 2";
 		Connection con =  null;
 		
 		try {
@@ -605,8 +607,8 @@ public class Empleado extends Persona{
 				+ "tipoestado.nombre as tipoNombre "
 				+ "from personas, empleados, generos, estadosciviles, cargos, estados, tipoestado, sucursalesempleados "
 				+ "where idpersona = personas_idpersona and generos_idgenero = idgenero and estadosciviles_idestadoc = idestadoc and "
-				+ "cargos_idcargo = idcargo and estados_idestado = idestado and tipoestado_idtipo = idtipo and idtipo <> 3 and sucursales_idsucursal = "+idSucursal+" "
-				+ "and empleados_idempleado = idempleado "
+				+ "cargos_idcargo = idcargo and estados_idestado = idestado and tipoestado_idtipo = idtipo and idtipo <> 3 and tipoestado_idtipo <> 2"
+				+ "and sucursales_idsucursal = "+idSucursal+" and empleados_idempleado = idempleado "
 				+ "order by appaterno asc, apmaterno asc, personas.nombre asc";
 		Connection con =  null;
 		
