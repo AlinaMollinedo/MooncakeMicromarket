@@ -47,40 +47,24 @@ public class Menu extends JFrame {
 		contentPane.setBackground(new Color(254, 240, 226));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBackground(new Color(254, 240, 226));
-		layeredPane.setBounds(0, 0, 722, 377);
-		contentPane.add(layeredPane);
-		
-		JLabel background = new JLabel("");
-		background.setForeground(new Color(254, 240, 226));
-		layeredPane.setLayer(background, 0);
-		background.setOpaque(true);
-		background.setHorizontalAlignment(SwingConstants.CENTER);
-		Image img = new ImageIcon(this.getClass().getResource("/bg.jpeg")).getImage();
-		layeredPane.setLayout(new BorderLayout(0, 0));
-		background.setIcon(new ImageIcon(img));
-		layeredPane.add(background);
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panTitulo = new JPanel();
 		panTitulo.setForeground(new Color(254, 240, 226));
 		panTitulo.setBackground(new Color(254, 240, 226));
-		layeredPane.setLayer(panTitulo, 1);
 		panTitulo.setBorder(new EmptyBorder(50, 0, 50, 0));
+		contentPane.add(panTitulo, BorderLayout.NORTH);
 		
 		JLabel lblTitulo = new JLabel("Menú Principal");
 		lblTitulo.setForeground(new Color(0, 0, 64));
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
-		layeredPane.add(panTitulo, BorderLayout.NORTH);
 		
 		JPanel panBotones = new JPanel();
 		panBotones.setBackground(new Color(254, 240, 226));
 		panBotones.setBorder(new EmptyBorder(0, 250, 50, 250));
-		layeredPane.add(panBotones, BorderLayout.CENTER);
 		panBotones.setLayout(new GridLayout(2, 1, 30, 30));
+		contentPane.add(panBotones, BorderLayout.CENTER);
 		
 		JButton btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.setForeground(new Color(0, 0, 64));
@@ -120,7 +104,7 @@ public class Menu extends JFrame {
 		FlowLayout flowLayout = (FlowLayout) panCute.getLayout();
 		panCute.setBorder(new EmptyBorder(0, 0, 10, 15));
 		flowLayout.setAlignment(FlowLayout.RIGHT);
-		layeredPane.add(panCute, BorderLayout.SOUTH);
+		contentPane.add(panCute, BorderLayout.SOUTH);
 		
 		JLabel lblNewLabel = new JLabel("By Rack y Ali <3");
 		lblNewLabel.setFont(new Font("UD Digi Kyokasho NP-R", Font.PLAIN, 17));

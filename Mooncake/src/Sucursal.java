@@ -193,7 +193,7 @@ public class Sucursal{
 	}
 	
 	public static int nroProductos(int idSucursal) {
-		String query = "select count(idproducto) from sucursalesproductos where sucursales_idsucursal = "+idSucursal+"";
+		String query = "select count(SUCURSALES_IDSUCURSAL) from SUCURSALESPRODUCTOS where sucursales_idsucursal = "+idSucursal+"";
 		Connection con =  null;
 		
 		try {
@@ -207,7 +207,7 @@ public class Sucursal{
 			ResultSet rs = stmt.executeQuery(query);
 			
 			while(rs.next()) {
-				return rs.getInt("count(idproducto)");
+				return rs.getInt("count(SUCURSALES_IDSUCURSAL)");
 			}
 			stmt.close();
 			rs.close();

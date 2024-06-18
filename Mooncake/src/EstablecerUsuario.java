@@ -261,7 +261,7 @@ public class EstablecerUsuario extends JFrame {
 			    		    		
 			    		JOptionPane.showMessageDialog(null, "Success!");
 			    		setVisible(false);
-			    		Ver v = new Ver(Gestionables.empleados, idSucursal);
+			    		Ver v = new Ver(Gestionables.empleados, idSucursal, false);
 			    		
 					} catch (SQLException ee) {
 				    	JOptionPane.showMessageDialog(null, ee);
@@ -285,7 +285,7 @@ public class EstablecerUsuario extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Ver v = new Ver(Gestionables.empleados, idSucursal);
+				Ver v = new Ver(Gestionables.empleados, idSucursal, false);
 				setVisible(false);
 			}
 		});

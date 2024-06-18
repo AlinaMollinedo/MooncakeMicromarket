@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -105,13 +107,53 @@ public class ModificarCliente extends JFrame {
 		pan1.add(panCi);
 		
 		JLabel lblCi = new JLabel("Carnet de Identidad:");
-		lblCi.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		lblCi.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, Dimensiones.flbl));
 		panCi.add(lblCi);
 		
 		txtCi = new JTextField();
-		txtCi.setFont(new Font("Verdana", Font.PLAIN, 10));
+		txtCi.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.ftxt));
 		panCi.add(txtCi);
 		txtCi.setColumns(10);
+		
+		txtCi.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtCi.getText().length()-1;
+				String correcta = txtCi.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtCi.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtCi.getText().length()-1;
+				String correcta = txtCi.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtCi.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+				
+			}
+		});
 		
 		JPanel panNombre = new JPanel();
 		panNombre.setForeground(new Color(254, 240, 226));
@@ -121,7 +163,7 @@ public class ModificarCliente extends JFrame {
 		
 		JLabel lblNombre = new JLabel("Nombre completo:");
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombre.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		lblNombre.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, Dimensiones.flbl));
 		panNombre.add(lblNombre);
 		
 		JPanel panN = new JPanel();
@@ -131,13 +173,13 @@ public class ModificarCliente extends JFrame {
 		panN.setLayout(new BoxLayout(panN, BoxLayout.Y_AXIS));
 		
 		txtNombre = new JTextField();
-		txtNombre.setFont(new Font("Verdana", Font.PLAIN, 10));
+		txtNombre.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.ftxt));
 		panN.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panN.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		JLabel lblN = new JLabel("Nombres");
-		lblN.setFont(new Font("Verdana", Font.PLAIN, 8));
+		lblN.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.flbl));
 		lblN.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panN.add(lblN);
 		
@@ -148,13 +190,13 @@ public class ModificarCliente extends JFrame {
 		panP.setLayout(new BoxLayout(panP, BoxLayout.Y_AXIS));
 		
 		txtPaterno = new JTextField();
-		txtPaterno.setFont(new Font("Verdana", Font.PLAIN, 10));
+		txtPaterno.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.ftxt));
 		panP.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panP.add(txtPaterno);
 		txtPaterno.setColumns(10);
 		
 		JLabel lblP = new JLabel("Ap. paterno");
-		lblP.setFont(new Font("Verdana", Font.PLAIN, 8));
+		lblP.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.flblsub));
 		lblP.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panP.add(lblP);
 		
@@ -165,13 +207,13 @@ public class ModificarCliente extends JFrame {
 		panM.setLayout(new BoxLayout(panM, BoxLayout.Y_AXIS));
 		
 		txtMaterno = new JTextField();
-		txtMaterno.setFont(new Font("Verdana", Font.PLAIN, 10));
+		txtMaterno.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.flblsub));
 		panM.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panM.add(txtMaterno);
 		txtMaterno.setColumns(10);
 		
 		JLabel lblM = new JLabel("Ap. materno");
-		lblM.setFont(new Font("Verdana", Font.PLAIN, 8));
+		lblM.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.flblsub));
 		lblM.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panM.add(lblM);
 		
@@ -185,12 +227,12 @@ public class ModificarCliente extends JFrame {
 		pan2.add(panGenero);
 		
 		JLabel lblGenero = new JLabel("Género:");
-		lblGenero.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		lblGenero.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, Dimensiones.flbl));
 		panGenero.add(lblGenero);
 		
 		JComboBox<String> comboGeneros = new JComboBox<String>(Extras.nombres("nombreGenero", "generos", "idgenero"));
 		comboGeneros.setBackground(new Color(232, 252, 255));
-		comboGeneros.setFont(new Font("Verdana", Font.PLAIN, 9));
+		comboGeneros.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.fcombo));
 		panGenero.add(comboGeneros);
 		
 		JPanel panEstadoC = new JPanel();
@@ -198,12 +240,12 @@ public class ModificarCliente extends JFrame {
 		pan2.add(panEstadoC);
 		
 		JLabel lblEstadoC = new JLabel("Estado Civil:");
-		lblEstadoC.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		lblEstadoC.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, Dimensiones.flbl));
 		panEstadoC.add(lblEstadoC);
 		
 		JComboBox<String> comboEstadosC = new JComboBox<String>(Extras.nombres("nombreEstadoC", "estadosCiviles", "idestadoc"));
 		comboEstadosC.setBackground(new Color(232, 252, 255));
-		comboEstadosC.setFont(new Font("Verdana", Font.PLAIN, 9));
+		comboEstadosC.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.fcombo));
 		panEstadoC.add(comboEstadosC);
 		
 		JPanel panFechaNac = new JPanel();
@@ -217,7 +259,7 @@ public class ModificarCliente extends JFrame {
 		panFechaNac.add(panF);
 		
 		JLabel lblFechaNac = new JLabel("Fecha de nacimiento:");
-		lblFechaNac.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		lblFechaNac.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, Dimensiones.flbl));
 		panF.add(lblFechaNac);
 		
 		JPanel panFecha = new JPanel();
@@ -231,12 +273,52 @@ public class ModificarCliente extends JFrame {
 		panDia.setLayout(new BoxLayout(panDia, BoxLayout.Y_AXIS));
 		
 		txtDia = new JTextField();
-		txtDia.setFont(new Font("Verdana", Font.PLAIN, 10));
+		txtDia.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.ftxt));
 		panDia.add(txtDia);
 		txtDia.setColumns(5);
 		
+		txtDia.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtDia.getText().length()-1;
+				String correcta = txtDia.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtDia.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtDia.getText().length()-1;
+				String correcta = txtDia.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtDia.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+				
+			}
+		});
+		
 		JLabel lblDia = new JLabel("Día");
-		lblDia.setFont(new Font("Verdana", Font.PLAIN, 8));
+		lblDia.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.flblsub));
 		lblDia.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblDia.setHorizontalAlignment(SwingConstants.CENTER);
 		panDia.add(lblDia);
@@ -248,12 +330,54 @@ public class ModificarCliente extends JFrame {
 		panMes.setLayout(new BoxLayout(panMes, BoxLayout.Y_AXIS));
 		
 		txtMes = new JTextField();
-		txtMes.setFont(new Font("Verdana", Font.PLAIN, 10));
+		txtMes.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.ftxt));
 		panMes.add(txtMes);
 		txtMes.setColumns(5);
 		
+		txtMes.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtMes.getText().length()-1;
+				String correcta = txtMes.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtMes.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtMes.getText().length()-1;
+				String correcta = txtMes.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtMes.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+				
+				
+			}
+		});
+		
 		JLabel lblMes = new JLabel("Mes");
-		lblMes.setFont(new Font("Verdana", Font.PLAIN, 8));
+		lblMes.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.flblsub));
 		lblMes.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblMes.setHorizontalAlignment(SwingConstants.CENTER);
 		panMes.add(lblMes);
@@ -265,12 +389,53 @@ public class ModificarCliente extends JFrame {
 		panAnio.setLayout(new BoxLayout(panAnio, BoxLayout.Y_AXIS));
 		
 		txtAnio = new JTextField();
-		txtAnio.setFont(new Font("Verdana", Font.PLAIN, 10));
+		txtAnio.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.ftxt));
 		panAnio.add(txtAnio);
 		txtAnio.setColumns(5);
 		
+		txtAnio.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtAnio.getText().length()-1;
+				String correcta = txtAnio.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtAnio.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtAnio.getText().length()-1;
+				String correcta = txtAnio.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtAnio.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+				
+			}
+		});
+		
 		JLabel lblAnio = new JLabel("Año");
-		lblAnio.setFont(new Font("Verdana", Font.PLAIN, 8));
+		lblAnio.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.flblsub));
 		lblAnio.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblAnio.setHorizontalAlignment(SwingConstants.CENTER);
 		panAnio.add(lblAnio);
@@ -282,20 +447,61 @@ public class ModificarCliente extends JFrame {
 		panFormulario.add(pan3);
 		
 		JLabel lblTel = new JLabel("Teléfono:");
-		lblTel.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		lblTel.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, Dimensiones.flbl));
 		pan3.add(lblTel);
 		
 		txtTel = new JTextField();
-		txtTel.setFont(new Font("Verdana", Font.PLAIN, 10));
+		txtTel.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.ftxt));
 		pan3.add(txtTel);
 		txtTel.setColumns(9);
 		
+		txtTel.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtTel.getText().length()-1;
+				String correcta = txtTel.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtTel.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtTel.getText().length()-1;
+				String correcta = txtTel.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtTel.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+				
+			}
+		});
+		
 		JLabel lblCorreo = new JLabel("Correo:");
-		lblCorreo.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		lblCorreo.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, Dimensiones.flbl));
 		pan3.add(lblCorreo);
 		
 		txtCorreo = new JTextField();
-		txtCorreo.setFont(new Font("Verdana", Font.PLAIN, 10));
+		txtCorreo.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.ftxt));
 		pan3.add(txtCorreo);
 		txtCorreo.setColumns(20);
 		
@@ -311,12 +517,12 @@ public class ModificarCliente extends JFrame {
 		panDir.add(pan11);
 		
 		JLabel lblCiudad = new JLabel("Ciudad:");
-		lblCiudad.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		lblCiudad.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, Dimensiones.flbl));
 		pan11.add(lblCiudad);
 		
 		JComboBox<String> comboCiudades = new JComboBox<String>(Extras.nombres("nombre", "ciudades", "idciudad"));
 		comboCiudades.setBackground(new Color(232, 252, 255));
-		comboCiudades.setFont(new Font("Verdana", Font.PLAIN, 9));
+		comboCiudades.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.fcombo));
 		pan11.add(comboCiudades);
 		
 		JPanel pan12 = new JPanel();
@@ -326,12 +532,12 @@ public class ModificarCliente extends JFrame {
 		panDir.add(pan12);
 		
 		JLabel lblZona = new JLabel("Zona:");
-		lblZona.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		lblZona.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, Dimensiones.flbl));
 		pan12.add(lblZona);
 		
 		JComboBox<String> comboZonas = new JComboBox<String>(Extras.nombres("nombreZona", "zonas", "idzona"));
 		comboZonas.setBackground(new Color(232, 252, 255));
-		comboZonas.setFont(new Font("Verdana", Font.PLAIN, 9));
+		comboZonas.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.fcombo));
 		pan12.add(comboZonas);
 		
 		JPanel pan21 = new JPanel();
@@ -341,10 +547,11 @@ public class ModificarCliente extends JFrame {
 		panDir.add(pan21);
 		
 		JLabel lblCalle = new JLabel("Calle:");
-		lblCalle.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		lblCalle.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, Dimensiones.flbl));
 		pan21.add(lblCalle);
 		
 		txtCalle = new JTextField();
+		txtCalle.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.ftxt));
 		pan21.add(txtCalle);
 		txtCalle.setColumns(10);
 		
@@ -355,12 +562,54 @@ public class ModificarCliente extends JFrame {
 		panDir.add(pan22);
 		
 		JLabel lblNro = new JLabel("Número:");
-		lblNro.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, 10));
+		lblNro.setFont(new Font("UD Digi Kyokasho N-R", Font.PLAIN, Dimensiones.flbl));
 		pan22.add(lblNro);
 		
 		txtNro = new JTextField();
+		txtNro.setFont(new Font("Verdana", Font.PLAIN, Dimensiones.ftxt));
 		pan22.add(txtNro);
 		txtNro.setColumns(4);
+		
+		txtNro.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtNro.getText().length()-1;
+				String correcta = txtNro.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtNro.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				int ultimo = txtNro.getText().length()-1;
+				String correcta = txtNro.getText();
+				try {
+					if(correcta.length() > 0 && correcta.charAt(ultimo) < 48 || correcta.charAt(ultimo) > 57) {
+						correcta = correcta.substring(0,ultimo);
+					}
+					txtNro.setText(correcta);
+				}catch(StringIndexOutOfBoundsException ee) {
+					
+				}
+				
+			}
+		});
 		
 		String [] cData = Cliente.getData(idCliente);
 		txtCi.setText(cData[0]);
@@ -516,7 +765,7 @@ public class ModificarCliente extends JFrame {
 					txtCalle.setText("");
 					txtNro.setText("");
 
-					Ver v = new Ver(Gestionables.clientes, idSucursal);
+					Ver v = new Ver(Gestionables.clientes, idSucursal, false);
 			    } catch (Exception ee) {
 			    	JOptionPane.showMessageDialog(null, ee.getMessage());
 			    } 
@@ -535,7 +784,7 @@ public class ModificarCliente extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);
-				Ver v = new Ver(Gestionables.clientes, idSucursal);
+				Ver v = new Ver(Gestionables.clientes, idSucursal, false);
 			}
 		});
 		

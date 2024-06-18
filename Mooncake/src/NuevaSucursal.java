@@ -275,7 +275,7 @@ public class NuevaSucursal extends JFrame {
 					
 					JOptionPane.showMessageDialog(null, "Success!");
 					setVisible(false);
-					Ver v = new Ver(3, idSucursal);
+					Ver v = new Ver(3, idSucursal, false);
 		    		
 				} catch(SQLException ee) {
 					JOptionPane.showMessageDialog(null, ee);
@@ -295,7 +295,7 @@ public class NuevaSucursal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);
-				Ver v = new Ver(3, idSucursal);
+				Ver v = new Ver(3, idSucursal, false);
 			}
 		});
 		

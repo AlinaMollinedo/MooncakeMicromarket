@@ -193,7 +193,7 @@ public class InicioSesion extends JFrame {
 						setVisible(false);
 						break;
 					default:
-						MenuEmpleado mE = new MenuEmpleado(idSucursal, idEmpleado);
+						Ver v = new Ver(Gestionables.productos, idSucursal, true);
 						setVisible(false);
 						break;
 					}

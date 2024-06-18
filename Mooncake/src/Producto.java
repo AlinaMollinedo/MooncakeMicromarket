@@ -1,4 +1,8 @@
 import java.io.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 import javax.swing.*;
 import java.text.*;
@@ -132,5 +136,154 @@ public class Producto {
             JOptionPane.showMessageDialog(null, excp.getMessage());
         }
     }
+    
+    public static int count() {
+		String query = "select count(0) from proveedoresProductos";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("Count(0)");
+			}
+			stmt.close();
+			rs.close();
+			con.close();
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		
+		return 0;
+	}
+    
+    public static String [][] getData(){
+		String [][] data = new String[count()][7];
+		int i = 0, j = 0;
+		String query = "SELECT NOMBREPROD, DESCRIPCION, COSTO, STOCK, NOMBRECAT, NOMBREPROV "
+				+ "FROM PROVEEDORESPRODUCTOS, PRODUCTOS, CATEGORIAS, proveedores "
+				+ "WHERE PROVEEDORESPRODUCTOS.PRODUCTO_IDPRODUCTO = PRODUCTOS.IDPRODUCTO and "
+				+ "PROVEEDORESPRODUCTOS.PROVEEDORES_IDPROVEEDOR = proveedores.IDPROVEEDOR and "
+				+ "productos.IDCAT_IDCATEGORIA = CATEGORIAS.IDCATEGORIA";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				data[i][j] = String.valueOf(i + 1);
+				j++;
+				data[i][j] = rs.getString("NOMBREPROD");
+				j++;
+				data[i][j] = rs.getString("DESCRIPCION");
+				j++;
+				data[i][j] = rs.getString("COSTO");
+				j++;
+				data[i][j] = rs.getString("STOCK");
+				j++;
+				data[i][j] = rs.getString("NOMBRECAT");
+				j++;
+				data[i][j] = rs.getString("NOMBREPROV");
+				j = 0;
+				i++;
+			}
+			stmt.close();
+			rs.close();
+			con.close();
+			return data;
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		return data;
+	}
+    
+    public static int countSucursal(int idSucursal) {
+		String query = "select count(sucursales_idsucursal) from sucursalesProductos where sucursales_idsucursal = "+idSucursal+"";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				return rs.getInt("Count(sucursales_idsucursal)");
+			}
+			stmt.close();
+			rs.close();
+			con.close();
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		
+		return 0;
+	}
+    
+    public static String [][] getDataSucursal(int idSucursal){
+		String [][] data = new String[countSucursal(idSucursal)][7];
+		int i = 0, j = 0;
+		String query = "SELECT NOMBREPROD, DESCRIPCION, COSTO, STOCK, NOMBRECAT, NOMBREPROV "
+				+ "FROM PROVEEDORESPRODUCTOS, PRODUCTOS, CATEGORIAS, proveedores, sucursalesProductos "
+				+ "WHERE proveedoresproductos.producto = sucursalesproductos.productoproveedor and "
+				+ "PROVEEDORESPRODUCTOS.PROVEEDORES_IDPROVEEDOR = proveedores.IDPROVEEDOR and "
+				+ "productos.IDCAT_IDCATEGORIA = CATEGORIAS.IDCATEGORIA and sucursalesProductos.sucursales_idsucursal = "+idSucursal+" and "
+				+ "proveedoresproductos.producto_idproducto = idproducto";
+		Connection con =  null;
+		
+		try {
+    		Conexion c = new Conexion();
+    		con = c.conectar();
+    	}catch(SQLException e) {
+    		JOptionPane.showMessageDialog(null, e);
+    	}
+		
+		try (Statement stmt = con.createStatement()){
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				data[i][j] = String.valueOf(i + 1);
+				j++;
+				data[i][j] = rs.getString("NOMBREPROD");
+				j++;
+				data[i][j] = rs.getString("DESCRIPCION");
+				j++;
+				data[i][j] = rs.getString("COSTO");
+				j++;
+				data[i][j] = rs.getString("STOCK");
+				j++;
+				data[i][j] = rs.getString("NOMBRECAT");
+				j++;
+				data[i][j] = rs.getString("NOMBREPROV");
+				j = 0;
+				i++;
+			}
+			stmt.close();
+			rs.close();
+			con.close();
+			return data;
+		}catch(SQLException e) {
+			 JOptionPane.showMessageDialog(null, e);
+		}
+		return data;
+	}
 }
 

@@ -71,9 +71,9 @@ public class MenuAdmin extends JFrame {
 		
 		JPanel panBotones = new JPanel();
 		panBotones.setBackground(new Color(254, 240, 226));
-		panBotones.setBorder(new EmptyBorder(0, 250, 50, 250));
+		panBotones.setBorder(new EmptyBorder(0, 200, 50, 200));
 		contentPane.add(panBotones, BorderLayout.CENTER);
-		panBotones.setLayout(new GridLayout(5, 1, 5, 5));
+		panBotones.setLayout(new GridLayout(4, 1, 5, 5));
 		
 		JButton btnProductos = new JButton("Gestión de Productos");
 		btnProductos.setForeground(new Color(0, 0, 64));
@@ -87,7 +87,7 @@ public class MenuAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Ver v = new Ver(Gestionables.productos, id);
+				Ver v = new Ver(Gestionables.productos, id, false);
 			}
 		});
 		
@@ -103,7 +103,7 @@ public class MenuAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Ver v = new Ver(Gestionables.empleados, id);
+				Ver v = new Ver(Gestionables.empleados, id, false);
 			}
 		});
 		
@@ -119,7 +119,7 @@ public class MenuAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Ver v = new Ver(Gestionables.clientes, id);
+				Ver v = new Ver(Gestionables.clientes, id, false);
 			}
 		});
 		
@@ -135,26 +135,10 @@ public class MenuAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Ver v = new Ver(Gestionables.sucursales, id);
+				Ver v = new Ver(Gestionables.sucursales, id, false);
 			}
 		});
-		
-		JButton btnInmuebles = new JButton("Gestión de Inmuebles");
-		btnInmuebles.setForeground(new Color(0, 0, 64));
-		btnInmuebles.setBackground(new Color(232, 252, 255));
-		btnInmuebles.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnInmuebles.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panBotones.add(btnInmuebles);
-		
-		btnInmuebles.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				Ver v = new Ver(Gestionables.inmuebles, id);
-			}
-		});
-		
+				
 		JPanel panSalir = new JPanel();
 		panSalir.setBackground(new Color(254, 240, 226));
 		panSalir.setBorder(new EmptyBorder(0, 0, 10, 15));

@@ -151,6 +151,10 @@ public class VerSucursal extends JFrame {
 			String [] col = new String[] {"NRO", "CI", "PATERNO", "MATERNO", "NOMBRE", "FECHA NACIMIENTO", "CORREO", "GENERO",
 					"ESTADO CIVIL", "SALARIO", "CARGO", "ESTADO"};
 			tabla = new JTable(Empleado.getDataSucursal(idSucursal), col);
+		} else {
+			panBotones.add(btnCambiar);
+			String [] col = new String[] {"NRO", "NOMBRE", "DESCRIPCIÓN", "COSTO", "STOCK", "CATEGORÍA", "PROVEEDOR"};
+			tabla = new JTable(Producto.getDataSucursal(idSucursal), col);
 		}
 		
 		tabla.setBackground(new Color(232, 252, 255));
@@ -171,7 +175,7 @@ public class VerSucursal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Ver v = new Ver(Gestionables.sucursales, idSucursal);
+				Ver v = new Ver(Gestionables.sucursales, idSucursal, false);
 				setVisible(false);
 			}
 		});

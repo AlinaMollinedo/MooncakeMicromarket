@@ -51,7 +51,7 @@ public class Ver extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Ver(int g, int idSucursal) {
+	public Ver(int g, int idSucursal, Boolean empleado) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Dimensiones.x, Dimensiones.y, Dimensiones.widthTabla, Dimensiones.heightTabla);
 		setResizable(true);
@@ -199,6 +199,58 @@ public class Ver extends JFrame {
 			}
 		});
 		
+		JButton btnVerProductos = new JButton("Ver productos");
+		btnVerProductos.setForeground(new Color(0, 0, 64));
+		btnVerProductos.setBackground(new Color(232, 252, 255));
+		btnVerProductos.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		
+		btnVerProductos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(tabla.getSelectionModel().isSelectionEmpty()) {
+					JOptionPane.showMessageDialog(null, "Seleccione a una sucursal.");
+				} else {
+					int iidSucursal = Integer.parseInt(tabla.getValueAt(tabla.getSelectedRow(), 0).toString());
+					VerSucursal v = new VerSucursal(Gestionables.productos, iidSucursal);
+					setVisible(false);
+				}
+				
+			}
+		});
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setForeground(new Color(0, 0, 64));
+		btnVolver.setBackground(new Color(232, 252, 255));
+		btnVolver.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+
+		btnVolver.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				setVisible(false);
+			}
+		});
+		
+		JButton btnSalir = new JButton("Cerrar Sesión");
+		btnSalir.setForeground(new Color(0, 0, 64));
+		btnSalir.setBackground(new Color(232, 252, 255));
+		btnSalir.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		btnSalir.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		btnSalir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(null, "Se ha cerrado sesión");
+				Menu m = new Menu();
+				setVisible(false);
+			}
+		});
+		
 		if(idSucursal > 0) {
 			String s = Sucursal.nombre(idSucursal);
 			JLabel lblSubtitulo = new JLabel("Sucursal " + s);
@@ -210,13 +262,24 @@ public class Ver extends JFrame {
 		
 		switch(g) {
 		case 0:
-			panBotones.add(btnNuevo);
-			panBotones.add(btnModificar);
+			if(empleado) {
+				panBotones.add(btnSalir);
+			} else {
+				panBotones.add(btnVolver);
+			}
+			if(idSucursal > 0 ) {
+				String [] col0 = new String[]{"NRO", "NOMBRE", "DESCRIPCIÓN", "COSTO", "STOCK", "CATEGORÍA", "PROVEEDOR"};
+				tabla = new JTable(Producto.getDataSucursal(idSucursal), col0);
+			} else {
+				String [] col0 = new String[]{"NRO", "NOMBRE", "DESCRIPCIÓN", "COSTO", "STOCK", "CATEGORÍA", "PROVEEDOR"};
+				tabla = new JTable(Producto.getData(), col0);
+			}
 			break;
 		case 1:
 			panBotones.add(btnNuevo);
 			panBotones.add(btnModificar);
 			panBotones.add(btnModUsuario);
+			panBotones.add(btnVolver);
 			if(idSucursal > 0 ) {
 				String [] col1 = new String[]{"NRO", "CI", "PATERNO", "MATERNO", "NOMBRE", "FECHA NACIMIENTO", "CORREO", "GENERO",
 						"ESTADO CIVIL", "SALARIO", "CARGO", "ESTADO"};
@@ -229,17 +292,17 @@ public class Ver extends JFrame {
 			break;
 		case 2:
 			panBotones.add(btnModificar);
+			panBotones.add(btnVolver);
 			String [] col2 = new String[]{"NRO", "CI", "PUNTOS", "PATERNO", "MATERNO", "NOMBRE", "FECHA NACIMIENTO", "CORREO", "GENERO",
 					"ESTADO CIVIL"};
 			tabla = new JTable(Cliente.getData(), col2);
 			break;
 		case 3:
 			panBotones.add(btnVerEmpleados);
+			panBotones.add(btnVerProductos);
+			panBotones.add(btnVolver);
 			String [] col3= new String[] {"NRO", "NOMBRE", "CIUDAD", "ZONA", "CALLE", "N°", "NRO EMPLEADOS", "NRO PRODUCTOS"};
 			tabla = new JTable(Sucursal.getData(), col3);
-			break;
-		case 4:
-			panBotones.add(btnModificar);
 			break;
 		}
 		
@@ -249,21 +312,6 @@ public class Ver extends JFrame {
 		tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollTabla = new JScrollPane(tabla);
 		contentPane.add(scrollTabla, BorderLayout.CENTER);
-		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.setForeground(new Color(0, 0, 64));
-		btnVolver.setBackground(new Color(232, 252, 255));
-		btnVolver.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		panBotones.add(btnVolver);
-
-		btnVolver.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				setVisible(false);
-			}
-		});
 		
 		setVisible(true);
 	}
