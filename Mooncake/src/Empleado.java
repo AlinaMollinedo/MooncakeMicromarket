@@ -119,57 +119,6 @@ public class Empleado extends Persona{
 	public void setEmpleados(ArrayList<Empleado> empleados) {
 		Empleado.empleados = empleados;
 	}
-
-	public static void leer(){
-		empleados = new ArrayList <Empleado>();
-		String query = "SELECT * FROM Empleados, Personas, Usuarios "
-				+ "WHERE Empleados.Personas_idPersona = Personas.idPersona "
-				+ "AND Usuarios.Empleados_idEmpleado = Empleados.idEmpleado";
-		Connection con =  null;
-		
-		try {
-    		Conexion c = new Conexion();
-    		con = c.conectar();
-    	}catch(SQLException e) {
-    		JOptionPane.showMessageDialog(null, e);
-    	}
-		
-		try (Statement stmt = con.createStatement()){
-			ResultSet rs = stmt.executeQuery(query);
-			
-			while(rs.next()) {
-				int idPersona = rs.getInt("idPersona");
-				int docId = rs.getInt("CI");
-				String nombre = rs.getString("Nombre");
-				String paterno = rs.getString("apPaterno");
-				String materno = rs.getString("apMaterno");
-				
-				Date fn = rs.getDate("fechaNac"); 
-		        LocalDate fechaNac = fn.toLocalDate();
-		        
-				String correo = rs.getString("correo");
-				int genero = rs.getInt("Generos_idGenero");
-				int estadoC = rs.getInt("EstadosCiviles_idEstadoC");
-				int tipo = rs.getInt("TiposPersonas_idTipoPersona");
-				int idEmpleado = rs.getInt("idEmpleado");
-				int turno = rs.getInt("Turnos_idTurno");
-				int salario = rs.getInt("Salario");
-				int cargo = rs.getInt("Cargos_idCargo");
-				int estado = rs.getInt("Estados_idEstado");
-				String usuario = rs.getString("usuario");
-				String contrasenia = rs.getString("contrasenia");
-				
-				empleados.add(new Empleado(idPersona, docId, nombre, paterno, materno, 
-						fechaNac, correo, genero, estadoC, tipo, idEmpleado, turno, salario, 
-						cargo, estado, usuario, contrasenia));
-			}
-			stmt.close();
-			rs.close();
-			con.close();
-		}catch(SQLException e) {
-			 JOptionPane.showMessageDialog(null, e);
-		}
-	}
 	
 	public static Boolean isEmpleado(String user, String pass){
 		String query = "select usuario, contrasenia from estados, empleados, usuarios "
@@ -471,7 +420,7 @@ public class Empleado extends Persona{
 				+ "where idpersona = personas_idpersona and generos_idgenero = idgenero and estadosciviles_idestadoc = idestadoc and cargos_idcargo = idcargo "
 				+ "and estados_idestado = idestado and tipoestado_idtipo = idtipo and idtipo <> 3 and tipoestado_idtipo <> 2 "
 				+ "and empleados_idempleado = idempleado and sucursales_idsucursal = idsucursal "
-				+ "order by appaterno asc, apmaterno asc, personas.nombre asc";
+				+ "order by appaterno asc, apmaterno asc, nombre asc";
 		Connection con =  null;
 		
 		try {

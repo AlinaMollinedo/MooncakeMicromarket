@@ -7,14 +7,19 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -69,13 +74,12 @@ public class Ver extends JFrame {
 		lblTitulo.setForeground(new Color(0, 0, 64));
 		lblTitulo.setFont(new Font("UD Digi Kyokasho N-R", Font.BOLD, 21));
 		panTitulo.add(lblTitulo);
-	
+				
 		JPanel panBotones = new JPanel();
 		panBotones.setBackground(new Color(254, 240, 226));
 		panBotones.setBorder(new EmptyBorder(10, 0, 10, 15));
-		FlowLayout fl_panBotones = (FlowLayout) panBotones.getLayout();
-		fl_panBotones.setAlignment(FlowLayout.RIGHT);
 		contentPane.add(panBotones, BorderLayout.SOUTH);
+		panBotones.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		
 		JButton btnNuevo = new JButton("Nuevo");
 		btnNuevo.setForeground(new Color(0, 0, 64));

@@ -87,7 +87,7 @@ public class MenuAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Gestion ges = new Gestion(Gestionables.productos, id);
+				Ver v = new Ver(Gestionables.productos, id);
 			}
 		});
 		
@@ -151,7 +151,7 @@ public class MenuAdmin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Gestion ges = new Gestion(Gestionables.inmuebles, id);
+				Ver v = new Ver(Gestionables.inmuebles, id);
 			}
 		});
 		

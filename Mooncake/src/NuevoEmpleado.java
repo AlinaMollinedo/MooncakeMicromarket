@@ -777,6 +777,8 @@ public class NuevoEmpleado extends JFrame {
 			}
 		});
 		
+		contentPane.getRootPane().setDefaultButton(btnAceptar);
+		
 		setVisible(true);
 	}
 

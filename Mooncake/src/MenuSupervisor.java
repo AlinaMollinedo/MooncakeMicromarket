@@ -91,7 +91,7 @@ public class MenuSupervisor extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Gestion ges = new Gestion(Gestionables.productos, idSucursal);
+				Ver v = new Ver(Gestionables.productos, idSucursal);
 			}
 		});
 		
@@ -111,22 +111,6 @@ public class MenuSupervisor extends JFrame {
 			}
 		});
 		
-		JButton btnInmuebles = new JButton("Gestión de Inmuebles");
-		btnInmuebles.setForeground(new Color(0, 0, 64));
-		btnInmuebles.setBackground(new Color(232, 252, 255));
-		btnInmuebles.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
-		btnInmuebles.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panBotones.add(btnInmuebles);
-		
-		btnInmuebles.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				Gestion ges = new Gestion(Gestionables.inmuebles, idSucursal);
-			}
-		});
-		
 		JButton btnClientes = new JButton("Gestión de Clientes");
 		btnClientes.setForeground(new Color(0, 0, 64));
 		btnClientes.setBackground(new Color(232, 252, 255));
@@ -139,7 +123,23 @@ public class MenuSupervisor extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Gestion ges = new Gestion(Gestionables.clientes, idSucursal);
+				Ver v = new Ver(Gestionables.clientes, idSucursal);
+			}
+		});
+		
+		JButton btnInmuebles = new JButton("Gestión de Inmuebles");
+		btnInmuebles.setForeground(new Color(0, 0, 64));
+		btnInmuebles.setBackground(new Color(232, 252, 255));
+		btnInmuebles.setFont(new Font("UD Digi Kyokasho NK-R", Font.PLAIN, 14));
+		btnInmuebles.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panBotones.add(btnInmuebles);
+		
+		btnInmuebles.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Ver v = new Ver(Gestionables.inmuebles, idSucursal);
 			}
 		});
 		

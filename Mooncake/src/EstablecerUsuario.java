@@ -294,6 +294,8 @@ public class EstablecerUsuario extends JFrame {
 			panBotones.add(btnVolver);
 		}
 		
+		contentPane.getRootPane().setDefaultButton(btnAceptar);
+		
 		setVisible(true);
 	}
 
